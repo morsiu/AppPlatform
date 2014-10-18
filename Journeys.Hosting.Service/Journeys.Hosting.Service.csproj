@@ -73,29 +73,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Journeys.Application.Command\Journeys.Application.Command.csproj">
-      <Project>{4257ba76-4cee-47ba-ba0e-ab5f07094ae3}</Project>
-      <Name>Journeys.Application.Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Application.EventSourcing\Journeys.Application.EventSourcing.csproj">
-      <Project>{08db29e0-5863-4b33-a930-fde1e94ee4aa}</Project>
-      <Name>Journeys.Application.EventSourcing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Data\Journeys.Data.csproj">
-      <Project>{939c3e3f-9717-4d00-8553-634e17881943}</Project>
-      <Name>Journeys.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Domain.Infrastructure\Journeys.Domain.Infrastructure.csproj">
-      <Project>{c83ea12c-2495-4b03-9c0a-1d2795a33f3e}</Project>
-      <Name>Journeys.Domain.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Journeys.Hosting.Adapters\Journeys.Hosting.Adapters.csproj">
       <Project>{84bdb2fa-a16e-4f70-92ef-7cced94a3405}</Project>
       <Name>Journeys.Hosting.Adapters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Application.Query\Journeys.Application.Query.csproj">
-      <Project>{9a28bb83-9f0e-4c19-8a18-16ad5d5b0337}</Project>
-      <Name>Journeys.Application.Query</Name>
     </ProjectReference>
     <ProjectReference Include="..\Journeys.Support\Journeys.Support.csproj">
       <Project>{2603751f-57ca-48fd-84ec-55983878b247}</Project>

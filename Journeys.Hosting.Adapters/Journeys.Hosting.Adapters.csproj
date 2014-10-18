@@ -78,30 +78,6 @@
     <Compile Include="Modules\WpfClient\WpfClientQueryDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Journeys.Application.Client.Wpf\Journeys.Application.Client.Wpf.csproj">
-      <Project>{a4b175a2-82ce-4c15-b34c-644f7b188630}</Project>
-      <Name>Journeys.Application.Client.Wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Application.Command\Journeys.Application.Command.csproj">
-      <Project>{4257ba76-4cee-47ba-ba0e-ab5f07094ae3}</Project>
-      <Name>Journeys.Application.Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Application.EventSourcing\Journeys.Application.EventSourcing.csproj">
-      <Project>{08db29e0-5863-4b33-a930-fde1e94ee4aa}</Project>
-      <Name>Journeys.Application.EventSourcing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Data\Journeys.Data.csproj">
-      <Project>{939c3e3f-9717-4d00-8553-634e17881943}</Project>
-      <Name>Journeys.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Domain.Infrastructure\Journeys.Domain.Infrastructure.csproj">
-      <Project>{c83ea12c-2495-4b03-9c0a-1d2795a33f3e}</Project>
-      <Name>Journeys.Domain.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Journeys.Application.Query\Journeys.Application.Query.csproj">
-      <Project>{9a28bb83-9f0e-4c19-8a18-16ad5d5b0337}</Project>
-      <Name>Journeys.Application.Query</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Journeys.Hosting.Service.Client\Journeys.Hosting.Service.Client.csproj">
       <Project>{74c4ee16-e0a0-45a9-a20a-47c17a60dd16}</Project>
       <Name>Journeys.Hosting.Service.Client</Name>
