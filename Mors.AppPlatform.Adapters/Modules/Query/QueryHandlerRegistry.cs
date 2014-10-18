@@ -1,5 +1,6 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Dispatching;
+using Mors.AppPlatform.Common;
 
 namespace Mors.AppPlatform.Adapters.Modules.Query
 {

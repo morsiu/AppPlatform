@@ -1,5 +1,6 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Dispatching;
+using Mors.AppPlatform.Common;
 using Mors.AppPlatform.Service.Client;
 
 namespace Mors.AppPlatform.Adapters.Modules.WpfClient

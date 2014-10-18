@@ -1,6 +1,6 @@
 ﻿using System;
+using Mors.AppPlatform.Common.Transactions;
 using Mors.AppPlatform.Support.Events;
-using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
 {

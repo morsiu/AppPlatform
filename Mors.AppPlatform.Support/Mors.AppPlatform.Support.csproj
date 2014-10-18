@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mors.AppPlatform.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Mors.AppPlatform.Common.1.0.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,12 +79,10 @@
     <Compile Include="Repositories\TransactedRepositories.cs" />
     <Compile Include="Repositories\TransactedRepository.cs" />
     <Compile Include="Synchronization\Counter.cs" />
-    <Compile Include="Transactions\IProvideTransactional.cs" />
-    <Compile Include="Transactions\ITransactional.cs" />
-    <Compile Include="Transactions\ITransactional`1.cs" />
-    <Compile Include="Transactions\Transaction.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Repositories\Messages\FailureMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

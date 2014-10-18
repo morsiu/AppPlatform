@@ -1,5 +1,5 @@
-﻿using Mors.AppPlatform.Support.Repositories;
-using Mors.AppPlatform.Support.Transactions;
+﻿using Mors.AppPlatform.Common.Transactions;
+using Mors.AppPlatform.Support.Repositories;
 
 namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
 {

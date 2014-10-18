@@ -1,4 +1,5 @@
 ﻿using System;
+using Mors.AppPlatform.Common;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {

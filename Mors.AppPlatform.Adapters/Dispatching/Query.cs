@@ -2,6 +2,7 @@
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;
 using Mors.AppPlatform.Adapters.Messages;
+using Mors.AppPlatform.Common;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
