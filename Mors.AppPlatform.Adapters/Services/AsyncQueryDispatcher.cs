@@ -4,11 +4,11 @@ using Mors.AppPlatform.Adapters.Dispatching;
 
 namespace Mors.AppPlatform.Adapters.Modules.Service
 {
-    public sealed class ServiceQueryDispatcher
+    public sealed class AsyncQueryDispatcher
     {
         private readonly AsyncHandlerDispatcher _handlerDispatcher;
 
-        public ServiceQueryDispatcher(AsyncHandlerDispatcher handlerDispatcher)
+        public AsyncQueryDispatcher(AsyncHandlerDispatcher handlerDispatcher)
         {
             _handlerDispatcher = handlerDispatcher;
         }

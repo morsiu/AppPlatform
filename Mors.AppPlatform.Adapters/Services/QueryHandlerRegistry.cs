@@ -1,15 +1,15 @@
 ﻿using System;
-using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Common;
+using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Modules.WpfClient
+namespace Mors.AppPlatform.Adapters.Modules.Query
 {
-    public sealed class WpfClientQueryHandlerRegistry : IQueryHandlerRegistry
+    public sealed class QueryHandlerRegistry : Common.Services.IQueryHandlerRegistry
     {
         private readonly HandlerRegistry _handlerRegistry;
 
-        public WpfClientQueryHandlerRegistry(HandlerRegistry handlerRegistry)
+        public QueryHandlerRegistry(HandlerRegistry handlerRegistry)
         {
             _handlerRegistry = handlerRegistry;
         }

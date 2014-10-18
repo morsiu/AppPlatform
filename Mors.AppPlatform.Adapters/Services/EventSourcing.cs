@@ -2,11 +2,11 @@
 
 namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
 {
-    public sealed class EventSourcing : IEventSourcing
+    public sealed class EventSourcing : Common.Services.IEventSourcing
     {
-        private readonly Mors.AppPlatform.Support.EventSourcing.Module _eventSourcingModule;
+        private readonly Support.EventSourcing.Module _eventSourcingModule;
 
-        public EventSourcing(Mors.AppPlatform.Support.EventSourcing.Module eventSourcingModule)
+        public EventSourcing(Support.EventSourcing.Module eventSourcingModule)
         {
             _eventSourcingModule = eventSourcingModule;
         }

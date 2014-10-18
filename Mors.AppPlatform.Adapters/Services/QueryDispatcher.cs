@@ -1,11 +1,10 @@
-﻿using System.Net.Mime.MediaTypeNames;
-using Mors.AppPlatform.Support.Dispatching;
+﻿using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Common;
 
-namespace Mors.AppPlatform.Adapters.Modules.Query
+namespace Mors.AppPlatform.Adapters.Modules.Command
 {
-    public sealed class QueryDispatcher : Application.Query.IQueryDispatcher
+    public sealed class QueryDispatcher : Common.Services.IQueryDispatcher
     {
         private readonly HandlerDispatcher _handlerDispatcher;
 

@@ -3,11 +3,11 @@ using Mors.AppPlatform.Support.Dispatching;
 
 namespace Mors.AppPlatform.Adapters.Modules.Service
 {
-    public sealed class ServiceCommandDispatcher
+    public sealed class AsyncCommandDispatcher
     {
         private readonly AsyncHandlerDispatcher _handlerDispatcher;
 
-        public ServiceCommandDispatcher(AsyncHandlerDispatcher handlerDispatcher)
+        public AsyncCommandDispatcher(AsyncHandlerDispatcher handlerDispatcher)
         {
             _handlerDispatcher = handlerDispatcher;
         }

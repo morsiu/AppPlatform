@@ -1,13 +1,13 @@
-﻿using Mors.AppPlatform.Common.Transactions;
-using Mors.AppPlatform.Support.Repositories;
+﻿using Mors.AppPlatform.Common;
+using Mors.AppPlatform.Common.Transactions;
 
-namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
+namespace Mors.AppPlatform.Adapters.Modules.Command
 {
-    internal sealed class EventSourcingTransactedRepositories : IRepositories, ITransactional<IRepositories>
+    internal sealed class CommandTransactedRepositories : Common.Services.IRepositories, ITransactional<Common.Services.IRepositories>
     {
-        private readonly ITransactional<IRepositories> _repositories;
+        private readonly ITransactional<Support.Repositories.IRepositories> _repositories;
 
-        public EventSourcingTransactedRepositories(Mors.AppPlatform.Support.Repositories.IRepositories repositories)
+        public CommandTransactedRepositories(Support.Repositories.IRepositories repositories)
         {
             _repositories = repositories.Lift();
         }
@@ -22,12 +22,12 @@ namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
             _repositories.Object.Store(entity.Id, entity);
         }
 
-        public ITransactional<IRepositories> Lift()
+        public ITransactional<Common.Services.IRepositories> Lift()
         {
             return this;
         }
 
-        public IRepositories Object
+        public Common.Services.IRepositories Object
         {
             get { return this; }
         }

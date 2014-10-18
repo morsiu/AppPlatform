@@ -30,9 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mors.AppPlatform.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mors.AppPlatform.Common, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mors.AppPlatform.Common.1.0.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+      <HintPath>..\packages\Mors.AppPlatform.Common.1.2.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,13 +81,13 @@
     <Compile Include="Synchronization\Counter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Repositories\Messages\FailureMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FailureMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

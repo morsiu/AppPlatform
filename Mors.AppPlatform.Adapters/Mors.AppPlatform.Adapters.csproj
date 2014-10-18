@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mors.AppPlatform.Common">
-      <HintPath>..\packages\Mors.AppPlatform.Common.1.0.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+      <HintPath>..\packages\Mors.AppPlatform.Common.1.2.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -42,43 +42,27 @@
     <Compile Include="Dispatching\Command.cs" />
     <Compile Include="Dispatching\HandlerScheduler.cs" />
     <Compile Include="Dispatching\Query.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingTransactedEventBus.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingEventBus.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingQueryDispatcher.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingIdFactory.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingTransactedRepositories.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingRepositories.cs" />
-    <Compile Include="Modules\Service\ServiceCommandDispatcher.cs" />
-    <Compile Include="Modules\Service\ServiceQueryDispatcher.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientCommandHandlerRegistry.cs" />
+    <Compile Include="Services\AsyncCommandDispatcher.cs" />
+    <Compile Include="Services\AsyncQueryDispatcher.cs" />
     <Compile Include="Dispatching\AsyncCommand.cs" />
-    <Compile Include="Modules\Command\CommandEventBus.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcing.cs" />
-    <Compile Include="Modules\Command\CommandHandlerRegistry.cs" />
-    <Compile Include="Modules\Command\CommandIdFactory.cs" />
+    <Compile Include="Services\EventBus.cs" />
+    <Compile Include="Services\EventSourcing.cs" />
+    <Compile Include="Services\CommandHandlerRegistry.cs" />
+    <Compile Include="Services\IdFactory.cs" />
     <Compile Include="Dispatching\CommandKey.cs" />
-    <Compile Include="Modules\Command\CommandRepositories.cs" />
-    <Compile Include="Modules\Command\CommandTransactedEventBus.cs" />
-    <Compile Include="Modules\Command\CommandTransactedRepositories.cs" />
-    <Compile Include="Modules\Domain\DomainEventBusAdapter.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingModuleEventBus.cs" />
-    <Compile Include="Modules\EventSourcing\EventSourcingModuleTransactedEventBus.cs" />
+    <Compile Include="Services\Repositories.cs" />
+    <Compile Include="Services\TransactedEventBus.cs" />
+    <Compile Include="Services\TransactedRepositories.cs" />
     <Compile Include="Messages\FailureMessages.Designer.cs">
       <DependentUpon>FailureMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Modules\Command\CommandQueryDispatcher.cs" />
-    <Compile Include="Modules\Query\QueryDispatcher.cs" />
-    <Compile Include="Modules\Query\QueryEventBus.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientQueryHandlerRegistry.cs" />
-    <Compile Include="Modules\Query\QueryHandlerRegistry.cs" />
+    <Compile Include="Services\QueryDispatcher.cs" />
+    <Compile Include="Services\QueryHandlerRegistry.cs" />
     <Compile Include="Dispatching\QueryKey.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientCommandDispatcher.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientEventBus.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientIdFactory.cs" />
-    <Compile Include="Modules\WpfClient\WpfClientQueryDispatcher.cs" />
+    <Compile Include="Services\NetworkCommandDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj">

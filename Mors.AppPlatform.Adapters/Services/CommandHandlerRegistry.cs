@@ -1,6 +1,7 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Adapters.Dispatching;
+using Mors.AppPlatform.Common.Services;
 
 namespace Mors.AppPlatform.Adapters.Modules.Command
 {

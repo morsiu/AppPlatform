@@ -4,12 +4,12 @@ using Mors.AppPlatform.Service.Client;
 
 namespace Mors.AppPlatform.Adapters.Modules.WpfClient
 {
-    public sealed class WpfClientCommandDispatcher : ICommandDispatcher
+    public sealed class NetworkCommandDispatcher : Common.Services.ICommandDispatcher
     {
         private readonly HandlerDispatcher _handlerDispatcher;
         private readonly Uri _commandRequestUri;
 
-        public WpfClientCommandDispatcher(Uri commandRequestUri, HandlerDispatcher handlerDispatcher)
+        public NetworkCommandDispatcher(Uri commandRequestUri, HandlerDispatcher handlerDispatcher)
         {
             _handlerDispatcher = handlerDispatcher;
             _commandRequestUri = commandRequestUri;
