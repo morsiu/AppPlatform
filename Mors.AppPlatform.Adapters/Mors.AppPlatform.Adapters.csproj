@@ -51,6 +51,7 @@
     <Compile Include="Services\EventSourcingEventBus.cs" />
     <Compile Include="Services\IdFactory.cs" />
     <Compile Include="Dispatching\CommandKey.cs" />
+    <Compile Include="Services\NetworkQueryDispatcher.cs" />
     <Compile Include="Services\Repositories.cs" />
     <Compile Include="Services\EventSourcingTransactedEventBus.cs" />
     <Compile Include="Services\TransactedEventBus.cs" />

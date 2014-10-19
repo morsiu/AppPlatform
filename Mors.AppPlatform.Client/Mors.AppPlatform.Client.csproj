@@ -35,6 +35,15 @@
     <StartupObject>Mors.AppPlatform.Client.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mors.AppPlatform.Common">
+      <HintPath>..\packages\Mors.AppPlatform.Common.1.2.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Application.Client.Wpf">
+      <HintPath>..\packages\Mors.Journeys.Application.Client.Wpf.1.1.0.0\lib\net45\Mors.Journeys.Application.Client.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Data">
+      <HintPath>..\packages\Mors.Journeys.Application.Client.Wpf.1.1.0.0\lib\net45\Mors.Journeys.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
