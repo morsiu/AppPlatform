@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Mors.AppPlatform.Adapters.Modules.Service;
+using Mors.AppPlatform.Adapters.Services;
 using Mors.AppPlatform.Service.Modules;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -11,11 +11,11 @@ namespace Mors.AppPlatform.Service.Host
 {
     internal sealed class HostBootstrapper : DefaultNancyBootstrapper
     {
-        private readonly ServiceQueryDispatcher _queryDispatcher;
-        private readonly ServiceCommandDispatcher _commandDispatcher;
+        private readonly AsyncQueryDispatcher _queryDispatcher;
+        private readonly AsyncCommandDispatcher _commandDispatcher;
         private readonly string _sitePath;
 
-        public HostBootstrapper(ServiceQueryDispatcher queryDispatcher, ServiceCommandDispatcher commandDispatcher, string sitePath)
+        public HostBootstrapper(AsyncQueryDispatcher queryDispatcher, AsyncCommandDispatcher commandDispatcher, string sitePath)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
@@ -40,8 +40,8 @@ namespace Mors.AppPlatform.Service.Host
         protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
         {
             base.ConfigureRequestContainer(container, context);
-            container.Register(typeof(ServiceQueryDispatcher), _queryDispatcher);
-            container.Register(typeof(ServiceCommandDispatcher), _commandDispatcher);
+            container.Register(typeof(AsyncQueryDispatcher), _queryDispatcher);
+            container.Register(typeof(AsyncCommandDispatcher), _commandDispatcher);
         }
 
         protected override IEnumerable<ModuleRegistration> Modules

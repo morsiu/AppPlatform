@@ -1,8 +1,8 @@
 ﻿using System;
-using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Service.Client;
+using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Modules.WpfClient
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class NetworkCommandDispatcher : Common.Services.ICommandDispatcher
     {

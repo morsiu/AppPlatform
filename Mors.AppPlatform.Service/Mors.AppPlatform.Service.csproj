@@ -33,6 +33,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mors.AppPlatform.Common">
+      <HintPath>..\packages\Mors.AppPlatform.Common.1.2.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Application">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Data">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Expenses">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Domain.Expenses.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Infrastructure">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Domain.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Journeys">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Domain.Journeys.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.People">
+      <HintPath>..\packages\Mors.Journeys.Application.1.0.0.0\lib\net45\Mors.Journeys.Domain.People.dll</HintPath>
+    </Reference>
     <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.23.2\lib\net40\Nancy.dll</HintPath>
       <Private>True</Private>

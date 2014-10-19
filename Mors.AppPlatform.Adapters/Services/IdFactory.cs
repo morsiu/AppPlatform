@@ -1,7 +1,7 @@
 ﻿using Mors.AppPlatform.Common.Services;
 using Mors.AppPlatform.Support.Repositories;
 
-namespace Mors.AppPlatform.Adapters.Modules.Command
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class IdFactory : IIdFactory
     {

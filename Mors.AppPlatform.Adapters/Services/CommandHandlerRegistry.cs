@@ -1,9 +1,9 @@
 ﻿using System;
-using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Common.Services;
+using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Modules.Command
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class CommandHandlerRegistry : ICommandHandlerRegistry
     {

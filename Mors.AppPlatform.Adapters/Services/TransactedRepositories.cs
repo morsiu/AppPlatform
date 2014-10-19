@@ -1,13 +1,13 @@
 ﻿using Mors.AppPlatform.Common;
 using Mors.AppPlatform.Common.Transactions;
 
-namespace Mors.AppPlatform.Adapters.Modules.Command
+namespace Mors.AppPlatform.Adapters.Services
 {
-    internal sealed class CommandTransactedRepositories : Common.Services.IRepositories, ITransactional<Common.Services.IRepositories>
+    internal sealed class TransactedRepositories : Common.Services.IRepositories, ITransactional<Common.Services.IRepositories>
     {
         private readonly ITransactional<Support.Repositories.IRepositories> _repositories;
 
-        public CommandTransactedRepositories(Support.Repositories.IRepositories repositories)
+        public TransactedRepositories(Support.Repositories.IRepositories repositories)
         {
             _repositories = repositories.Lift();
         }

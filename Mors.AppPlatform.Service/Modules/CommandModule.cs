@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Mors.AppPlatform.Adapters.Modules.Service;
+using Mors.AppPlatform.Adapters.Services;
 using Mors.AppPlatform.Service.Infrastructure;
 using Nancy;
 
@@ -8,10 +8,10 @@ namespace Mors.AppPlatform.Service.Modules
 {
     internal sealed class CommandModule : NancyModule
     {
-        private readonly ServiceCommandDispatcher _dispatcher;
+        private readonly AsyncCommandDispatcher _dispatcher;
         private readonly ContentTypeAwareSerializer _serializer = new ContentTypeAwareSerializer();
 
-        public CommandModule(ServiceCommandDispatcher dispatcher)
+        public CommandModule(AsyncCommandDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
 

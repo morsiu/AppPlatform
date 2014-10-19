@@ -1,10 +1,8 @@
 ﻿using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Adapters.Dispatching;
-using Mors.AppPlatform.Adapters.Modules.Command;
-using Mors.AppPlatform.Adapters.Modules.EventSourcing;
-using Mors.AppPlatform.Adapters.Modules.Query;
-using Mors.AppPlatform.Adapters.Modules.Service;
+using Mors.AppPlatform.Adapters.Services;
+using Repositories = Mors.AppPlatform.Adapters.Services.Repositories;
 
 namespace Mors.AppPlatform.Service
 {
@@ -12,53 +10,40 @@ namespace Mors.AppPlatform.Service
     {
         private HandlerScheduler _handlerScheduler;
 
-        public ServiceQueryDispatcher QueryDispatcher { get; private set; }
+        public AsyncQueryDispatcher QueryDispatcher { get; private set; }
 
-        public ServiceCommandDispatcher CommandDispatcher { get; private set; }
+        public AsyncCommandDispatcher CommandDispatcher { get; private set; }
 
         public void Bootstrap(string eventFileName)
         {
-            var eventBus = new Mors.AppPlatform.Support.Events.EventBus();
+            var eventBus = new Support.Events.EventBus();
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
-            
-            var queryBootstrapper = new Application.Query.Bootstrapper(
-                new QueryEventBus(eventBus),
-                new QueryDispatcher(handlerDispatcher),
-                new QueryHandlerRegistry(handlerRegistry));
-            queryBootstrapper.Bootstrap();
+            var repositories = new Support.Repositories.Repositories();
 
-            var repositories = new Repositories();
-
-            var eventSourcingModule = new Mors.AppPlatform.Support.EventSourcing.Module(
-                new EventSourcingModuleEventBus(eventBus),
+            var eventSourcingModule = new Support.EventSourcing.Module(
+                new EventSourcingEventBus(eventBus),
                 idFactory.IdImplementationType,
                 eventFileName);
 
-            var commandBootstrapper = new Application.Command.Bootstrapper(
-                new CommandEventBus(eventBus),
-                new CommandRepositories(repositories),
-                new CommandIdFactory(idFactory),
+            var bootstrapper = new Journeys.Application.Bootstrapper(
+                new EventBus(eventBus),
+                new Repositories(repositories),
+                new IdFactory(idFactory),
                 new CommandHandlerRegistry(handlerRegistry),
-                new CommandQueryDispatcher(handlerDispatcher));
-            commandBootstrapper.Bootstrap();
-
-            var eventSourcingBootstrapper = new Application.EventSourcing.Bootstrapper(
-                new EventSourcingEventBus(eventBus),
-                new EventSourcingRepositories(repositories),
-                new EventSourcingIdFactory(idFactory),
-                new EventSourcingQueryDispatcher(handlerDispatcher),
+                new QueryDispatcher(handlerDispatcher),
+                new QueryHandlerRegistry(handlerRegistry),
                 new EventSourcing(eventSourcingModule));
-            eventSourcingBootstrapper.Bootstrap();
+            bootstrapper.Bootstrap();
 
             eventSourcingModule.ReplayEvents();
             eventSourcingModule.StoreNewEvents();
 
             var commandHandlerQueue = new HandlerQueue();
             var queryHandlerQueue = new HandlerQueue();
-            QueryDispatcher = new ServiceQueryDispatcher(new AsyncHandlerDispatcher(handlerRegistry, queryHandlerQueue));
-            CommandDispatcher = new ServiceCommandDispatcher(new AsyncHandlerDispatcher(handlerRegistry, commandHandlerQueue));
+            QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerDispatcher(handlerRegistry, queryHandlerQueue));
+            CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerDispatcher(handlerRegistry, commandHandlerQueue));
             _handlerScheduler = new HandlerScheduler(commandHandlerQueue, queryHandlerQueue);
         }
 

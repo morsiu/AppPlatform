@@ -3,7 +3,7 @@ using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Common;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Modules.Query
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class QueryHandlerRegistry : Common.Services.IQueryHandlerRegistry
     {

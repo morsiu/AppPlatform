@@ -4,11 +4,11 @@ using Mors.AppPlatform.Support.Events;
 
 namespace Mors.AppPlatform.Adapters.Services
 {
-    public sealed class EventBus : Common.Services.IEventBus
+    public sealed class EventSourcingEventBus : Support.EventSourcing.IEventBus
     {
         private readonly IEventBus _eventBus;
 
-        public EventBus(IEventBus eventBus)
+        public EventSourcingEventBus(IEventBus eventBus)
         {
             _eventBus = eventBus;
         }
@@ -18,14 +18,9 @@ namespace Mors.AppPlatform.Adapters.Services
             _eventBus.RegisterListener(new EventListener<TEvent>(handler));
         }
 
-        public void Publish<TEvent>(TEvent @event)
+        ITransactional<Support.EventSourcing.IEventBus> IProvideTransactional<Support.EventSourcing.IEventBus>.Lift()
         {
-            _eventBus.Publish(@event);
-        }
-
-        ITransactional<Common.Services.IEventBus> IProvideTransactional<Common.Services.IEventBus>.Lift()
-        {
-            return new TransactedEventBus(_eventBus);
+            return new EventSourcingTransactedEventBus(_eventBus);
         }
     }
 }

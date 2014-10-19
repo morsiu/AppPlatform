@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Adapters.Modules.EventSourcing
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class EventSourcing : Common.Services.IEventSourcing
     {

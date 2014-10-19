@@ -48,9 +48,11 @@
     <Compile Include="Services\EventBus.cs" />
     <Compile Include="Services\EventSourcing.cs" />
     <Compile Include="Services\CommandHandlerRegistry.cs" />
+    <Compile Include="Services\EventSourcingEventBus.cs" />
     <Compile Include="Services\IdFactory.cs" />
     <Compile Include="Dispatching\CommandKey.cs" />
     <Compile Include="Services\Repositories.cs" />
+    <Compile Include="Services\EventSourcingTransactedEventBus.cs" />
     <Compile Include="Services\TransactedEventBus.cs" />
     <Compile Include="Services\TransactedRepositories.cs" />
     <Compile Include="Messages\FailureMessages.Designer.cs">

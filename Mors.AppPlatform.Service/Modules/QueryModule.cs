@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Mors.AppPlatform.Adapters.Modules.Service;
+using Mors.AppPlatform.Adapters.Services;
 using Mors.AppPlatform.Service.Infrastructure;
 using Nancy;
 
@@ -9,10 +9,10 @@ namespace Mors.AppPlatform.Service.Modules
 {
     internal sealed class QueryModule : NancyModule
     {
-        private readonly ServiceQueryDispatcher _dispatcher;
+        private readonly AsyncQueryDispatcher _dispatcher;
         private readonly ContentTypeAwareSerializer _serializer = new ContentTypeAwareSerializer();
 
-        public QueryModule(ServiceQueryDispatcher dispatcher)
+        public QueryModule(AsyncQueryDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
 

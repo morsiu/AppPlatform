@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Modules.Service
+namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class AsyncCommandDispatcher
     {
