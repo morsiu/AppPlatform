@@ -163,5 +163,5 @@ $RECYCLE.BIN/
 TemporaryGeneratedFile_*.cs
 *.exe
 *.dll
-/Journeys.Hosting.Service/data
 *.ide
+/Mors.AppPlatform.Service/data
