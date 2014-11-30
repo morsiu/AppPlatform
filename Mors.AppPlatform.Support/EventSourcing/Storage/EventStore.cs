@@ -26,6 +26,10 @@ namespace Mors.AppPlatform.Support.EventSourcing.Storage
             {
                 yield break;
             }
+            catch (DirectoryNotFoundException)
+            {
+                yield break;
+            }
 
             using (stream)
             {
@@ -48,6 +52,7 @@ namespace Mors.AppPlatform.Support.EventSourcing.Storage
 
             public EventWriter(string fileName, IEnumerable<Type> eventTypesToSupport)
             {
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
                 var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
                 _writer = new XmlEventWriter(stream, eventTypesToSupport);
             }
