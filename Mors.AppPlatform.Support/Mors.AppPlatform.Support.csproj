@@ -78,6 +78,7 @@
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\TransactedRepositories.cs" />
     <Compile Include="Repositories\TransactedRepository.cs" />
+    <Compile Include="Synchronization\AggregateWaitHandle.cs" />
     <Compile Include="Synchronization\Counter.cs" />
   </ItemGroup>
   <ItemGroup>

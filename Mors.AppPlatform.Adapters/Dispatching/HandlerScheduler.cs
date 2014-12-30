@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Journeys.Support.Synchronization;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Synchronization;
 
@@ -12,7 +13,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
         private readonly HandlerQueue _queryQueue;
         private readonly Counter _runningCommandHandlerCount;
         private readonly Counter _runningQueueHandlerCount;
-        private readonly WaitHandle[] _queueWaitHandles;
+        private readonly AggregateWaitHandle _queueWaitHandles;
 
         public HandlerScheduler(
             HandlerQueue commandQueue,
@@ -22,7 +23,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _queryQueue = queryQueue;
             _runningCommandHandlerCount = new Counter(0);
             _runningQueueHandlerCount = new Counter(0);
-            _queueWaitHandles = new[] { _commandQueue.WaitHandle, _queryQueue.WaitHandle };
+            _queueWaitHandles = new AggregateWaitHandle(new[] { _commandQueue.WaitHandle, _queryQueue.WaitHandle });
         }
 
         public void Run()
@@ -37,7 +38,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
 
         private void WaitForNewHandlersInQueues()
         {
-            WaitHandle.WaitAny(_queueWaitHandles);
+            _queueWaitHandles.WaitAny();
         }
 
         private void TryRunNextQueueHandler()
