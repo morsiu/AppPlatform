@@ -3,6 +3,7 @@ using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;
 using Mors.AppPlatform.Adapters.Messages;
 using Mors.AppPlatform.Common;
+using System.Threading.Tasks;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
@@ -21,6 +22,19 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             try
             {
                 return (TResult)dispatcher.Dispatch(queryKey, _querySpecification);
+            }
+            catch (HandlerNotFoundException)
+            {
+                throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForQueryOfType, queryKey));
+            }
+        }
+
+        public Task<object> Schedule(AsyncHandlerScheduler scheduler)
+        {
+            var queryKey = new QueryKey(_querySpecification.GetType());
+            try
+            {
+                return scheduler.Schedule(queryKey, _querySpecification);
             }
             catch (HandlerNotFoundException)
             {
