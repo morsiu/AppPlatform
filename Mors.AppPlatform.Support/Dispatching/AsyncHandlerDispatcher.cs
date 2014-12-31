@@ -6,10 +6,10 @@ namespace Mors.AppPlatform.Support.Dispatching
 {
     public sealed class AsyncHandlerDispatcher
     {
-        private readonly HandlerQueue _queue;
+        private readonly IHandlerQueue _queue;
         private readonly HandlerRegistry _registry;
 
-        public AsyncHandlerDispatcher(HandlerRegistry registry, HandlerQueue queue)
+        public AsyncHandlerDispatcher(HandlerRegistry registry, IHandlerQueue queue)
         {
             _registry = registry;
             _queue = queue;

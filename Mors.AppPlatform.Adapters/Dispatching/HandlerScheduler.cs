@@ -9,21 +9,21 @@ namespace Mors.AppPlatform.Adapters.Dispatching
 {
     public sealed class HandlerScheduler
     {
-        private readonly HandlerQueue _commandQueue;
-        private readonly HandlerQueue _queryQueue;
+        private readonly IHandlerQueue _commandQueue;
+        private readonly IHandlerQueue _queryQueue;
         private readonly Counter _runningCommandHandlerCount;
         private readonly Counter _runningQueueHandlerCount;
-        private readonly AggregateWaitHandle _queueWaitHandles;
+        private readonly AggregateWaitHandle _anyQueueNonEmptyEvent;
 
         public HandlerScheduler(
-            HandlerQueue commandQueue,
-            HandlerQueue queryQueue)
+            IHandlerQueue commandQueue,
+            IHandlerQueue queryQueue)
         {
             _commandQueue = commandQueue;
             _queryQueue = queryQueue;
             _runningCommandHandlerCount = new Counter(0);
             _runningQueueHandlerCount = new Counter(0);
-            _queueWaitHandles = new AggregateWaitHandle(new[] { _commandQueue.WaitHandle, _queryQueue.WaitHandle });
+            _anyQueueNonEmptyEvent = new AggregateWaitHandle(new[] { _commandQueue.NonEmptyEvent, _queryQueue.NonEmptyEvent});
         }
 
         public void Run()
@@ -38,7 +38,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
 
         private void WaitForNewHandlersInQueues()
         {
-            _queueWaitHandles.WaitAny();
+            _anyQueueNonEmptyEvent.WaitAny();
         }
 
         private void TryRunNextQueueHandler()

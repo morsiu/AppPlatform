@@ -49,6 +49,9 @@
     <Compile Include="Dispatching\HandlerDispatcher.cs" />
     <Compile Include="Dispatching\HandlerQueue.cs" />
     <Compile Include="Dispatching\HandlerRegistry.cs" />
+    <Compile Include="Dispatching\IHandlerQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="EventSourcing\EventReplayConfigurator.cs" />
     <Compile Include="EventSourcing\EventReplayer.cs" />
     <Compile Include="EventSourcing\EventWriteConfigurator.cs" />
