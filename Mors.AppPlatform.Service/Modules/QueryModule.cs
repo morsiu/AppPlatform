@@ -21,15 +21,15 @@ namespace Mors.AppPlatform.Service.Modules
 
         private async Task<dynamic> HandleQueryPost(dynamic parameters, CancellationToken cancellationToken)
         {
-            var query = DeserializeRequest();
+            var query = DeserializeRequestBody();
             var result = await _dispatcher.Dispatch(query);
             return PrepareResponse(result);
         }
 
-        private object DeserializeRequest()
+        private object DeserializeRequestBody()
         {
-            var request = _serializer.Deserialize(Request.Body, Request.Headers.ContentType);
-            return request;
+            var requestBody = _serializer.Deserialize(Request.Body, Request.Headers.ContentType);
+            return requestBody;
         }
 
         private Response PrepareResponse(object result)

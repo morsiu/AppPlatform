@@ -20,15 +20,15 @@ namespace Mors.AppPlatform.Service.Modules
 
         private async Task<dynamic> HandleCommandPost(dynamic parameters, CancellationToken cancellationToken)
         {
-            var command = DeserializeRequest();
+            var command = DeserializeRequestBody();
             await _dispatcher.Dispatch(command);
             return PrepareResponse();
         }
 
-        private object DeserializeRequest()
+        private object DeserializeRequestBody()
         {
-            var request = _serializer.Deserialize(Request.Body, Request.Headers.ContentType);
-            return request;
+            var requestBody = _serializer.Deserialize(Request.Body, Request.Headers.ContentType);
+            return requestBody;
         }
 
         private Response PrepareResponse()
