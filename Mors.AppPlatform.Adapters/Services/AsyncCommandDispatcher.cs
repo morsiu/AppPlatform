@@ -12,9 +12,9 @@ namespace Mors.AppPlatform.Adapters.Services
             _handlerScheduler = handlerScheduler;
         }
 
-        public Task Dispatch<TCommand>(TCommand commandSpecification)
+        public Task Dispatch(object commandSpecification)
         {
-            var command = new Dispatching.AsyncCommand(commandSpecification);
+            var command = new Dispatching.Command(commandSpecification);
             return command.Schedule(_handlerScheduler);
         }
     }
