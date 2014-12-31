@@ -15,12 +15,12 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _querySpecification = querySpecification;
         }
 
-        public Task<object> Execute(AsyncHandlerDispatcher dispatcher)
+        public Task<object> Schedule(AsyncHandlerScheduler scheduler)
         {
             var queryKey = new QueryKey(_querySpecification.GetType());
             try
             {
-                return dispatcher.Dispatch(queryKey, _querySpecification);
+                return scheduler.Schedule(queryKey, _querySpecification);
             }
             catch (HandlerNotFoundException)
             {

@@ -8,7 +8,7 @@ namespace Mors.AppPlatform.Service
 {
     internal sealed class Bootstrapper
     {
-        private HandlerScheduler _handlerScheduler;
+        private AsyncHandlerDispatcher _handlerDispatcher;
 
         public AsyncQueryDispatcher QueryDispatcher { get; private set; }
 
@@ -42,14 +42,14 @@ namespace Mors.AppPlatform.Service
 
             var commandHandlerQueue = new HandlerQueue();
             var queryHandlerQueue = new HandlerQueue();
-            QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerDispatcher(handlerRegistry, queryHandlerQueue));
-            CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerDispatcher(handlerRegistry, commandHandlerQueue));
-            _handlerScheduler = new HandlerScheduler(commandHandlerQueue, queryHandlerQueue);
+            QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
+            CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
+            _handlerDispatcher = new AsyncHandlerDispatcher(commandHandlerQueue, queryHandlerQueue);
         }
 
         public void RunScheduledHandlers()
         {
-            _handlerScheduler.Run();
+            _handlerDispatcher.Run();
         }
     }
 }

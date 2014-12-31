@@ -40,7 +40,7 @@
   <ItemGroup>
     <Compile Include="Dispatching\AsyncQuery.cs" />
     <Compile Include="Dispatching\Command.cs" />
-    <Compile Include="Dispatching\HandlerScheduler.cs" />
+    <Compile Include="Dispatching\AsyncHandlerDispatcher.cs" />
     <Compile Include="Dispatching\Query.cs" />
     <Compile Include="Services\AsyncCommandDispatcher.cs" />
     <Compile Include="Services\AsyncQueryDispatcher.cs" />

@@ -15,7 +15,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _querySpecification = querySpecification;
         }
 
-        public TResult Execute(HandlerDispatcher dispatcher)
+        public TResult Dispatch(HandlerDispatcher dispatcher)
         {
             var queryKey = QueryKey.From(_querySpecification);
             try

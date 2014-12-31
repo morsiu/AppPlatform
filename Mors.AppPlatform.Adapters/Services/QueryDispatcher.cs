@@ -16,7 +16,7 @@ namespace Mors.AppPlatform.Adapters.Services
         public TResult Dispatch<TResult>(IQuery<TResult> querySpecification)
         {
             var query = new Query<TResult>(querySpecification);
-            return query.Execute(_handlerDispatcher);
+            return query.Dispatch(_handlerDispatcher);
         }
     }
 }

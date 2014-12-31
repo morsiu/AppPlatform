@@ -41,7 +41,7 @@ namespace Mors.AppPlatform.Adapters.Services
         private void DispatchInternal(object command)
         {
             var commandAdapter = new Dispatching.Command(command);
-            commandAdapter.Execute(_handlerDispatcher);
+            commandAdapter.Dispatch(_handlerDispatcher);
         }
     }
 }

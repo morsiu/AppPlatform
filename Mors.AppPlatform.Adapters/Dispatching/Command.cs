@@ -14,7 +14,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _commandSpecification = commandSpecification;
         }
 
-        public void Execute(HandlerDispatcher dispatcher)
+        public void Dispatch(HandlerDispatcher dispatcher)
         {
             var commandKey = CommandKey.From(_commandSpecification);
             try

@@ -15,12 +15,12 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _commandSpecification = commandSpecification;
         }
 
-        public Task Execute(AsyncHandlerDispatcher dispatcher)
+        public Task Schedule(AsyncHandlerScheduler scheduler)
         {
             var commandKey = CommandKey.From(_commandSpecification);
             try
             {
-                return dispatcher.Dispatch(commandKey, _commandSpecification);
+                return scheduler.Schedule(commandKey, _commandSpecification);
             }
             catch (HandlerNotFoundException)
             {

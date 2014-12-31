@@ -7,7 +7,7 @@ using Mors.AppPlatform.Support.Synchronization;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
-    public sealed class HandlerScheduler
+    public sealed class AsyncHandlerDispatcher
     {
         private readonly IHandlerQueue _commandQueue;
         private readonly IHandlerQueue _queryQueue;
@@ -15,7 +15,7 @@ namespace Mors.AppPlatform.Adapters.Dispatching
         private readonly Counter _runningQueueHandlerCount;
         private readonly AggregateWaitHandle _anyQueueNonEmptyEvent;
 
-        public HandlerScheduler(
+        public AsyncHandlerDispatcher(
             IHandlerQueue commandQueue,
             IHandlerQueue queryQueue)
         {

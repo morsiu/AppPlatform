@@ -5,17 +5,17 @@ namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class AsyncCommandDispatcher
     {
-        private readonly AsyncHandlerDispatcher _handlerDispatcher;
+        private readonly AsyncHandlerScheduler _handlerScheduler;
 
-        public AsyncCommandDispatcher(AsyncHandlerDispatcher handlerDispatcher)
+        public AsyncCommandDispatcher(AsyncHandlerScheduler handlerScheduler)
         {
-            _handlerDispatcher = handlerDispatcher;
+            _handlerScheduler = handlerScheduler;
         }
 
         public Task Dispatch<TCommand>(TCommand commandSpecification)
         {
             var command = new Dispatching.AsyncCommand(commandSpecification);
-            return command.Execute(_handlerDispatcher);
+            return command.Schedule(_handlerScheduler);
         }
     }
 }

@@ -6,17 +6,17 @@ namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class AsyncQueryDispatcher
     {
-        private readonly AsyncHandlerDispatcher _handlerDispatcher;
+        private readonly AsyncHandlerScheduler _handlerScheduler;
 
-        public AsyncQueryDispatcher(AsyncHandlerDispatcher handlerDispatcher)
+        public AsyncQueryDispatcher(AsyncHandlerScheduler handlerScheduler)
         {
-            _handlerDispatcher = handlerDispatcher;
+            _handlerScheduler = handlerScheduler;
         }
 
         public Task<object> Dispatch(object querySpecification)
         {
             var key = new QueryKey(querySpecification.GetType());
-            return _handlerDispatcher.Dispatch(key, querySpecification);
+            return _handlerScheduler.Schedule(key, querySpecification);
         }
     }
 }
