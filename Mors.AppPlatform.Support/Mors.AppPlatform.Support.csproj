@@ -7,8 +7,8 @@
     <ProjectGuid>{2603751F-57CA-48FD-84EC-55983878B247}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Journeys.Support</RootNamespace>
-    <AssemblyName>Journeys.Support</AssemblyName>
+    <RootNamespace>Mors.AppPlatform.Support</RootNamespace>
+    <AssemblyName>Mors.AppPlatform.Support</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
