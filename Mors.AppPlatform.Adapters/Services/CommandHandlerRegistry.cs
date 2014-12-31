@@ -7,9 +7,9 @@ namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class CommandHandlerRegistry : ICommandHandlerRegistry
     {
-        private readonly HandlerRegistry _handlerRegistry;
+        private readonly IHandlerRegistry _handlerRegistry;
 
-        public CommandHandlerRegistry(HandlerRegistry handlerRegistry)
+        public CommandHandlerRegistry(IHandlerRegistry handlerRegistry)
         {
             _handlerRegistry = handlerRegistry;
         }

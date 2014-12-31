@@ -5,9 +5,9 @@ namespace Mors.AppPlatform.Support.Dispatching
 {
     public sealed class HandlerDispatcher
     {
-        private readonly HandlerRegistry _registry;
+        private readonly IHandlerRegistry _registry;
 
-        public HandlerDispatcher(HandlerRegistry registry)
+        public HandlerDispatcher(IHandlerRegistry registry)
         {
             _registry = registry;
         }

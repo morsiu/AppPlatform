@@ -7,9 +7,9 @@ namespace Mors.AppPlatform.Adapters.Services
 {
     public sealed class QueryHandlerRegistry : Common.Services.IQueryHandlerRegistry
     {
-        private readonly HandlerRegistry _handlerRegistry;
+        private readonly IHandlerRegistry _handlerRegistry;
 
-        public QueryHandlerRegistry(HandlerRegistry handlerRegistry)
+        public QueryHandlerRegistry(IHandlerRegistry handlerRegistry)
         {
             _handlerRegistry = handlerRegistry;
         }
