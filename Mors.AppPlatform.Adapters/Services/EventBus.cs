@@ -1,5 +1,4 @@
 ﻿using System;
-using Mors.AppPlatform.Common.Transactions;
 using Mors.AppPlatform.Support.Events;
 
 namespace Mors.AppPlatform.Adapters.Services
@@ -21,11 +20,6 @@ namespace Mors.AppPlatform.Adapters.Services
         public void Publish<TEvent>(TEvent @event)
         {
             _eventBus.Publish(@event);
-        }
-
-        ITransactional<Common.Services.IEventBus> IProvideTransactional<Common.Services.IEventBus>.Lift()
-        {
-            return new TransactedEventBus(_eventBus);
         }
     }
 }

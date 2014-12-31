@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Mors.AppPlatform.Common.Transactions;
+using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Support.Repositories
 {

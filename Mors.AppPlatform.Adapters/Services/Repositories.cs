@@ -1,5 +1,4 @@
 ﻿using Mors.AppPlatform.Common;
-using Mors.AppPlatform.Common.Transactions;
 using Mors.AppPlatform.Support.Repositories;
 
 namespace Mors.AppPlatform.Adapters.Services
@@ -21,11 +20,6 @@ namespace Mors.AppPlatform.Adapters.Services
         public void Store<TEntity>(TEntity entity) where TEntity : IHasId
         {
             _repositories.Store(entity.Id, entity);
-        }
-
-        public ITransactional<Common.Services.IRepositories> Lift()
-        {
-            return new TransactedRepositories(_repositories);
         }
     }
 }

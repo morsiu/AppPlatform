@@ -1,7 +1,9 @@
-﻿using Mors.AppPlatform.Adapters.Services;
-using Mors.AppPlatform.Support.Dispatching;
+﻿using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
+using Mors.AppPlatform.Adapters.Dispatching;
+using Mors.AppPlatform.Adapters.Services;
 using Repositories = Mors.AppPlatform.Adapters.Services.Repositories;
+using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Service
 {
@@ -20,21 +22,28 @@ namespace Mors.AppPlatform.Service
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
             var repositories = new Support.Repositories.Repositories();
+            var transaction = new Transaction();
 
             var eventSourcingModule = new Support.EventSourcing.Module(
                 new EventSourcingEventBus(eventBus),
                 idFactory.IdImplementationType,
                 eventFileName);
 
-            var bootstrapper = new Journeys.Application.Bootstrapper(
-                new EventBus(eventBus),
+            var journeysBootstrapper = new Journeys.Application.Bootstrapper();
+            journeysBootstrapper.BootstrapEventSourcing(
+                new EventSourcing(eventSourcingModule),
                 new Repositories(repositories),
-                new IdFactory(idFactory),
-                new CommandHandlerRegistry(handlerRegistry),
-                new QueryDispatcher(handlerDispatcher),
+                new EventBus(eventBus));
+            journeysBootstrapper.BootstrapQueries(
                 new QueryHandlerRegistry(handlerRegistry),
-                new EventSourcing(eventSourcingModule));
-            bootstrapper.Bootstrap();
+                new EventBus(transaction.Register(eventBus)),
+                new QueryDispatcher(handlerDispatcher));
+            journeysBootstrapper.BootstrapCommands(
+                new CommandHandlerRegistry(handlerRegistry),
+                new Repositories(transaction.Register(repositories)),
+                new EventBus(transaction.Register(eventBus)),
+                new IdFactory(idFactory),
+                new QueryDispatcher(handlerDispatcher));
 
             eventSourcingModule.ReplayEvents();
             eventSourcingModule.StoreNewEvents();
@@ -44,7 +53,7 @@ namespace Mors.AppPlatform.Service
             QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
             CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
 
-            var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
+            var commandHandlerSource = new TrackingHandlerSource(new TransactedHandlerSource(commandHandlerQueue, transaction));
             var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
             _handlerDispatcher = new AsyncHandlerDispatcher(
                 new PrioritizedHandlerSource(
