@@ -4,20 +4,22 @@ namespace Mors.AppPlatform.Support.Synchronization
 {
     public sealed class Counter
     {
-        private readonly EventWaitHandle _event;
+        private readonly EventWaitHandle _zeroReachedEvent;
         private int _count;
 
         public Counter(int initialCount)
         {
             _count = initialCount;
-            _event = new ManualResetEvent(true);
+            _zeroReachedEvent = new ManualResetEvent(true);
         }
+
+        public WaitHandle ZeroReachedEvent { get { return _zeroReachedEvent; } }
 
         public void Increase()
         {
             if (Interlocked.Increment(ref _count) == 1)
             {
-                _event.Reset();
+                _zeroReachedEvent.Reset();
             }
         }
 
@@ -25,13 +27,13 @@ namespace Mors.AppPlatform.Support.Synchronization
         {
             if (Interlocked.Decrement(ref _count) == 0)
             {
-                _event.Set();
+                _zeroReachedEvent.Set();
             }
         }
 
-        public void Wait()
+        public void WaitForZero()
         {
-            _event.WaitOne();
+            _zeroReachedEvent.WaitOne();
         }
     }
 }

@@ -6,13 +6,13 @@ namespace Mors.AppPlatform.Support.Dispatching
 {
     public sealed class AsyncHandlerScheduler
     {
-        private readonly IHandlerQueue _queue;
+        private readonly IHandlerSink _sink;
         private readonly IHandlerRegistry _registry;
 
-        public AsyncHandlerScheduler(IHandlerRegistry registry, IHandlerQueue queue)
+        public AsyncHandlerScheduler(IHandlerRegistry registry, IHandlerSink sink)
         {
             _registry = registry;
-            _queue = queue;
+            _sink = sink;
         }
 
         public Task<object> Schedule(object key, object parameter)
@@ -21,7 +21,7 @@ namespace Mors.AppPlatform.Support.Dispatching
             if (_registry.Retrieve(key, out handler))
             {
                 var resultSource = new TaskCompletionSource<object>();
-                _queue.Enqueue(
+                _sink.Enqueue(
                     () =>
                     {
                         try

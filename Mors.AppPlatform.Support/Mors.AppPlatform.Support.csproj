@@ -44,15 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dispatching\AsyncHandlerDispatcher.cs" />
     <Compile Include="Dispatching\AsyncHandlerScheduler.cs" />
+    <Compile Include="Dispatching\TrackingHandlerSource.cs" />
+    <Compile Include="Dispatching\DependentHandlerSource.cs" />
     <Compile Include="Dispatching\Exceptions\HandlerNotFoundException.cs" />
     <Compile Include="Dispatching\HandlerDispatcher.cs" />
     <Compile Include="Dispatching\HandlerQueue.cs" />
     <Compile Include="Dispatching\HandlerRegistry.cs" />
-    <Compile Include="Dispatching\IHandlerQueue.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Dispatching\IHandlerQueueSink.cs" />
     <Compile Include="Dispatching\IHandlerRegistry.cs" />
+    <Compile Include="Dispatching\IHandlerSource.cs" />
+    <Compile Include="Dispatching\PrioritizedHandlerSource.cs" />
     <Compile Include="EventSourcing\EventReplayConfigurator.cs" />
     <Compile Include="EventSourcing\EventReplayer.cs" />
     <Compile Include="EventSourcing\EventWriteConfigurator.cs" />

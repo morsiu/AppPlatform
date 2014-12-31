@@ -1,7 +1,6 @@
-﻿using Mors.AppPlatform.Support.Dispatching;
+﻿using Mors.AppPlatform.Adapters.Services;
+using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
-using Mors.AppPlatform.Adapters.Dispatching;
-using Mors.AppPlatform.Adapters.Services;
 using Repositories = Mors.AppPlatform.Adapters.Services.Repositories;
 
 namespace Mors.AppPlatform.Service
@@ -44,7 +43,24 @@ namespace Mors.AppPlatform.Service
             var queryHandlerQueue = new HandlerQueue();
             QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
             CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
-            _handlerDispatcher = new AsyncHandlerDispatcher(commandHandlerQueue, queryHandlerQueue);
+
+            var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
+            var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
+            _handlerDispatcher = new AsyncHandlerDispatcher(
+                new PrioritizedHandlerSource(
+                    new[]
+                    {
+                        new DependentHandlerSource(
+                            commandHandlerSource, 
+                            new[]
+                            { 
+                                queryHandlerSource.NoRunningHandlersEvent,
+                                commandHandlerSource.NoRunningHandlersEvent
+                            }),
+                        new DependentHandlerSource(
+                            queryHandlerSource,
+                            new[] { commandHandlerSource.NoRunningHandlersEvent })
+                    }));
         }
 
         public void RunScheduledHandlers()

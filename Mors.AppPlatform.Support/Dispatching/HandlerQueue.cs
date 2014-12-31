@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Mors.AppPlatform.Support.Dispatching
 {
-    public sealed class HandlerQueue : IHandlerQueue
+    public sealed class HandlerQueue : IHandlerSource, IHandlerSink
     {
         private readonly Queue<Action> _queuedHandlers = new Queue<Action>();
         private readonly ManualResetEvent _nonEmptyQueueEvent = new ManualResetEvent(false);
@@ -24,21 +24,16 @@ namespace Mors.AppPlatform.Support.Dispatching
             }
         }
 
-        public bool TryDequeue(out Action handler)
+        public Action Dequeue()
         {
+            _nonEmptyQueueEvent.WaitOne();
             lock (_accessLock)
             {
-                if (_queuedHandlers.Count == 0)
-                {
-                    handler = null;
-                    return false;
-                }
                 if (_queuedHandlers.Count == 1)
                 {
                     _nonEmptyQueueEvent.Reset();
                 }
-                handler = _queuedHandlers.Dequeue();
-                return true;
+                return _queuedHandlers.Dequeue();
             }
         }
     }
