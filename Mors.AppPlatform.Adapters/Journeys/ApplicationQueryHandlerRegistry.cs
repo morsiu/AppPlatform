@@ -1,20 +1,20 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Dispatching;
-using Mors.AppPlatform.Common;
 using Mors.AppPlatform.Support.Dispatching;
+using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class QueryHandlerRegistry : Common.Services.IQueryHandlerRegistry
+    internal sealed class ApplicationQueryHandlerRegistry : Mors.Journeys.Application.IQueryHandlerRegistry
     {
         private readonly IHandlerRegistry _handlerRegistry;
 
-        public QueryHandlerRegistry(IHandlerRegistry handlerRegistry)
+        public ApplicationQueryHandlerRegistry(IHandlerRegistry handlerRegistry)
         {
             _handlerRegistry = handlerRegistry;
         }
 
-        public void SetHandler<TQuery, TResult>(QueryHandler<TQuery, TResult> handler)
+        public void SetHandler<TQuery, TResult>(Func<TQuery, TResult> handler)
             where TQuery : IQuery<TResult>
         {
             var queryKey = QueryKey.From<TQuery, TResult>();

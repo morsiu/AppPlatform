@@ -2,14 +2,14 @@
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class NetworkCommandDispatcher : Common.Services.ICommandDispatcher
+    internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Client.Wpf.ICommandDispatcher
     {
         private readonly HandlerDispatcher _handlerDispatcher;
         private readonly Uri _commandRequestUri;
 
-        public NetworkCommandDispatcher(Uri commandRequestUri, HandlerDispatcher handlerDispatcher)
+        public ClientWpfCommandDispatcher(Uri commandRequestUri, HandlerDispatcher handlerDispatcher)
         {
             _handlerDispatcher = handlerDispatcher;
             _commandRequestUri = commandRequestUri;

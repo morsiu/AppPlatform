@@ -1,17 +1,17 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Dispatching;
-using Mors.AppPlatform.Common;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
+using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class NetworkQueryDispatcher : Common.Services.IQueryDispatcher
+    internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Client.Wpf.IQueryDispatcher
     {
         private readonly Uri _queryRequestUri;
         private readonly HandlerDispatcher _handlerDispatcher;
 
-        public NetworkQueryDispatcher(Uri queryRequestUri, HandlerDispatcher handlerDispatcher)
+        public ClientWpfQueryDispatcher(Uri queryRequestUri, HandlerDispatcher handlerDispatcher)
         {
             _queryRequestUri = queryRequestUri;
             _handlerDispatcher = handlerDispatcher;

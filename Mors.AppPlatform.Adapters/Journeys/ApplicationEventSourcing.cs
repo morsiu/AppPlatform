@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class EventSourcing : Common.Services.IEventSourcing
+    internal sealed class ApplicationEventSourcing : Mors.Journeys.Application.IEventSourcing
     {
         private readonly Support.EventSourcing.Module _eventSourcingModule;
 
-        public EventSourcing(Support.EventSourcing.Module eventSourcingModule)
+        public ApplicationEventSourcing(Support.EventSourcing.Module eventSourcingModule)
         {
             _eventSourcingModule = eventSourcingModule;
         }

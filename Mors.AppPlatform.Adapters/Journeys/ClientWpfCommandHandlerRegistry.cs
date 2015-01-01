@@ -1,15 +1,14 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Dispatching;
-using Mors.AppPlatform.Common.Services;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class CommandHandlerRegistry : ICommandHandlerRegistry
+    internal sealed class ClientWpfCommandHandlerRegistry : Mors.Journeys.Application.Client.Wpf.ICommandHandlerRegistry
     {
         private readonly IHandlerRegistry _handlerRegistry;
 
-        public CommandHandlerRegistry(IHandlerRegistry handlerRegistry)
+        public ClientWpfCommandHandlerRegistry(IHandlerRegistry handlerRegistry)
         {
             _handlerRegistry = handlerRegistry;
         }

@@ -1,9 +1,8 @@
 ﻿using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
-using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Adapters.Services;
-using Repositories = Mors.AppPlatform.Adapters.Services.Repositories;
 using Mors.AppPlatform.Support.Transactions;
+using Mors.AppPlatform.Adapters;
 
 namespace Mors.AppPlatform.Service
 {
@@ -21,7 +20,7 @@ namespace Mors.AppPlatform.Service
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
-            var repositories = new Support.Repositories.Repositories();
+            var repositories = new Repositories();
             var transaction = new Transaction();
 
             var eventSourcingModule = new Support.EventSourcing.Module(
@@ -29,21 +28,14 @@ namespace Mors.AppPlatform.Service
                 idFactory.IdImplementationType,
                 eventFileName);
 
-            var journeysBootstrapper = new Journeys.Application.Bootstrapper();
-            journeysBootstrapper.BootstrapEventSourcing(
-                new EventSourcing(eventSourcingModule),
-                new Repositories(repositories),
-                new EventBus(eventBus));
-            journeysBootstrapper.BootstrapQueries(
-                new QueryHandlerRegistry(handlerRegistry),
-                new EventBus(transaction.Register(eventBus)),
-                new QueryDispatcher(handlerDispatcher));
-            journeysBootstrapper.BootstrapCommands(
-                new CommandHandlerRegistry(handlerRegistry),
-                new Repositories(transaction.Register(repositories)),
-                new EventBus(transaction.Register(eventBus)),
-                new IdFactory(idFactory),
-                new QueryDispatcher(handlerDispatcher));
+            JourneysApplication.Bootstrap(
+                handlerRegistry,
+                handlerDispatcher,
+                eventBus,
+                repositories,
+                eventSourcingModule,
+                idFactory,
+                transaction);
 
             eventSourcingModule.ReplayEvents();
             eventSourcingModule.StoreNewEvents();

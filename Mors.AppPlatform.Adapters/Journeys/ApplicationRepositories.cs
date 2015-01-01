@@ -1,13 +1,13 @@
-﻿using Mors.AppPlatform.Common;
-using Mors.AppPlatform.Support.Repositories;
+﻿using Mors.AppPlatform.Support.Repositories;
+using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Adapters.Journeys
 {
-    public sealed class Repositories : Common.Services.IRepositories
+    internal sealed class ApplicationRepositories : Mors.Journeys.Application.IRepositories
     {
         private readonly IRepositories _repositories;
 
-        public Repositories(IRepositories repositories)
+        public ApplicationRepositories(IRepositories repositories)
         {
             _repositories = repositories;
         }

@@ -32,35 +32,60 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mors.AppPlatform.Common, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mors.Journeys.Application, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mors.AppPlatform.Common.1.3.0.0\lib\net45\Mors.AppPlatform.Common.dll</HintPath>
+      <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Application.Client.Wpf, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Mors.Journeys.Application.Client.Wpf.1.2.0.0\lib\net45\Mors.Journeys.Application.Client.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Mors.Journeys.Data.1.0.0.0\lib\net45\Mors.Journeys.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Expenses">
+      <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Domain.Expenses.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Infrastructure">
+      <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Domain.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.Journeys">
+      <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Domain.Journeys.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Journeys.Domain.People">
+      <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Domain.People.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dispatching\Command.cs" />
     <Compile Include="Dispatching\Query.cs" />
+    <Compile Include="JourneysApplication.cs" />
+    <Compile Include="JourneysWpfClient.cs" />
+    <Compile Include="Journeys\ClientWpfIdFactory.cs" />
+    <Compile Include="Journeys\ClientWpfQueryHandlerRegistry.cs" />
+    <Compile Include="Journeys\ClientWpfEventBus.cs" />
     <Compile Include="Services\AsyncCommandDispatcher.cs" />
     <Compile Include="Services\AsyncQueryDispatcher.cs" />
-    <Compile Include="Services\EventBus.cs" />
-    <Compile Include="Services\EventSourcing.cs" />
-    <Compile Include="Services\CommandHandlerRegistry.cs" />
+    <Compile Include="Journeys\ClientWpfCommandHandlerRegistry.cs" />
+    <Compile Include="Journeys\ApplicationEventBus.cs" />
+    <Compile Include="Journeys\ApplicationEventSourcing.cs" />
+    <Compile Include="Journeys\ApplicationCommandHandlerRegistry.cs" />
     <Compile Include="Services\EventSourcingEventBus.cs" />
-    <Compile Include="Services\IdFactory.cs" />
     <Compile Include="Dispatching\CommandKey.cs" />
-    <Compile Include="Services\NetworkQueryDispatcher.cs" />
-    <Compile Include="Services\Repositories.cs" />
+    <Compile Include="Journeys\ApplicationRepositories.cs" />
     <Compile Include="Messages\FailureMessages.Designer.cs">
       <DependentUpon>FailureMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\QueryDispatcher.cs" />
-    <Compile Include="Services\QueryHandlerRegistry.cs" />
+    <Compile Include="Journeys\ApplicationQueryDispatcher.cs" />
+    <Compile Include="Journeys\ClientWpfQueryDispatcher.cs" />
+    <Compile Include="Journeys\ApplicationQueryHandlerRegistry.cs" />
     <Compile Include="Dispatching\QueryKey.cs" />
-    <Compile Include="Services\NetworkCommandDispatcher.cs" />
+    <Compile Include="Journeys\ClientWpfCommandDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj">

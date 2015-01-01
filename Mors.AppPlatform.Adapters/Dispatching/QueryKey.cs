@@ -1,5 +1,5 @@
 ﻿using System;
-using Mors.AppPlatform.Common;
+using Mors.Journeys.Data;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
