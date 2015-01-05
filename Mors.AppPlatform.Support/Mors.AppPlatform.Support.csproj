@@ -48,7 +48,7 @@
     <Compile Include="Dispatching\HandlerDispatcher.cs" />
     <Compile Include="Dispatching\HandlerQueue.cs" />
     <Compile Include="Dispatching\HandlerRegistry.cs" />
-    <Compile Include="Dispatching\IHandlerQueueSink.cs" />
+    <Compile Include="Dispatching\IHandlerSink.cs" />
     <Compile Include="Dispatching\IHandlerRegistry.cs" />
     <Compile Include="Dispatching\IHandlerSource.cs" />
     <Compile Include="Dispatching\PrioritizedHandlerSource.cs" />
