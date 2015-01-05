@@ -17,7 +17,7 @@ namespace Mors.AppPlatform.Adapters.Journeys
         public void SetHandler<TQuery, TResult>(Func<TQuery, TResult> handler)
             where TQuery : IQuery<TResult>
         {
-            var queryKey = QueryKey.From<TQuery, TResult>();
+            var queryKey = new QueryKey(typeof(TQuery));
             Func<object, object> adaptedHandler = query => handler((TQuery)query);
             _handlerRegistry.Set(queryKey, adaptedHandler);
         }

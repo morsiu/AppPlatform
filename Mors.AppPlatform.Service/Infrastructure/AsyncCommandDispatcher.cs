@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Service.Infrastructure
 {
     public sealed class AsyncCommandDispatcher
     {
@@ -14,7 +15,7 @@ namespace Mors.AppPlatform.Adapters.Services
 
         public Task Dispatch(object commandSpecification)
         {
-            var command = new Dispatching.Command(commandSpecification);
+            var command = new Command(commandSpecification);
             return command.Schedule(_handlerScheduler);
         }
     }

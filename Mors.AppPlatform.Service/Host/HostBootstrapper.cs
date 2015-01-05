@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Mors.AppPlatform.Adapters.Services;
+using Mors.AppPlatform.Service.Infrastructure;
 using Mors.AppPlatform.Service.Modules;
 using Nancy;
 using Nancy.Bootstrapper;

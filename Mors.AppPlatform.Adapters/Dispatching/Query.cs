@@ -7,21 +7,21 @@ using Mors.Journeys.Data;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
-    public sealed class Query<TResult>
+    public sealed class Query
     {
-        private readonly IQuery<TResult> _querySpecification;
+        private readonly object _querySpecification;
 
-        public Query(IQuery<TResult> querySpecification)
+        public Query(object querySpecification)
         {
             _querySpecification = querySpecification;
         }
 
-        public TResult Dispatch(HandlerDispatcher dispatcher)
+        public object Dispatch(HandlerDispatcher dispatcher)
         {
-            var queryKey = QueryKey.From(_querySpecification);
+            var queryKey = new QueryKey(_querySpecification.GetType());
             try
             {
-                return (TResult)dispatcher.Dispatch(queryKey, _querySpecification);
+                return dispatcher.Dispatch(queryKey, _querySpecification);
             }
             catch (HandlerNotFoundException)
             {

@@ -56,7 +56,10 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Host\HostBootstrapper.cs" />
+    <Compile Include="Infrastructure\AsyncCommandDispatcher.cs" />
+    <Compile Include="Infrastructure\AsyncQueryDispatcher.cs" />
     <Compile Include="Infrastructure\ContentTypeAwareSerializer.cs" />
+    <Compile Include="Infrastructure\EventSourcingEventBus.cs" />
     <Compile Include="Modules\CommandModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

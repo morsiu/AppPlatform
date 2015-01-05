@@ -2,7 +2,7 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Services
+namespace Mors.AppPlatform.Service.Infrastructure
 {
     public sealed class AsyncQueryDispatcher
     {
@@ -15,8 +15,8 @@ namespace Mors.AppPlatform.Adapters.Services
 
         public Task<object> Dispatch(object querySpecification)
         {
-            var key = new QueryKey(querySpecification.GetType());
-            return _handlerScheduler.Schedule(key, querySpecification);
+            var query = new Query(querySpecification);
+            return query.Schedule(_handlerScheduler);
         }
     }
 }

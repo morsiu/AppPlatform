@@ -1,5 +1,6 @@
 ﻿using Mors.AppPlatform.Adapters;
 using Mors.AppPlatform.Adapters.Services;
+using Mors.AppPlatform.Service.Infrastructure;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.EventSourcing;
 using Mors.AppPlatform.Support.EventSourcing.Storage;
@@ -50,7 +51,7 @@ namespace Mors.AppPlatform.Service
             QueryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
             CommandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
 
-            var commandHandlerSource = new TrackingHandlerSource(new TransactedHandlerSource(commandHandlerQueue, transaction));
+            var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
             var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
             _handlerDispatcher = new AsyncHandlerDispatcher(
                 new PrioritizedHandlerSource(

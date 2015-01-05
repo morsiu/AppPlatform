@@ -39,8 +39,8 @@ namespace Mors.AppPlatform.Adapters.Journeys
 
         private TResult DispatchInternal<TResult>(IQuery<TResult> querySpecification)
         {
-            var query = new Query<TResult>(querySpecification);
-            return query.Dispatch(_handlerDispatcher);
+            var query = new Query(querySpecification);
+            return (TResult)query.Dispatch(_handlerDispatcher);
         }
 
         private bool IsInternal(Type queryType)

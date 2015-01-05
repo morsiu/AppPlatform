@@ -66,13 +66,10 @@
     <Compile Include="Journeys\ClientWpfIdFactory.cs" />
     <Compile Include="Journeys\ClientWpfQueryHandlerRegistry.cs" />
     <Compile Include="Journeys\ClientWpfEventBus.cs" />
-    <Compile Include="Services\AsyncCommandDispatcher.cs" />
-    <Compile Include="Services\AsyncQueryDispatcher.cs" />
     <Compile Include="Journeys\ClientWpfCommandHandlerRegistry.cs" />
     <Compile Include="Journeys\ApplicationEventBus.cs" />
     <Compile Include="Journeys\ApplicationEventSourcing.cs" />
     <Compile Include="Journeys\ApplicationCommandHandlerRegistry.cs" />
-    <Compile Include="Services\EventSourcingEventBus.cs" />
     <Compile Include="Dispatching\CommandKey.cs" />
     <Compile Include="Journeys\ApplicationRepositories.cs" />
     <Compile Include="Messages\FailureMessages.Designer.cs">

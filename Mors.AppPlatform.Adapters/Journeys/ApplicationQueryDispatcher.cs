@@ -14,8 +14,8 @@ namespace Mors.AppPlatform.Adapters.Journeys
 
         public TResult Dispatch<TResult>(Mors.Journeys.Data.IQuery<TResult> querySpecification)
         {
-            var query = new Query<TResult>(querySpecification);
-            return query.Dispatch(_handlerDispatcher);
+            var query = new Query(querySpecification);
+            return (TResult)query.Dispatch(_handlerDispatcher);
         }
     }
 }
