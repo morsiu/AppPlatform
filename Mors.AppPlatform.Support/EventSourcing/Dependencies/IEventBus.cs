@@ -1,7 +1,7 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.EventSourcing
+namespace Mors.AppPlatform.Support.EventSourcing.Dependencies
 {
     public interface IEventBus
     {

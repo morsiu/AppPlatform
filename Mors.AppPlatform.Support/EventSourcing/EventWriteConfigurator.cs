@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mors.AppPlatform.Support.EventSourcing.Dependencies;
 
 namespace Mors.AppPlatform.Support.EventSourcing
 {

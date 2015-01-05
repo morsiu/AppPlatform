@@ -3,7 +3,7 @@ using Mors.AppPlatform.Support.Events;
 
 namespace Mors.AppPlatform.Adapters.Services
 {
-    public sealed class EventSourcingEventBus : Support.EventSourcing.IEventBus
+    public sealed class EventSourcingEventBus : Support.EventSourcing.Dependencies.IEventBus
     {
         private readonly IEventBus _eventBus;
 

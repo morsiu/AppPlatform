@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mors.AppPlatform.Support.EventSourcing.Dependencies;
 using Mors.AppPlatform.Support.EventSourcing.Storage;
 
 namespace Mors.AppPlatform.Support.EventSourcing
 {
-    public sealed class Module
+    public sealed class EventSourcingModule
     {
-        private readonly string _eventsFileName;
+        private readonly Func<IEnumerable<Type>, IEventStore> _eventStoreFactory;
         private readonly HashSet<Type> _typesOfEventsToStore = new HashSet<Type>();
         private readonly EventReplayConfigurator _eventReplayConfigurator = new EventReplayConfigurator();
         private readonly EventWriteConfigurator _eventWriteConfigurator = new EventWriteConfigurator();
         private readonly IEventBus _eventBus;
         private readonly Type _idImplementationType;
 
-        public Module(IEventBus eventBus, Type idImplementationType, string eventsFileName)
+        public EventSourcingModule(
+            IEventBus eventBus,
+            Func<IEnumerable<Type>, IEventStore> eventStoreFactory,
+            Type idImplementationType)
         {
             _eventBus = eventBus;
-            _eventsFileName = eventsFileName;
+            _eventStoreFactory = eventStoreFactory;
             _idImplementationType = idImplementationType;
         }
-     
+
         public void ReplayEvents()
         {
             var eventStore = GetEventStore();
@@ -43,9 +47,9 @@ namespace Mors.AppPlatform.Support.EventSourcing
             _typesOfEventsToStore.Add(eventType);
         }
 
-        private EventStore GetEventStore()
+        private IEventStore GetEventStore()
         {
-            var eventStore = new EventStore(_eventsFileName, GetSupportedEventTypes());
+            var eventStore = _eventStoreFactory(GetSupportedEventTypes());
             return eventStore;
         }
 

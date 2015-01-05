@@ -1,17 +1,22 @@
 ﻿using Mors.AppPlatform.Adapters.Journeys;
+using Mors.AppPlatform.Support.Dispatching;
+using Mors.AppPlatform.Support.Events;
+using Mors.AppPlatform.Support.EventSourcing;
+using Mors.AppPlatform.Support.Repositories;
+using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Adapters
 {
     public static class JourneysApplication
     {
         public static void Bootstrap(
-            Support.Dispatching.IHandlerRegistry handlerRegistry,
-            Support.Dispatching.HandlerDispatcher handlerDispatcher,
-            Support.Events.IEventBus eventBus,
-            Support.Repositories.IRepositories repositories,
-            Support.EventSourcing.Module eventSourcingModule,
-            Support.Repositories.GuidIdFactory idFactory,
-            Support.Transactions.Transaction transaction)
+            IHandlerRegistry handlerRegistry,
+            HandlerDispatcher handlerDispatcher,
+            IEventBus eventBus,
+            IRepositories repositories,
+            EventSourcingModule eventSourcingModule,
+            GuidIdFactory idFactory,
+            Transaction transaction)
         {
             var bootstrapper = new Mors.Journeys.Application.Bootstrapper();
             bootstrapper.BootstrapEventSourcing(

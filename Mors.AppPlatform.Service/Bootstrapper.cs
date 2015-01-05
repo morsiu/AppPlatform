@@ -1,8 +1,10 @@
-﻿using Mors.AppPlatform.Support.Dispatching;
-using Mors.AppPlatform.Support.Repositories;
+﻿using Mors.AppPlatform.Adapters;
 using Mors.AppPlatform.Adapters.Services;
+using Mors.AppPlatform.Support.Dispatching;
+using Mors.AppPlatform.Support.EventSourcing;
+using Mors.AppPlatform.Support.EventSourcing.Storage;
+using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Support.Transactions;
-using Mors.AppPlatform.Adapters;
 
 namespace Mors.AppPlatform.Service
 {
@@ -23,10 +25,13 @@ namespace Mors.AppPlatform.Service
             var repositories = new Repositories();
             var transaction = new Transaction();
 
-            var eventSourcingModule = new Support.EventSourcing.Module(
+            var eventSourcingModule = new EventSourcingModule(
                 new EventSourcingEventBus(eventBus),
-                idFactory.IdImplementationType,
-                eventFileName);
+                supportedEventTypes => 
+                    new XmlFileEventStore(
+                        eventFileName,
+                        supportedEventTypes),
+                idFactory.IdImplementationType);
 
             JourneysApplication.Bootstrap(
                 handlerRegistry,

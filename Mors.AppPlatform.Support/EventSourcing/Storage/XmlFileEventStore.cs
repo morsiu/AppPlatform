@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Mors.AppPlatform.Support.EventSourcing.Dependencies;
 
 namespace Mors.AppPlatform.Support.EventSourcing.Storage
 {
-    internal sealed class EventStore
+    public sealed class XmlFileEventStore : IEventStore
     {
         private readonly string _fileName;
         private readonly IEnumerable<Type> _eventTypesToSupport;
 
-        public EventStore(string fileName, IEnumerable<Type> eventTypesToSupport)
+        public XmlFileEventStore(string fileName, IEnumerable<Type> eventTypesToSupport)
         {
             _fileName = fileName;
             _eventTypesToSupport = eventTypesToSupport;
