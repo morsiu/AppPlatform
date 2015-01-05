@@ -28,7 +28,7 @@ namespace Mors.AppPlatform.Adapters
                 new ApplicationEventBus(eventBus),
                 new ApplicationQueryDispatcher(handlerDispatcher));
             bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry),
+                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction),
                 new ApplicationRepositories(transaction.Register(repositories)),
                 new ApplicationEventBus(transaction.Register(eventBus)).Publish,
                 () => idFactory.Create(),
