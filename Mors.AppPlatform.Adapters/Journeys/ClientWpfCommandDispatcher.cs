@@ -8,11 +8,12 @@ namespace Mors.AppPlatform.Adapters.Journeys
     {
         private readonly HandlerDispatcher _handlerDispatcher;
         private readonly Uri _commandRequestUri;
+        private readonly RequestFactory _requestFactory;
 
-        public ClientWpfCommandDispatcher(Uri commandRequestUri, HandlerDispatcher handlerDispatcher)
+        public ClientWpfCommandDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
         {
             _handlerDispatcher = handlerDispatcher;
-            _commandRequestUri = commandRequestUri;
+            _requestFactory = requestFactory;
         }
 
         public void Dispatch<TCommand>(TCommand command)
@@ -34,7 +35,7 @@ namespace Mors.AppPlatform.Adapters.Journeys
 
         private void DispatchExternal(object command)
         {
-            var request = new CommandRequest(_commandRequestUri, command);
+            var request = _requestFactory.CreateCommandRequest(command);
             request.Run();
         }
 

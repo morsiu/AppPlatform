@@ -10,11 +10,11 @@ namespace Mors.AppPlatform.Service.Client
         private readonly Uri _requestUri;
         private readonly object _query;
 
-        public QueryRequest(Uri requestUri, object query)
+        public QueryRequest(Uri requestUri, object query, NetDataContractSerializer serializer)
         {
             _requestUri = requestUri;
             _query = query;
-            _serializer = new NetDataContractSerializer();
+            _serializer = serializer;
         }
 
         public TResult Run()

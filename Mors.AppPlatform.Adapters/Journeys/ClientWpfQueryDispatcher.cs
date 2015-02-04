@@ -8,12 +8,12 @@ namespace Mors.AppPlatform.Adapters.Journeys
 {
     internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Client.Wpf.IQueryDispatcher
     {
-        private readonly Uri _queryRequestUri;
         private readonly HandlerDispatcher _handlerDispatcher;
+        private readonly RequestFactory _requestFactory;
 
-        public ClientWpfQueryDispatcher(Uri queryRequestUri, HandlerDispatcher handlerDispatcher)
+        public ClientWpfQueryDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
         {
-            _queryRequestUri = queryRequestUri;
+            _requestFactory = requestFactory;
             _handlerDispatcher = handlerDispatcher;
         }
 
@@ -32,7 +32,7 @@ namespace Mors.AppPlatform.Adapters.Journeys
 
         private TResult DispatchExternal<TResult>(IQuery<TResult> query)
         {
-            var queryRequest = new QueryRequest<TResult>(_queryRequestUri, query);
+            var queryRequest = _requestFactory.CreateQueryRequest<TResult>(query);
             var result = queryRequest.Run();
             return result;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Journeys;
+using Mors.AppPlatform.Service.Client;
 
 namespace Mors.AppPlatform.Adapters
 {
@@ -11,11 +12,14 @@ namespace Mors.AppPlatform.Adapters
             Support.Dispatching.IHandlerRegistry handlerRegistry,
             Support.Repositories.GuidIdFactory idFactory)
         {
+            var requestFactory = new RequestFactory(
+                new Uri("http://localhost:65363/api/command"),
+                new Uri("http://localhost:65363/api/query"));
             var bootstrapper = new Mors.Journeys.Application.Client.Wpf.Bootstrapper(
                 new ClientWpfEventBus(eventBus),
-                new ClientWpfCommandDispatcher(new Uri("http://localhost:65363/api/command"), handlerDispatcher),
+                new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
                 new ClientWpfCommandHandlerRegistry(handlerRegistry),
-                new ClientWpfQueryDispatcher(new Uri("http://localhost:65363/api/query"), handlerDispatcher),
+                new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
                 new ClientWpfQueryHandlerRegistry(handlerRegistry),
                 new ClientWpfIdFactory(idFactory));
             bootstrapper.Bootstrap();
