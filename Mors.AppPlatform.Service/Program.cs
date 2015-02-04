@@ -11,23 +11,8 @@ namespace Mors.AppPlatform.Service
         {
             var configuration = Settings.Default;
             var bootstrapper = new Bootstrapper();
-            bootstrapper.Bootstrap(configuration.EventFilePath);
-            var hostBoostrapper = new HostBootstrapper(bootstrapper.QueryDispatcher, bootstrapper.CommandDispatcher, configuration.SitePath);
-            var host = new NancyHost(
-                hostBoostrapper,
-                new HostConfiguration
-                {
-                    UrlReservations =
-                        new UrlReservations
-                        {
-                            CreateAutomatically = configuration.CreateUrlReservation,
-                            User = configuration.UrlReservationUser 
-                        }
-                },
-                new Uri(configuration.HostUri));
-            host.Start();
-
-            bootstrapper.RunScheduledHandlers();
+            bootstrapper.Bootstrap(configuration);
+            bootstrapper.RunService();
         }
     }
 }
