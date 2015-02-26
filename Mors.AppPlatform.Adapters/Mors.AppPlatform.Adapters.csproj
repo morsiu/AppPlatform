@@ -56,6 +56,12 @@
     <Reference Include="Mors.Journeys.Domain.People">
       <HintPath>..\packages\Mors.Journeys.Application.1.3.0.0\lib\net45\Mors.Journeys.Domain.People.dll</HintPath>
     </Reference>
+    <Reference Include="Mors.Words">
+      <HintPath>..\packages\Mors.Words.1.0.0.0\lib\net45\Mors.Words.dll</HintPath>
+    </Reference>
+    <Reference Include="Mors.Words.Data">
+      <HintPath>..\packages\Mors.Words.1.0.0.0\lib\net45\Mors.Words.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,9 @@
     <Compile Include="Journeys\ApplicationQueryHandlerRegistry.cs" />
     <Compile Include="Dispatching\QueryKey.cs" />
     <Compile Include="Journeys\ClientWpfCommandDispatcher.cs" />
+    <Compile Include="WordsApplication.cs" />
+    <Compile Include="Words\ApplicationCommandHandlerRegistry.cs" />
+    <Compile Include="Words\ApplicationEventBus.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj">
@@ -103,6 +112,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -44,6 +44,12 @@ namespace Mors.AppPlatform.Service
                 idFactory,
                 transaction);
 
+            WordsApplication.Bootstrap(
+                handlerRegistry,
+                eventBus,
+                transaction,
+                eventSourcingModule);
+
             eventSourcingModule.ReplayEvents();
             eventSourcingModule.StoreNewEvents();
 

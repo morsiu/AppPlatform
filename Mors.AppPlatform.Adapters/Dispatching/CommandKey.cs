@@ -11,6 +11,11 @@ namespace Mors.AppPlatform.Adapters.Dispatching
             _commandType = commandType;
         }
 
+        public static CommandKey From(Type commandType)
+        {
+            return new CommandKey(commandType);
+        }
+
         public static CommandKey From(object command)
         {
             var commandType = command.GetType();
