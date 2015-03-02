@@ -16,7 +16,7 @@ namespace Mors.AppPlatform.Adapters
         {
             var bootstrapper = new Mors.Words.Bootstrapper();
             bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, new ApplicationEventBus(eventBus)).Register);
+                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, new ApplicationEventBus(transaction.Register(eventBus))).Register);
         }
     }
 }

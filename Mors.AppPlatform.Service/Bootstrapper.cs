@@ -25,7 +25,6 @@ namespace Mors.AppPlatform.Service
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
             var repositories = new Repositories();
-            var transaction = new Transaction();
 
             var eventSourcingModule = new EventSourcingModule(
                 new EventSourcingEventBus(eventBus),
@@ -42,12 +41,12 @@ namespace Mors.AppPlatform.Service
                 repositories,
                 eventSourcingModule,
                 idFactory,
-                transaction);
+                new Transaction());
 
             WordsApplication.Bootstrap(
                 handlerRegistry,
                 eventBus,
-                transaction,
+                new Transaction(),
                 eventSourcingModule);
 
             eventSourcingModule.ReplayEvents();
