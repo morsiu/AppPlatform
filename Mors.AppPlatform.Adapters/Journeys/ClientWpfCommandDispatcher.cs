@@ -7,7 +7,6 @@ namespace Mors.AppPlatform.Adapters.Journeys
     internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Client.Wpf.ICommandDispatcher
     {
         private readonly HandlerDispatcher _handlerDispatcher;
-        private readonly Uri _commandRequestUri;
         private readonly RequestFactory _requestFactory;
 
         public ClientWpfCommandDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
