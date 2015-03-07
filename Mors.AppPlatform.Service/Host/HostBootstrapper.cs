@@ -13,28 +13,27 @@ namespace Mors.AppPlatform.Service.Host
     {
         private readonly AsyncQueryDispatcher _queryDispatcher;
         private readonly AsyncCommandDispatcher _commandDispatcher;
-        private readonly string _sitePath;
+        private readonly string _rootPath;
+        private readonly string _siteDirectory;
 
-        public HostBootstrapper(AsyncQueryDispatcher queryDispatcher, AsyncCommandDispatcher commandDispatcher, string sitePath)
+        public HostBootstrapper(AsyncQueryDispatcher queryDispatcher, AsyncCommandDispatcher commandDispatcher, string sitesPath)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            _sitePath = Path.GetFullPath(sitePath);
+            sitesPath = Path.GetFullPath(sitesPath);
+            _rootPath = Path.GetDirectoryName(sitesPath);
+            _siteDirectory = Path.GetFileName(sitesPath);
         }
 
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
-            nancyConventions.StaticContentsConventions.AddDirectory("/site", "site");
-            nancyConventions.StaticContentsConventions.AddFile("/site/", "site/index.html");
+            nancyConventions.StaticContentsConventions.AddDirectory(_siteDirectory);
             base.ConfigureConventions(nancyConventions);
         }
 
         protected override IRootPathProvider RootPathProvider
         {
-            get
-            {
-                return new StaticRootPathProvider(_sitePath);
-            }
+            get { return new StaticRootPathProvider(_rootPath); }
         }
 
         protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)

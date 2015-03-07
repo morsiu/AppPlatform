@@ -75,7 +75,7 @@ namespace Mors.AppPlatform.Service
                             new[] { commandHandlerSource.NoRunningHandlersEvent })
                     }));
 
-            var hostBoostrapper = new HostBootstrapper(queryDispatcher, commandDispatcher, configuration.SitePath);
+            var hostBoostrapper = new HostBootstrapper(queryDispatcher, commandDispatcher, configuration.SitesPath);
             _host = new NancyHost(
                 hostBoostrapper,
                 new HostConfiguration
