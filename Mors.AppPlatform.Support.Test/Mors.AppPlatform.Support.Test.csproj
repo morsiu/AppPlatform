@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
@@ -51,6 +52,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommandExecution\CommandExecutor_CommandHandlerRetrieverTests.cs" />
+    <Compile Include="CommandExecution\CommandExecutor_ResultTests.cs" />
+    <Compile Include="CommandExecution\CommandExecutor_LogBehaviorTests.cs" />
+    <Compile Include="CommandExecution\CommandHandlerEnvironmentFactory.cs" />
+    <Compile Include="CommandExecution\LoggerMock.cs" />
     <Compile Include="EventSourcing\Events\Event.cs" />
     <Compile Include="EventSourcing\XmlEventReaderWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
