@@ -72,6 +72,8 @@
     <Compile Include="Events\IEventBus.cs" />
     <Compile Include="Events\TransactedEventBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryExecution\QueryExecutionReport.cs" />
+    <Compile Include="QueryExecution\QueryExecutor.cs" />
     <Compile Include="Repositories\Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Repositories\GuidIdFactory.cs" />
     <Compile Include="Repositories\InMemoryRepository.cs" />
