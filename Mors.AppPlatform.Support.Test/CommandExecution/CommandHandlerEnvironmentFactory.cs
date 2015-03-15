@@ -15,7 +15,7 @@ namespace Mors.AppPlatform.Support.Test.CommandExecution
     using AggregateRetriever = Func<AggregateType, AggregateId, Aggregate>;
     using AggregateStorer = Action<AggregateType, AggregateId, Aggregate>;
     using QueryDispatcher = Func<Query, QueryResult>;
-    using EventDispatcher = Action<Event>;
+    using EventDispatcher = Func<Event, bool>;
     using EventsStorer = Action<IReadOnlyList<Event>>;
     using AggregateKey = Tuple<AggregateType, AggregateId>;
 
@@ -30,7 +30,7 @@ namespace Mors.AppPlatform.Support.Test.CommandExecution
                 (aggregateType, aggregateId) => { throw new NotImplementedException(); },
                 (query) => { throw new NotImplementedException(); },
                 aggregateStorer ?? ((aggregateType, aggregateId, aggregate) => { }),
-                eventDispatcher ?? ((@event) => { }),
+                eventDispatcher ?? ((@event) => false),
                 (events) => { });
         }
     }
