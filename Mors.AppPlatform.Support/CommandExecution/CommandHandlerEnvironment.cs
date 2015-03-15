@@ -17,7 +17,15 @@ namespace Mors.AppPlatform.Support.CommandExecution
     using EventsStorer = Action<IReadOnlyList<Event>>;
     using AggregateKey = Tuple<AggregateType, AggregateId>;
 
-    public sealed class CommandHandlerEnvironment
+    public interface ICommandHandlerEnvironment
+    {
+        void QueueEvent(Event @event);
+        Aggregate RetrieveAggregate(AggregateType aggregateType, AggregateId aggregateId);
+        void StoreAggregate(AggregateType aggregateType, AggregateId aggregateId, Aggregate aggregate);
+        QueryResult DispatchQuery(Query query);
+    }
+
+    public sealed class CommandHandlerEnvironment : ICommandHandlerEnvironment
     {
         private readonly List<Event> _queuedEvents = new List<QueryResult>();
         private readonly Dictionary<AggregateKey, Aggregate> _storedAggregates = new Dictionary<AggregateKey, QueryResult>();

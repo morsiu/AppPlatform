@@ -6,7 +6,7 @@ using CommandResult = System.Object;
 
 namespace Mors.AppPlatform.Support.Test.CommandExecution
 {
-    using CommandHandler = Func<Command, CommandHandlerEnvironment, CommandResult>;
+    using CommandHandler = Func<Command, ICommandHandlerEnvironment, CommandResult>;
 
     [TestClass]
     public class CommandExecutor_LogBehaviorTests

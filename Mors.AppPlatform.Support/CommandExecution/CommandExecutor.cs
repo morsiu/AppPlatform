@@ -6,7 +6,7 @@ using LogEntry = System.Object;
 
 namespace Mors.AppPlatform.Support.CommandExecution
 {
-    using CommandHandler = Func<Command, CommandHandlerEnvironment, CommandResult>;
+    using CommandHandler = Func<Command, ICommandHandlerEnvironment, CommandResult>;
 
     public sealed class CommandExecutor
     {
