@@ -27,8 +27,8 @@ namespace Mors.AppPlatform.Support.CommandExecution
 
     public sealed class CommandHandlerEnvironment : ICommandHandlerEnvironment
     {
-        private readonly List<Event> _queuedEvents = new List<QueryResult>();
-        private readonly Dictionary<AggregateKey, Aggregate> _storedAggregates = new Dictionary<AggregateKey, QueryResult>();
+        private readonly List<Event> _queuedEvents = new List<Event>();
+        private readonly Dictionary<AggregateKey, Aggregate> _storedAggregates = new Dictionary<AggregateKey, Aggregate>();
         private readonly AggregateRetriever _aggregateRetriever;
         private readonly QueryDispatcher _queryDispatcher;
         private readonly Logger _logger;
