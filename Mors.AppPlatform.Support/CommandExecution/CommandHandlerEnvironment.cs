@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mors.AppPlatform.Support.QueryExecution;
 using Event = System.Object;
 using AggregateType = System.Type;
 using Aggregate = System.Object;
@@ -12,8 +13,8 @@ namespace Mors.AppPlatform.Support.CommandExecution
 {
     using AggregateRetriever = Func<AggregateType, AggregateId, Aggregate>;
     using AggregateStorer = Action<AggregateType, AggregateId, Aggregate>;
-    using QueryDispatcher = Func<Query, QueryResult>;
-    using EventDispatcher = Action<Event>;
+    using QueryDispatcher = Func<Query, QueryExecutionReport>;
+    using EventDispatcher = Func<Event, bool>;
     using EventsStorer = Action<IReadOnlyList<Event>>;
     using AggregateKey = Tuple<AggregateType, AggregateId>;
 
@@ -74,7 +75,12 @@ namespace Mors.AppPlatform.Support.CommandExecution
 
         public QueryResult DispatchQuery(Query query)
         {
-            return _queryDispatcher(query);
+            var queryExecutionReport = _queryDispatcher(query);
+            if (queryExecutionReport.QueryComplete)
+            {
+                return queryExecutionReport.QueryResult;
+            }
+            throw new Exception("Query execution failed.");
         }
 
         public CommandCommitResult Commit()
@@ -118,7 +124,10 @@ namespace Mors.AppPlatform.Support.CommandExecution
             {
                 try
                 {
-                    _eventDispatcher(queuedEvent);
+                    if (!_eventDispatcher(queuedEvent))
+                    {
+                        anyEventDispatchFailed = true;
+                    }
                 }
                 catch (Exception exception)
                 {
