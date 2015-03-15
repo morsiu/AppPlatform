@@ -56,6 +56,7 @@
     <Compile Include="Dispatching\IHandlerRegistry.cs" />
     <Compile Include="Dispatching\IHandlerSource.cs" />
     <Compile Include="Dispatching\PrioritizedHandlerSource.cs" />
+    <Compile Include="EventExecution\EventExecutor.cs" />
     <Compile Include="EventSourcing\Dependencies\IEventStore.cs" />
     <Compile Include="EventSourcing\EventReplayConfigurator.cs" />
     <Compile Include="EventSourcing\EventReplayer.cs" />
