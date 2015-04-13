@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.AppPlatform.Support.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.AppPlatform.Runtime", "Mors.AppPlatform.Runtime\Mors.AppPlatform.Runtime.csproj", "{1335C81B-BA5D-4142-98BD-69BE199CE325}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.AppPlatform.Runtime.Test", "Mors.AppPlatform.Runtime.Test\Mors.AppPlatform.Runtime.Test.csproj", "{F7EAD28E-772D-4834-A7AF-41361B5E8502}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
