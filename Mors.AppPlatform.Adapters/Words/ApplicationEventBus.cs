@@ -1,5 +1,4 @@
-﻿using System;
-using Mors.AppPlatform.Support.Events;
+﻿using Mors.AppPlatform.Support.Events;
 
 namespace Mors.AppPlatform.Adapters.Words
 {

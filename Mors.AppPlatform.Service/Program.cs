@@ -1,7 +1,4 @@
-﻿using System;
-using Mors.AppPlatform.Service.Host;
-using Mors.AppPlatform.Service.Properties;
-using Nancy.Hosting.Self;
+﻿using Mors.AppPlatform.Service.Properties;
 
 namespace Mors.AppPlatform.Service
 {

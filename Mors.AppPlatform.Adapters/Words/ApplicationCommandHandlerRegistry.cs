@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
-using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Adapters.Words

@@ -1,5 +1,4 @@
 ﻿using System;
-using Mors.Journeys.Data;
 
 namespace Mors.AppPlatform.Adapters.Dispatching
 {
