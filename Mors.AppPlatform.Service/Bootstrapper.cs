@@ -47,7 +47,8 @@ namespace Mors.AppPlatform.Service
                 handlerRegistry,
                 eventBus,
                 new Transaction(),
-                eventSourcingModule);
+                eventSourcingModule,
+                idFactory);
 
             eventSourcingModule.ReplayEvents();
             eventSourcingModule.StoreNewEvents();

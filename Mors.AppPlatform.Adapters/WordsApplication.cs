@@ -2,6 +2,7 @@
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.EventSourcing;
+using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Adapters
@@ -12,11 +13,12 @@ namespace Mors.AppPlatform.Adapters
             IHandlerRegistry handlerRegistry,
             IEventBus eventBus,
             Transaction transaction,
-            EventSourcingModule eventSourcingModule)
+            EventSourcingModule eventSourcingModule,
+            GuidIdFactory idFactory)
         {
             var bootstrapper = new Mors.Words.Bootstrapper();
             bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, new ApplicationEventBus(transaction.Register(eventBus))).Register);
+                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, new ApplicationEventBus(transaction.Register(eventBus)), idFactory).Register);
         }
     }
 }
