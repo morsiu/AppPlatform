@@ -164,5 +164,5 @@ TemporaryGeneratedFile_*.cs
 *.exe
 *.dll
 *.ide
-/Mors.AppPlatform.Service/data
-/Mors.AppPlatform.Service/sites
+/*/data
+/*/content
