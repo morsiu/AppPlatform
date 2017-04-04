@@ -1,4 +1,5 @@
 ﻿using Mors.AppPlatform.Adapters;
+using Mors.AppPlatform.Client.Properties;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
@@ -11,8 +12,8 @@ namespace Mors.AppPlatform.Client
         public void BootstrapAndRun()
         {
             var requestFactory = new RequestFactory(
-                new Uri("http://localhost:65363/api/command"),
-                new Uri("http://localhost:65363/api/query"));
+                Settings.Default.CommandRequestUri,
+                Settings.Default.QueryRequestUri);
             var eventBus = new Support.Events.EventBus();
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();
