@@ -13,7 +13,12 @@ namespace Mors.AppPlatform.Client
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
             var application = new Application();
-            var window = new MainWindow(null);
+            var window = new MainWindow(
+                JourneysWpfClient.Bootstrap(
+                    eventBus,
+                    handlerDispatcher,
+                    handlerRegistry,
+                    idFactory));
             application.Run(window);
         }
     }

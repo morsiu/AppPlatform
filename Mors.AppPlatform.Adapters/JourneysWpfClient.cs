@@ -1,12 +1,13 @@
 ﻿using System;
 using Mors.AppPlatform.Adapters.Journeys;
 using Mors.AppPlatform.Service.Client;
+using System.Windows;
 
 namespace Mors.AppPlatform.Adapters
 {
     public static class JourneysWpfClient
     {
-        public static void BootstrapAndRun(
+        public static UIElement Bootstrap(
             Support.Events.IEventBus eventBus,
             Support.Dispatching.HandlerDispatcher handlerDispatcher,
             Support.Dispatching.IHandlerRegistry handlerRegistry,
@@ -22,8 +23,7 @@ namespace Mors.AppPlatform.Adapters
                 new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
                 new ClientWpfQueryHandlerRegistry(handlerRegistry),
                 new ClientWpfIdFactory(idFactory));
-            bootstrapper.Bootstrap();
-            bootstrapper.Run();
+            return bootstrapper.Bootstrap();
         }
     }
 }
