@@ -8,7 +8,7 @@ namespace Mors.AppPlatform.Client
         public static void Main()
         {
             var bootstrapper = new Bootstrapper();
-            bootstrapper.Bootstrap();
+            bootstrapper.BootstrapAndRun();
         }
     }
 }

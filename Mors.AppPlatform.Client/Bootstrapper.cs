@@ -6,18 +6,15 @@ namespace Mors.AppPlatform.Client
 {
     internal sealed class Bootstrapper
     {
-        public void Bootstrap()
+        public void BootstrapAndRun()
         {
             var eventBus = new Support.Events.EventBus();
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
-
-            JourneysWpfClient.BootstrapAndRun(
-                eventBus,
-                handlerDispatcher,
-                handlerRegistry,
-                idFactory);
+            var application = new Application();
+            var window = new MainWindow(null);
+            application.Run(window);
         }
     }
 }
