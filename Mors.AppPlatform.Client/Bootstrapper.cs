@@ -3,7 +3,6 @@ using Mors.AppPlatform.Client.Properties;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Repositories;
-using System;
 
 namespace Mors.AppPlatform.Client
 {
@@ -20,7 +19,7 @@ namespace Mors.AppPlatform.Client
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
             var application = new Application();
             var window = new MainWindow(
-                JourneysWpfClient.Bootstrap(
+                new JourneysWpfClient(
                     requestFactory,
                     eventBus,
                     handlerDispatcher,

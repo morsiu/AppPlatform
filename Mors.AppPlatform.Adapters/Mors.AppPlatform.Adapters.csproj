@@ -66,6 +66,10 @@
     <Compile Include="Words\ApplicationEventBus.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mors.AppPlatform.Client.Support\Mors.AppPlatform.Client.Support.csproj">
+      <Project>{6b7d6fbc-a75f-435e-8230-3ae66df260f6}</Project>
+      <Name>Mors.AppPlatform.Client.Support</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj">
       <Project>{74c4ee16-e0a0-45a9-a20a-47c17a60dd16}</Project>
       <Name>Mors.AppPlatform.Service.Client</Name>

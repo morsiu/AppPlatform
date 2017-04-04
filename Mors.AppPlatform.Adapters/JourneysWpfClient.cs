@@ -1,25 +1,38 @@
 ﻿using Mors.AppPlatform.Adapters.Journeys;
+using Mors.AppPlatform.Client;
+using Mors.Journeys.Application.Client.Wpf;
 using System.Windows;
 
 namespace Mors.AppPlatform.Adapters
 {
-    public static class JourneysWpfClient
+    public class JourneysWpfClient : IApplication
     {
-        public static UIElement Bootstrap(
+        private static Bootstrapper _bootstrapper;
+
+        public JourneysWpfClient(
             Service.Client.RequestFactory requestFactory,
             Support.Events.IEventBus eventBus,
             Support.Dispatching.HandlerDispatcher handlerDispatcher,
             Support.Dispatching.IHandlerRegistry handlerRegistry,
             Support.Repositories.GuidIdFactory idFactory)
         {
-            var bootstrapper = new Mors.Journeys.Application.Client.Wpf.Bootstrapper(
+            _bootstrapper = new Bootstrapper(
                 new ClientWpfEventBus(eventBus),
                 new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
                 new ClientWpfCommandHandlerRegistry(handlerRegistry),
                 new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
                 new ClientWpfQueryHandlerRegistry(handlerRegistry),
                 new ClientWpfIdFactory(idFactory));
-            return bootstrapper.Bootstrap();
+        }
+
+        public UIElement CreateUiForInteractionWithSelf()
+        {
+            return _bootstrapper.Bootstrap();
+        }
+
+        public string DesribeSelfForTitleBarOfMainWindow()
+        {
+            return "Journeys";
         }
     }
 }

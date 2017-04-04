@@ -1,13 +1,12 @@
-﻿using System.Windows;
-
-namespace Mors.AppPlatform.Client
+﻿namespace Mors.AppPlatform.Client
 {
     internal partial class MainWindow
     {
-        public MainWindow(UIElement content)
+        public MainWindow(IApplication application)
         {
             InitializeComponent();
-            Content = content;
+            Title = application.DesribeSelfForTitleBarOfMainWindow();
+            Content = application.CreateUiForInteractionWithSelf();
         }
     }
 }
