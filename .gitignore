@@ -166,3 +166,4 @@ TemporaryGeneratedFile_*.cs
 *.ide
 /*/data
 /*/content
+/.vs
