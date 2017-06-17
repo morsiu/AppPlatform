@@ -4,7 +4,9 @@ namespace Mors.AppPlatform.Client
 {
     public interface IApplication
     {
-        string DesribeSelfForTitleBarOfMainWindow();
+        string DescribeSelfForTitleBarOfMainWindow();
+
+        string DescribeSelfForSelectionUi();
 
         UIElement CreateUiForInteractionWithSelf();
     }

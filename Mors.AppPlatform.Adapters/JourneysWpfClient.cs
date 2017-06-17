@@ -2,6 +2,7 @@
 using Mors.AppPlatform.Client;
 using Mors.Journeys.Application.Client.Wpf;
 using System.Windows;
+using System;
 
 namespace Mors.AppPlatform.Adapters
 {
@@ -30,7 +31,12 @@ namespace Mors.AppPlatform.Adapters
             return _bootstrapper.Bootstrap();
         }
 
-        public string DesribeSelfForTitleBarOfMainWindow()
+        public string DescribeSelfForSelectionUi()
+        {
+            return "Journeys";
+        }
+
+        public string DescribeSelfForTitleBarOfMainWindow()
         {
             return "Journeys";
         }

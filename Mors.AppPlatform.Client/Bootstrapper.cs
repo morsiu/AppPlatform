@@ -10,21 +10,26 @@ namespace Mors.AppPlatform.Client
     {
         public void BootstrapAndRun()
         {
-            var requestFactory = new RequestFactory(
-                Settings.Default.CommandRequestUri,
-                Settings.Default.QueryRequestUri);
+            var requestFactory =
+                new RequestFactory(
+                    Settings.Default.CommandRequestUri,
+                    Settings.Default.QueryRequestUri);
             var eventBus = new Support.Events.EventBus();
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();
             var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
             var application = new Application();
-            var window = new MainWindow(
-                new JourneysWpfClient(
-                    requestFactory,
-                    eventBus,
-                    handlerDispatcher,
-                    handlerRegistry,
-                    idFactory));
+            var window =
+                new MainWindow(
+                    new[]
+                    {
+                        new JourneysWpfClient(
+                            requestFactory,
+                            eventBus,
+                            handlerDispatcher,
+                            handlerRegistry,
+                            idFactory)
+                    });
             application.Run(window);
         }
     }
