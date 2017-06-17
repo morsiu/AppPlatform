@@ -47,8 +47,8 @@
       <DependentUpon>Application.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPlatformPlaceholder.cs" />
-    <Compile Include="IApplicationPresentationViewModel.cs" />
-    <Compile Include="IApplicationSelectionViewModel.cs" />
+    <Compile Include="IActiveApplication.cs" />
+    <Compile Include="IAvailableApplication.cs" />
     <Compile Include="WindowViewModel.cs" />
     <Compile Include="ClientApplication.cs" />
     <Compile Include="Bootstrapper.cs" />

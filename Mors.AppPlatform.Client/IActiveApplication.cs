@@ -2,7 +2,7 @@
 
 namespace Mors.AppPlatform.Client
 {
-    internal interface IApplicationPresentationViewModel
+    internal interface IActiveApplication
     {
         UIElement Content { get; }
 

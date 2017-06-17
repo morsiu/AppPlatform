@@ -2,7 +2,7 @@
 
 namespace Mors.AppPlatform.Client
 {
-    internal sealed class AppPlatformPlaceholder : IApplicationPresentationViewModel
+    internal sealed class AppPlatformPlaceholder : IActiveApplication
     {
         public UIElement Content => null;
 

@@ -17,6 +17,6 @@
             DockPanel.Dock="Top"
             ItemsSource="{Binding Applications}"
             SelectedItem="{Binding SelectedApplication}" />
-        <ContentControl Content="{Binding PresentedApplication.Content}" />
+        <ContentControl Content="{Binding ActiveApplication.Content}" />
     </DockPanel>
 </Window>

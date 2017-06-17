@@ -2,7 +2,7 @@
 
 namespace Mors.AppPlatform.Client
 {
-    internal sealed class ClientApplication : IApplicationSelectionViewModel, IApplicationPresentationViewModel
+    internal sealed class ClientApplication : IAvailableApplication, IActiveApplication
     {
         private IApplication _application;
 
@@ -17,9 +17,6 @@ namespace Mors.AppPlatform.Client
 
         public string Title => _application.DescribeSelfForTitleBarOfMainWindow();
 
-        IApplicationPresentationViewModel IApplicationSelectionViewModel.PresentedApplication()
-        {
-            return this;
-        }
+        public IActiveApplication ActiveApplication() => this;
     }
 }

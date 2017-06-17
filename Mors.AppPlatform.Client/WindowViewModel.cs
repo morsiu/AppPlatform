@@ -1,40 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Mors.AppPlatform.Client
 {
     internal sealed class WindowViewModel : INotifyPropertyChanged
     {
-        private IApplicationSelectionViewModel _selectedApplication;
-        private IApplicationPresentationViewModel _presentedApplication;
+        private IAvailableApplication _selectedApplication;
+        private IActiveApplication _activeApplication;
 
-        public WindowViewModel(IEnumerable<IApplicationSelectionViewModel> applications)
+        public WindowViewModel(IEnumerable<IAvailableApplication> applications)
         {
             Applications = applications;
-            _presentedApplication = new AppPlatformPlaceholder();
+            _activeApplication = new AppPlatformPlaceholder();
         }
 
-        public IEnumerable<IApplicationSelectionViewModel> Applications { get; }
+        public IEnumerable<IAvailableApplication> Applications { get; }
 
-        public IApplicationSelectionViewModel SelectedApplication
+        public IAvailableApplication SelectedApplication
         {
             get { return _selectedApplication; }
             set
             {
                 _selectedApplication = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedApplication)));
-                PresentedApplication = _selectedApplication?.PresentedApplication() ?? new AppPlatformPlaceholder();
+                ActiveApplication = _selectedApplication?.ActiveApplication() ?? new AppPlatformPlaceholder();
             }
         }
 
-        public IApplicationPresentationViewModel PresentedApplication
+        public IActiveApplication ActiveApplication
         {
-            get { return _presentedApplication; }
+            get { return _activeApplication; }
             set
             {
-                _presentedApplication = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PresentedApplication)));
+                _activeApplication = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveApplication)));
             }
         }
 
