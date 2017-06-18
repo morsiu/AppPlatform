@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Dispatching\Command.cs" />
     <Compile Include="Dispatching\Query.cs" />
+    <Compile Include="ExpensesWpfClient.cs" />
     <Compile Include="JourneysApplication.cs" />
     <Compile Include="JourneysWpfClient.cs" />
     <Compile Include="Journeys\ClientWpfIdFactory.cs" />
@@ -86,6 +87,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Mors.Expenses.Client.Wpf">
+      <Version>0.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Mors.Journeys.Application">
       <Version>2.0.0</Version>
     </PackageReference>

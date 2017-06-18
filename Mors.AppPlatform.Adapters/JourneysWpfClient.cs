@@ -2,7 +2,6 @@
 using Mors.AppPlatform.Client;
 using Mors.Journeys.Application.Client.Wpf;
 using System.Windows;
-using System;
 
 namespace Mors.AppPlatform.Adapters
 {

@@ -21,14 +21,15 @@ namespace Mors.AppPlatform.Client
             var application = new Application();
             var window =
                 new MainWindow(
-                    new[]
+                    new IApplication[]
                     {
                         new JourneysWpfClient(
                             requestFactory,
                             eventBus,
                             handlerDispatcher,
                             handlerRegistry,
-                            idFactory)
+                            idFactory),
+                        new ExpensesWpfClient()
                     });
             application.Run(window);
         }
