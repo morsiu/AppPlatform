@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Mors.AppPlatform.Adapters.Services;
 using Mors.AppPlatform.Service.Infrastructure;
 using Nancy;
 
