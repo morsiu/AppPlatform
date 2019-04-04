@@ -52,7 +52,7 @@ namespace Mors.AppPlatform.Service.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\content\\sites")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sites")]
         public string SitesPath {
             get {
                 return ((string)(this["SitesPath"]));
