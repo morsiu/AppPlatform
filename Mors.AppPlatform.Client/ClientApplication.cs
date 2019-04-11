@@ -4,7 +4,7 @@ namespace Mors.AppPlatform.Client
 {
     internal sealed class ClientApplication : IAvailableApplication, IActiveApplication
     {
-        private IApplication _application;
+        private readonly IApplication _application;
 
         public ClientApplication(IApplication application)
         {
