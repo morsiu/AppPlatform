@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30615.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Adapters", "Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj", "{84BDB2FA-A16E-4F70-92EF-7CCED94A3405}"
 EndProject
@@ -14,10 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Support", "Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj", "{2603751F-57CA-48FD-84EC-55983878B247}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Support.Test", "Mors.AppPlatform.Support.Test\Mors.AppPlatform.Support.Test.csproj", "{060CF450-A712-4FA5-B9FA-109A28C0C336}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Runtime", "Mors.AppPlatform.Runtime\Mors.AppPlatform.Runtime.csproj", "{1335C81B-BA5D-4142-98BD-69BE199CE325}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Runtime.Test", "Mors.AppPlatform.Runtime.Test\Mors.AppPlatform.Runtime.Test.csproj", "{F7EAD28E-772D-4834-A7AF-41361B5E8502}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Client.Support", "Mors.AppPlatform.Client.Support\Mors.AppPlatform.Client.Support.csproj", "{6B7D6FBC-A75F-435E-8230-3AE66DF260F6}"
 EndProject
@@ -51,14 +47,6 @@ Global
 		{060CF450-A712-4FA5-B9FA-109A28C0C336}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{060CF450-A712-4FA5-B9FA-109A28C0C336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{060CF450-A712-4FA5-B9FA-109A28C0C336}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1335C81B-BA5D-4142-98BD-69BE199CE325}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7EAD28E-772D-4834-A7AF-41361B5E8502}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B7D6FBC-A75F-435E-8230-3AE66DF260F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B7D6FBC-A75F-435E-8230-3AE66DF260F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B7D6FBC-A75F-435E-8230-3AE66DF260F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
