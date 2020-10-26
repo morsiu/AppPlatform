@@ -18,9 +18,9 @@
 
   <ItemGroup>
     <PackageReference Include="Mors.Journeys.Application.Client.Web" Version="1.0.0" />
-    <PackageReference Include="Nancy" Version="1.4.5" />
-    <PackageReference Include="Nancy.Hosting.Self" Version="1.4.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>

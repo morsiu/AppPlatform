@@ -14,7 +14,7 @@ namespace Mors.AppPlatform.Service.Modules
         {
             _dispatcher = dispatcher;
 
-            Post["/api/command", true] = HandleCommandPost;
+            Post("/api/command", HandleCommandPost);
         }
 
         private async Task<dynamic> HandleCommandPost(dynamic parameters, CancellationToken cancellationToken)

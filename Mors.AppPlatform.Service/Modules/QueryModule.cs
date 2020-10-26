@@ -15,7 +15,7 @@ namespace Mors.AppPlatform.Service.Modules
         {
             _dispatcher = dispatcher;
 
-            Post["/api/query", true] = HandleQueryPost;
+            Post("/api/query", HandleQueryPost);
         }
 
         private async Task<dynamic> HandleQueryPost(dynamic parameters, CancellationToken cancellationToken)
