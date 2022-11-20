@@ -17,8 +17,12 @@ namespace Mors.AppPlatform.Adapters
             GuidIdFactory idFactory)
         {
             var bootstrapper = new Mors.Words.Bootstrapper();
+            var wordsEventBus = new ApplicationEventBus(eventBus, eventSourcingModule);
             bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, new ApplicationEventBus(transaction.Register(eventBus)), idFactory).Register);
+                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, wordsEventBus, idFactory).Register);
+            bootstrapper.BootstrapQueries(
+                new ApplicationQueryHandlerRegistry(handlerRegistry).Register,
+                wordsEventBus.RegisterListener);
         }
     }
 }

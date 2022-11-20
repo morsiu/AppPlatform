@@ -15,6 +15,6 @@
     <PackageReference Include="Mors.Expenses.Client.Wpf" Version="0.0.4" />
     <PackageReference Include="Mors.Journeys.Application" Version="3.0.0" />
     <PackageReference Include="Mors.Journeys.Application.Client.Wpf" Version="3.0.0" />
-    <PackageReference Include="Mors.Words" Version="0.0.2" />
+    <PackageReference Include="Mors.Words" Version="0.0.3" />
   </ItemGroup>
 </Project>
