@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Mors.AppPlatform.Service.Infrastructure;
 using Mors.AppPlatform.Service.Modules;
@@ -23,6 +24,27 @@ namespace Mors.AppPlatform.Service.Host
             sitesPath = Path.GetFullPath(sitesPath);
             _rootPath = Path.GetDirectoryName(sitesPath);
             _siteDirectory = Path.GetFileName(sitesPath);
+        }
+
+        protected override IEnumerable<Type> ApplicationStartupTasks
+        {
+            get
+            {
+                yield return typeof(CorsBootstrapper);
+            }
+        }
+
+        protected override Func<ITypeCatalog, NancyInternalConfiguration> InternalConfiguration
+        {
+            get
+            {
+                return x =>
+                {
+                    var configuration = base.InternalConfiguration(x);
+                    CorsBootstrapper.ConfigureInternalConfiguration(configuration);
+                    return configuration;
+                };
+            }
         }
 
         protected override void ConfigureConventions(NancyConventions nancyConventions)

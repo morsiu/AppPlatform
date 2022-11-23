@@ -14,6 +14,7 @@ namespace Mors.AppPlatform.Service.Modules
         {
             _dispatcher = dispatcher;
 
+            Options("/api/command", x => new Response().WithStatusCode(HttpStatusCode.OK));
             Post("/api/command", HandleCommandPost);
         }
 

@@ -15,6 +15,7 @@ namespace Mors.AppPlatform.Service.Modules
         {
             _dispatcher = dispatcher;
 
+            Options("/api/query", x => new Response().WithStatusCode(HttpStatusCode.OK));
             Post("/api/query", HandleQueryPost);
         }
 
@@ -36,7 +37,8 @@ namespace Mors.AppPlatform.Service.Modules
             var responseStream = new MemoryStream();
             var responseContentType = _serializer.Serialize(result, responseStream, Request.Headers.Accept);
             responseStream.Seek(0, SeekOrigin.Begin);
-            return Response.FromStream(responseStream, responseContentType);
+            var response = Response.FromStream(responseStream, responseContentType);
+            return response;
         }
     }
 }
