@@ -46,7 +46,7 @@ Task("PublishJourneysApp")
     .Does(() =>
 {
     CopyDirectory(
-        @".\Journeys\Mors.Journeys.Application.Client.Web\contentFiles\any\any\sites\journeys",
+        @".\Journeys\Mors.Journeys.Application.Client.Web\src",
         TargetSites + @"\journeys");
 });
 
