@@ -9,7 +9,7 @@
       <Value Profile="(Default)">http://localhost:65363</Value>
     </Setting>
     <Setting Name="UrlReservationUser" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Mors</Value>
+      <Value Profile="(Default)">morsk</Value>
     </Setting>
     <Setting Name="SitesPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">sites</Value>
