@@ -1,0 +1,9 @@
+[submodule "Words"]
+	path = Words
+	url = https://github.com/morsiu/Words
+[submodule "Journeys"]
+	path = Journeys
+	url = https://github.com/morsiu/Journeys
+[submodule "Expenses"]
+	path = Expenses
+	url = https://github.com/morsiu/Expenses

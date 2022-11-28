@@ -7,14 +7,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Expenses\Mors.Expenses.Application\Mors.Expenses.Application.csproj" />
+    <ProjectReference Include="..\Expenses\Mors.Expenses.Client.Wpf\Mors.Expenses.Client.Wpf.csproj" />
+    <ProjectReference Include="..\Journeys\Mors.Journeys.Application.Client.Wpf\Mors.Journeys.Application.Client.Wpf.csproj" />
+    <ProjectReference Include="..\Journeys\Mors.Journeys.Application\Mors.Journeys.Application.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Client.Support\Mors.AppPlatform.Client.Support.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Mors.Expenses.Client.Wpf" Version="0.0.4" />
-    <PackageReference Include="Mors.Journeys.Application" Version="3.0.0" />
-    <PackageReference Include="Mors.Journeys.Application.Client.Wpf" Version="3.0.0" />
-    <PackageReference Include="Mors.Words" Version="0.0.3" />
+    <ProjectReference Include="..\Words\Mors.Words\Mors.Words.csproj" />
   </ItemGroup>
 </Project>
