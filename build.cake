@@ -20,6 +20,7 @@ Task("PublishService")
 {
     const string Source = @".\Mors.AppPlatform.Service\bin\Release\net472";
     const string Target = @"\\192.168.0.200\appplatform\bin";
+    CopyFiles(Source + @"\*.exe", Target);
     CopyFiles(Source + @"\*.dll", Target);
     CopyFiles(Source + @"\*.pdb", Target);
 });
