@@ -25,6 +25,14 @@ Task("PublishService")
     CopyFiles(Source + @"\*.pdb", Target);
 });
 
+Task("BuildJourneysApp")
+    .Does(() =>
+{
+    NpmRunScript((NpmRunScriptSettings)(new NpmRunScriptSettings {
+        ScriptName = "build",
+    }.FromPath(@".\Journeys\Mors.Journeys.Application.Client.Web")));
+});
+
 Task("BuildWordsApp")
     .Does(() =>
 {
@@ -44,16 +52,18 @@ Task("PublishWordsApp")
 });
 
 Task("PublishJourneysApp")
+    .IsDependentOn("BuildJourneysApp")
     .Does(() =>
 {
     CopyDirectory(
-        @".\Journeys\Mors.Journeys.Application.Client.Web\src",
+        @".\Journeys\Mors.Journeys.Application.Client.Web\dist",
         TargetSites + @"\journeys");
 });
 
 Task("Build")
     .IsDependentOn("BuildService")
     .IsDependentOn("BuildWordsApp")
+    .IsDependentOn("BuildJourneysApp")
     .Does(() => { });
 
 Task("Publish")
