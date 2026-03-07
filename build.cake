@@ -1,4 +1,4 @@
-#addin nuget:?package=Cake.Npm&version=2.0.0
+#addin nuget:?package=Cake.Npm&version=5.1.0
 
 var target = Argument("target", "Publish");
 
