@@ -1,6 +1,8 @@
 ﻿using Mors.AppPlatform.Adapters.Journeys;
 using Mors.AppPlatform.Client;
 using Mors.Journeys.Application.Client.Wpf;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Mors.AppPlatform.Adapters
@@ -16,13 +18,19 @@ namespace Mors.AppPlatform.Adapters
             Support.Dispatching.IHandlerRegistry handlerRegistry,
             Support.Repositories.GuidIdFactory idFactory)
         {
-            _bootstrapper = new Bootstrapper(
-                new ClientWpfEventBus(eventBus),
-                new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
-                new ClientWpfCommandHandlerRegistry(handlerRegistry),
-                new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
-                new ClientWpfQueryHandlerRegistry(handlerRegistry),
-                new ClientWpfIdFactory(idFactory));
+            _bootstrapper =
+                new Bootstrapper(
+                    new ClientWpfEventBus(eventBus),
+                    new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
+                    new ClientWpfCommandHandlerRegistry(handlerRegistry),
+                    new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
+                    new ClientWpfQueryHandlerRegistry(handlerRegistry),
+                    new ClientWpfIdFactory(idFactory));
+        }
+
+        public static IReadOnlySet<Type> GetSerializableTypes()
+        {
+            return SerializableTypes.Value;
         }
 
         public UIElement CreateUiForInteractionWithSelf()

@@ -6,11 +6,11 @@ namespace Mors.AppPlatform.Service.Client
 {
     public sealed class CommandRequest
     {
-        private readonly NetDataContractSerializer _serializer;
+        private readonly DataContractSerializer _serializer;
         private readonly Uri _requestUri;
         private readonly object _command;
 
-        public CommandRequest(Uri requestUri, object command, NetDataContractSerializer serializer)
+        public CommandRequest(Uri requestUri, object command, DataContractSerializer serializer)
         {
             _requestUri = requestUri;
             _command = command;
@@ -24,7 +24,7 @@ namespace Mors.AppPlatform.Service.Client
             request.ContentType = "application/xml";
             request.Accept = "application/xml";
             var requestStream = request.GetRequestStream();
-            _serializer.Serialize(requestStream, _command);
+            _serializer.WriteObject(requestStream, _command);
             request.GetResponse();
         }
     }

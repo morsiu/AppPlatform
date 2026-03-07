@@ -9,7 +9,12 @@ namespace Mors.AppPlatform.Service.Infrastructure
 {
     internal sealed class ContentTypeAwareSerializer
     {
-        private readonly NetDataContractSerializer _xmlSerializer = new NetDataContractSerializer();
+        private readonly DataContractSerializer _xmlSerializer;
+
+        public ContentTypeAwareSerializer(IReadOnlySet<Type> knownTypes)
+        {
+            _xmlSerializer = new DataContractSerializer(typeof(object), knownTypes);
+        }
 
         public object Deserialize(Stream contentStream, string contentType)
         {
@@ -18,7 +23,7 @@ namespace Mors.AppPlatform.Service.Infrastructure
                 case ContentType.Json:
                     return DeserializeJson(contentStream);
                 case ContentType.Xml:
-                    return _xmlSerializer.Deserialize(contentStream);
+                    return _xmlSerializer.ReadObject(contentStream);
                 default:
                     throw new ArgumentException("Unsupported content type: {0}", contentType);
             }
@@ -33,7 +38,7 @@ namespace Mors.AppPlatform.Service.Infrastructure
                     SerializeJson(content, contentStream);
                     break;
                 case ContentType.Xml:
-                    _xmlSerializer.Serialize(contentStream, content);
+                    _xmlSerializer.WriteObject(contentStream, content);
                     break;
                 default:
                     throw new ArgumentException("Unsupported content types: {0}", string.Join(", ", contentTypes.Select(ct => ct.Item1)));

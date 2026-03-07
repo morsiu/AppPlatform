@@ -13,7 +13,8 @@ namespace Mors.AppPlatform.Client
             var requestFactory =
                 new RequestFactory(
                     Settings.Default.CommandRequestUri,
-                    Settings.Default.QueryRequestUri);
+                    Settings.Default.QueryRequestUri,
+                    JourneysWpfClient.GetSerializableTypes());
             var eventBus = new Support.Events.EventBus();
             var idFactory = new GuidIdFactory();
             var handlerRegistry = new HandlerRegistry();

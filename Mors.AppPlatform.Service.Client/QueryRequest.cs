@@ -6,11 +6,11 @@ namespace Mors.AppPlatform.Service.Client
 {
     public sealed class QueryRequest<TResult>
     {
-        private readonly NetDataContractSerializer _serializer;
+        private readonly DataContractSerializer _serializer;
         private readonly Uri _requestUri;
         private readonly object _query;
 
-        public QueryRequest(Uri requestUri, object query, NetDataContractSerializer serializer)
+        public QueryRequest(Uri requestUri, object query, DataContractSerializer serializer)
         {
             _requestUri = requestUri;
             _query = query;
@@ -24,10 +24,10 @@ namespace Mors.AppPlatform.Service.Client
             request.ContentType = "application/xml";
             request.Accept = "application/xml";
             var requestStream = request.GetRequestStream();
-            _serializer.Serialize(requestStream, _query);
+            _serializer.WriteObject(requestStream, _query);
             var response = request.GetResponse();
             var responseStream = response.GetResponseStream();
-            var result = (TResult)_serializer.Deserialize(responseStream);
+            var result = (TResult)_serializer.ReadObject(responseStream);
             return result;
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Mors.AppPlatform.Service.Client
@@ -7,13 +9,16 @@ namespace Mors.AppPlatform.Service.Client
     {
         private readonly Uri _queryRequestUri;
         private readonly Uri _commandRequestUri;
-        private readonly NetDataContractSerializer _serializer;
+        private readonly DataContractSerializer _serializer;
 
-        public RequestFactory(Uri commandRequestUri, Uri queryRequestUri)
+        public RequestFactory(
+            Uri commandRequestUri,
+            Uri queryRequestUri,
+            IReadOnlySet<Type> knownTypes)
         {
             _commandRequestUri = commandRequestUri;
             _queryRequestUri = queryRequestUri;
-            _serializer = new NetDataContractSerializer();
+            _serializer = new DataContractSerializer(typeof(object), knownTypes);
         }
 
         public CommandRequest CreateCommandRequest(object command)

@@ -3,6 +3,7 @@ using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.EventSourcing;
 using Mors.AppPlatform.Support.Repositories;
+using Mors.AppPlatform.Support.Serialization;
 using Mors.AppPlatform.Support.Transactions;
 
 namespace Mors.AppPlatform.Adapters
@@ -16,8 +17,13 @@ namespace Mors.AppPlatform.Adapters
             IRepositories repositories,
             EventSourcingModule eventSourcingModule,
             GuidIdFactory idFactory,
+            KnownTypesSet knownTypesSet,
             Transaction transaction)
         {
+            foreach (var type in SerializableTypes.Value)
+            {
+                knownTypesSet.AddType(type);
+            }
             var bootstrapper = new Mors.Journeys.Application.Bootstrapper();
             bootstrapper.BootstrapEventSourcing(
                 new ApplicationEventSourcing(eventSourcingModule),
