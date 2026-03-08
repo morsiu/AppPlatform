@@ -23,6 +23,7 @@ Task("PublishService")
     CopyFiles(Source + @"\*.exe", Target);
     CopyFiles(Source + @"\*.dll", Target);
     CopyFiles(Source + @"\*.pdb", Target);
+    CopyFiles(Source + @"\*.json", Target);
 });
 
 Task("BuildJourneysApp")

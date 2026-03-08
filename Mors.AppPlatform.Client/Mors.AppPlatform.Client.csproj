@@ -1,18 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <ApplicationIcon />
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWpf>true</UseWpf>
     <OutputType>WinExe</OutputType>
     <StartupObject>Mors.AppPlatform.Client.Program</StartupObject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj" />
@@ -22,21 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-    </None>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="**\*.xaml" Exclude="Application.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </Page>
-    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
-    <ApplicationDefinition Include="Application.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

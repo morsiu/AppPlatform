@@ -9,7 +9,7 @@ namespace Mors.AppPlatform.Adapters.Words
 {
     internal static class SerializableTypes
     {
-        public static IReadOnlySet<Type> Value { get; } =
+        public static IEnumerable<Type> Value { get; } =
             typeof(IQuery<>).Assembly.GetTypes()
                 .Where(x => x.GetCustomAttribute<DataContractAttribute>() != null)
                 .Concat(

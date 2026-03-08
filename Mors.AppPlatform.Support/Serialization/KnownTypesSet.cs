@@ -12,7 +12,7 @@ namespace Mors.AppPlatform.Support.Serialization
             _knownTypes.Add(type);
         }
 
-        public IReadOnlySet<Type> GetKnownTypes()
+        public IEnumerable<Type> GetKnownTypes()
         {
             return _knownTypes;
         }

@@ -1,15 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <ApplicationIcon />
+    <TargetFramework>net10.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <StartupObject />
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj" />
@@ -17,24 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nancy" Version="2.0.0" />
-    <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="System" />
-  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Expenses\Mors.Expenses.Application\Mors.Expenses.Application.csproj" />
     <ProjectReference Include="..\Expenses\Mors.Expenses.Client.Wpf\Mors.Expenses.Client.Wpf.csproj" />
@@ -16,4 +15,5 @@
     <ProjectReference Include="..\Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj" />
     <ProjectReference Include="..\Words\Mors.Words\Mors.Words.csproj" />
   </ItemGroup>
+
 </Project>

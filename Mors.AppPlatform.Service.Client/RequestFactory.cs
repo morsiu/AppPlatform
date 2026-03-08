@@ -14,7 +14,7 @@ namespace Mors.AppPlatform.Service.Client
         public RequestFactory(
             Uri commandRequestUri,
             Uri queryRequestUri,
-            IReadOnlySet<Type> knownTypes)
+            IEnumerable<Type> knownTypes)
         {
             _commandRequestUri = commandRequestUri;
             _queryRequestUri = queryRequestUri;

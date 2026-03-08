@@ -11,7 +11,7 @@ namespace Mors.AppPlatform.Service.Infrastructure
     {
         private readonly DataContractSerializer _xmlSerializer;
 
-        public ContentTypeAwareSerializer(IReadOnlySet<Type> knownTypes)
+        public ContentTypeAwareSerializer(IEnumerable<Type> knownTypes)
         {
             _xmlSerializer = new DataContractSerializer(typeof(object), knownTypes);
         }
