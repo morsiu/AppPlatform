@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Runtime.Serialization;
 
 namespace Mors.AppPlatform.Service.Client
 {
     public sealed class RequestFactory
     {
-        private readonly Uri _queryRequestUri;
         private readonly Uri _commandRequestUri;
+        private readonly HttpClient _httpClient;
+        private readonly Uri _queryRequestUri;
         private readonly DataContractSerializer _serializer;
 
         public RequestFactory(
@@ -18,17 +19,18 @@ namespace Mors.AppPlatform.Service.Client
         {
             _commandRequestUri = commandRequestUri;
             _queryRequestUri = queryRequestUri;
+            _httpClient = new HttpClient();
             _serializer = new DataContractSerializer(typeof(object), knownTypes);
         }
 
         public CommandRequest CreateCommandRequest(object command)
         {
-            return new CommandRequest(_commandRequestUri, command, _serializer);
+            return new CommandRequest(_httpClient, _commandRequestUri, command, _serializer);
         }
 
         public QueryRequest<TResult> CreateQueryRequest<TResult>(object query)
         {
-            return new QueryRequest<TResult>(_queryRequestUri, query, _serializer);
+            return new QueryRequest<TResult>(_httpClient, _queryRequestUri, query, _serializer);
         }
     }
 }

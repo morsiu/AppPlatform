@@ -1,17 +1,21 @@
 ﻿using System;
+using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization;
 
 namespace Mors.AppPlatform.Service.Client
 {
     public sealed class CommandRequest
     {
-        private readonly DataContractSerializer _serializer;
-        private readonly Uri _requestUri;
         private readonly object _command;
+        private readonly HttpClient _httpClient;
+        private readonly Uri _requestUri;
+        private readonly DataContractSerializer _serializer;
 
-        public CommandRequest(Uri requestUri, object command, DataContractSerializer serializer)
+        public CommandRequest(HttpClient httpClient, Uri requestUri, object command, DataContractSerializer serializer)
         {
+            _httpClient = httpClient;
             _requestUri = requestUri;
             _command = command;
             _serializer = serializer;
@@ -19,13 +23,21 @@ namespace Mors.AppPlatform.Service.Client
 
         public void Run()
         {
-            var request = WebRequest.CreateHttp(_requestUri);
-            request.Method = "POST";
-            request.ContentType = "application/xml";
-            request.Accept = "application/xml";
-            var requestStream = request.GetRequestStream();
+            using var requestStream = new MemoryStream();
             _serializer.WriteObject(requestStream, _command);
-            request.GetResponse();
+            requestStream.Seek(0, SeekOrigin.Begin);
+            using var response =
+                _httpClient.Send(
+                    new HttpRequestMessage(HttpMethod.Post, _requestUri)
+                    {
+                        Headers = { { "Accept", "application/xml" } },
+                        Content =
+                            new StreamContent(requestStream)
+                            {
+                                Headers = { { "Content-Type", "application/xml" } }
+                            },
+                    });
+            response.EnsureSuccessStatusCode();
         }
     }
 }
