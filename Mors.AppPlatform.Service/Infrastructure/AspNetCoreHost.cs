@@ -25,12 +25,15 @@ namespace Mors.AppPlatform.Service.Infrastructure
             appBuilder.Services.AddCors();
             var app = appBuilder.Build();
             app.UseCors(x => x.SetPreflightMaxAge(TimeSpan.FromDays(1)).AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseStaticFiles(
-                new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(Path.GetFullPath(sitesPath)),
-                    RequestPath = "/sites",
-                });
+            if (!string.IsNullOrEmpty(sitesPath))
+            {
+                app.UseStaticFiles(
+                    new StaticFileOptions
+                    {
+                        FileProvider = new PhysicalFileProvider(Path.GetFullPath(sitesPath)),
+                        RequestPath = "/sites",
+                    });
+            }
             app.MapPost(
                 "/api/query",
                 async (HttpContext a) =>
@@ -47,7 +50,6 @@ namespace Mors.AppPlatform.Service.Infrastructure
                             queryResult,
                             queryResultStream,
                             a.Request.Headers.Accept.Select(x => Tuple.Create(x, 1m)));
-                    a.Response.StatusCode = StatusCodes.Status200OK;
                     a.Response.ContentType = queryResultContentType;
                     queryResultStream.Seek(0, SeekOrigin.Begin);
                     await queryResultStream.CopyToAsync(a.Response.Body);
