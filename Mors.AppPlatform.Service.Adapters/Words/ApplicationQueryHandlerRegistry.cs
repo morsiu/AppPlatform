@@ -2,7 +2,7 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Words
+namespace Mors.AppPlatform.Service.Adapters.Words
 {
     internal sealed class ApplicationQueryHandlerRegistry
     {

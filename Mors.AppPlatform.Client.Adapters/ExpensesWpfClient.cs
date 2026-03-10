@@ -2,7 +2,7 @@
 using Mors.AppPlatform.Client;
 using Mors.Expenses.Client.Wpf;
 
-namespace Mors.AppPlatform.Adapters
+namespace Mors.AppPlatform.Client.Adapters
 {
     public sealed class ExpensesWpfClient : IApplication
     {

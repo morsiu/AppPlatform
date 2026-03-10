@@ -2,7 +2,7 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys
 {
     internal sealed class ClientWpfCommandHandlerRegistry : Mors.Journeys.Application.Client.Wpf.ICommandHandlerRegistry
     {

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace Mors.AppPlatform.Adapters.Journeys
 {
-    internal static class SerializableTypes
+    public static class SerializableTypes
     {
         public static IReadOnlySet<Type> Value { get; } =
             typeof(IQuery<>).Assembly.GetTypes()

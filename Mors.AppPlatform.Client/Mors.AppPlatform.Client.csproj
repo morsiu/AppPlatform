@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj" />
+    <ProjectReference Include="..\Mors.AppPlatform.Client.Adapters\Mors.AppPlatform.Client.Adapters.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Client.Support\Mors.AppPlatform.Client.Support.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj" />

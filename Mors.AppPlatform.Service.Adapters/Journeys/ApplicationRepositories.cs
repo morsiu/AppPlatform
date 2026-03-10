@@ -1,7 +1,7 @@
 ﻿using Mors.AppPlatform.Support.Repositories;
 using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys
 {
     internal sealed class ApplicationRepositories : Mors.Journeys.Application.IRepositories
     {

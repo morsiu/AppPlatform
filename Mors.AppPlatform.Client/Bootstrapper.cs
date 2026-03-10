@@ -1,4 +1,4 @@
-﻿using Mors.AppPlatform.Adapters;
+﻿using Mors.AppPlatform.Client.Adapters;
 using Mors.AppPlatform.Client.Properties;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;

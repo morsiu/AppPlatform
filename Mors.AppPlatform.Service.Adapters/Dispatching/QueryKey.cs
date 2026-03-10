@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Adapters.Dispatching
+namespace Mors.AppPlatform.Service.Adapters.Dispatching
 {
-    public sealed class QueryKey
+    internal sealed class QueryKey
     {
         private readonly Type _queryType;
 

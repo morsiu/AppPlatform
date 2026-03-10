@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj" />
+    <ProjectReference Include="..\Mors.AppPlatform.Service.Adapters\Mors.AppPlatform.Service.Adapters.csproj" />
     <ProjectReference Include="..\Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj" />
   </ItemGroup>
 

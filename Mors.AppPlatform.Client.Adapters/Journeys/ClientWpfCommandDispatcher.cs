@@ -2,7 +2,7 @@
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys
 {
     internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Client.Wpf.ICommandDispatcher
     {
@@ -40,7 +40,7 @@ namespace Mors.AppPlatform.Adapters.Journeys
 
         private void DispatchInternal(object command)
         {
-            var commandAdapter = new Dispatching.Command(command);
+            var commandAdapter = new AppPlatform.Adapters.Dispatching.Command(command);
             commandAdapter.Dispatch(_handlerDispatcher);
         }
     }

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expenses\Mors.Expenses.Application\Mors.Expenses.Application.csproj" />
+    <ProjectReference Include="..\Journeys\Mors.Journeys.Application\Mors.Journeys.Application.csproj" />
+    <ProjectReference Include="..\Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj" />
+    <ProjectReference Include="..\Mors.AppPlatform.Service.Client\Mors.AppPlatform.Service.Client.csproj" />
+    <ProjectReference Include="..\Mors.AppPlatform.Support\Mors.AppPlatform.Support.csproj" />
+    <ProjectReference Include="..\Words\Mors.Words\Mors.Words.csproj" />
+  </ItemGroup>
+
+</Project>

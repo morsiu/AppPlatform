@@ -3,7 +3,7 @@ using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys
 {
     internal sealed class ApplicationQueryHandlerRegistry : Mors.Journeys.Application.IQueryHandlerRegistry
     {

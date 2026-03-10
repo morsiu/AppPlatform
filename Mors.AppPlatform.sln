@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33103.201
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Adapters", "Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj", "{84BDB2FA-A16E-4F70-92EF-7CCED94A3405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Client.Adapters", "Mors.AppPlatform.Client.Adapters\Mors.AppPlatform.Client.Adapters.csproj", "{84BDB2FA-A16E-4F70-92EF-7CCED94A3405}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.AppPlatform.Client", "Mors.AppPlatform.Client\Mors.AppPlatform.Client.csproj", "{0D9E8956-7698-4B39-9D27-08F38A87E524}"
 EndProject
@@ -58,6 +58,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Expenses.Client.Wpf", "Expenses\Mors.Expenses.Client.Wpf\Mors.Expenses.Client.Wpf.csproj", "{368C2239-AEEA-4487-ABD3-3079E049CE10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Expenses.Data", "Expenses\Mors.Expenses.Data\Mors.Expenses.Data.csproj", "{66C71CE7-0C99-4938-B18D-BB619654E070}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.AppPlatform.Service.Adapters", "Mors.AppPlatform.Service.Adapters\Mors.AppPlatform.Service.Adapters.csproj", "{553D2728-A3D6-0260-FAF1-2983E012449E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.AppPlatform.Adapters", "Mors.AppPlatform.Adapters\Mors.AppPlatform.Adapters.csproj", "{7AE3F877-AC1C-3AD7-65F8-60FEC0272257}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +169,14 @@ Global
 		{66C71CE7-0C99-4938-B18D-BB619654E070}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66C71CE7-0C99-4938-B18D-BB619654E070}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66C71CE7-0C99-4938-B18D-BB619654E070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{553D2728-A3D6-0260-FAF1-2983E012449E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553D2728-A3D6-0260-FAF1-2983E012449E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553D2728-A3D6-0260-FAF1-2983E012449E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553D2728-A3D6-0260-FAF1-2983E012449E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE3F877-AC1C-3AD7-65F8-60FEC0272257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE3F877-AC1C-3AD7-65F8-60FEC0272257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE3F877-AC1C-3AD7-65F8-60FEC0272257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE3F877-AC1C-3AD7-65F8-60FEC0272257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

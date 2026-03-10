@@ -19,10 +19,10 @@ namespace Mors.AppPlatform.Adapters.Messages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FailureMessages {
+    public class FailureMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Mors.AppPlatform.Adapters.Messages {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mors.AppPlatform.Adapters.Messages.FailureMessages", typeof(FailureMessages).Assembly);
@@ -51,7 +51,7 @@ namespace Mors.AppPlatform.Adapters.Messages {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Mors.AppPlatform.Adapters.Messages {
         /// <summary>
         ///   Looks up a localized string similar to There is no handler registered for command of type `{0}`..
         /// </summary>
-        internal static string NoHandlerRegisteredForCommandOfType {
+        public static string NoHandlerRegisteredForCommandOfType {
             get {
                 return ResourceManager.GetString("NoHandlerRegisteredForCommandOfType", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Mors.AppPlatform.Adapters.Messages {
         /// <summary>
         ///   Looks up a localized string similar to There is no handler registered for query of type `{0}`..
         /// </summary>
-        internal static string NoHandlerRegisteredForQueryOfType {
+        public static string NoHandlerRegisteredForQueryOfType {
             get {
                 return ResourceManager.GetString("NoHandlerRegisteredForQueryOfType", resourceCulture);
             }

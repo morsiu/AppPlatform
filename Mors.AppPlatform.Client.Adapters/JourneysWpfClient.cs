@@ -1,11 +1,11 @@
 ﻿using Mors.AppPlatform.Adapters.Journeys;
-using Mors.AppPlatform.Client;
+using Mors.AppPlatform.Client.Adapters.Journeys;
 using Mors.Journeys.Application.Client.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Mors.AppPlatform.Adapters
+namespace Mors.AppPlatform.Client.Adapters
 {
     public class JourneysWpfClient : IApplication
     {

@@ -1,6 +1,6 @@
 ﻿using Mors.AppPlatform.Support.Repositories;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys
 {
     internal sealed class ClientWpfIdFactory : Mors.Journeys.Application.Client.Wpf.IIdFactory
     {

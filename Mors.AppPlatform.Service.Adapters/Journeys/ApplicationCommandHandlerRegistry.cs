@@ -1,9 +1,9 @@
 ﻿using System;
-using Mors.AppPlatform.Adapters.Dispatching;
+using Mors.AppPlatform.Service.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys
 {
     internal sealed class ApplicationCommandHandlerRegistry : Mors.Journeys.Application.ICommandHandlerRegistry
     {

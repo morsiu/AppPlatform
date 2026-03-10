@@ -4,7 +4,7 @@ using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys
 {
     internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Client.Wpf.IQueryDispatcher
     {

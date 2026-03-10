@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Mors.AppPlatform.Adapters.Words
+namespace Mors.AppPlatform.Service.Adapters.Words
 {
     internal static class SerializableTypes
     {

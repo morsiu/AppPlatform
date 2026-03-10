@@ -1,7 +1,7 @@
 ﻿using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys
 {
     internal sealed class ApplicationQueryDispatcher : Mors.Journeys.Application.IQueryDispatcher
     {

@@ -1,4 +1,4 @@
-﻿using Mors.AppPlatform.Adapters.Words;
+﻿using Mors.AppPlatform.Service.Adapters.Words;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.EventSourcing;
@@ -6,7 +6,7 @@ using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Support.Serialization;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Adapters
+namespace Mors.AppPlatform.Service.Adapters
 {
     public static class WordsApplication
     {

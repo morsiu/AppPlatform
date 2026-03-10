@@ -1,7 +1,7 @@
 ﻿using System;
 using Mors.AppPlatform.Support.EventSourcing;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys
 {
     internal sealed class ApplicationEventSourcing : Mors.Journeys.Application.IEventSourcing
     {

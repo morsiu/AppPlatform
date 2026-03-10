@@ -3,7 +3,7 @@ using System.Reflection;
 using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.EventSourcing;
 
-namespace Mors.AppPlatform.Adapters.Words
+namespace Mors.AppPlatform.Service.Adapters.Words
 {
     internal sealed class ApplicationEventBus
     {

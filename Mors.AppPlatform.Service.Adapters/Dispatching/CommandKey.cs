@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Adapters.Dispatching
+namespace Mors.AppPlatform.Service.Adapters.Dispatching
 {
-    public sealed class CommandKey
+    internal sealed class CommandKey
     {
         private readonly Type _commandType;
 

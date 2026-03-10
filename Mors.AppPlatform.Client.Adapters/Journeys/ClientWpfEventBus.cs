@@ -1,7 +1,7 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Events;
 
-namespace Mors.AppPlatform.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys
 {
     internal sealed class ClientWpfEventBus : Mors.Journeys.Application.Client.Wpf.IEventBus
     {
