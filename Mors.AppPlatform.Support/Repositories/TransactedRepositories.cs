@@ -8,7 +8,7 @@ using EntityType = Type;
 
 internal sealed class TransactedRepositories : IRepositories, ITransactional<IRepositories>
 {
-    private readonly Dictionary<EntityType, ITransactional> _transactedRepositories = new Dictionary<EntityType, ITransactional>();
+    private readonly Dictionary<EntityType, ITransactional> _transactedRepositories = new();
     private readonly Repositories _repositories;
 
     public TransactedRepositories(Repositories repositories)

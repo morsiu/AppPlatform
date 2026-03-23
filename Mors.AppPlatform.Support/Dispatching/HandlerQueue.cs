@@ -6,9 +6,9 @@ namespace Mors.AppPlatform.Support.Dispatching;
 
 public sealed class HandlerQueue : IHandlerSource, IHandlerSink
 {
-    private readonly Queue<Action> _queuedHandlers = new Queue<Action>();
-    private readonly ManualResetEvent _nonEmptyQueueEvent = new ManualResetEvent(false);
-    private readonly object _accessLock = new object();
+    private readonly Queue<Action> _queuedHandlers = new();
+    private readonly ManualResetEvent _nonEmptyQueueEvent = new(false);
+    private readonly object _accessLock = new();
 
     public WaitHandle NonEmptyEvent
     {

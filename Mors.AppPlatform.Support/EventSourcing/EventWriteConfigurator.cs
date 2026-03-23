@@ -6,7 +6,7 @@ namespace Mors.AppPlatform.Support.EventSourcing;
 
 internal sealed class EventWriteConfigurator
 {
-    private readonly HashSet<Action<IEventBus, IEventWriter>> _eventWriteConfigurators = new HashSet<Action<IEventBus, IEventWriter>>();
+    private readonly HashSet<Action<IEventBus, IEventWriter>> _eventWriteConfigurators = new();
 
     public void Add<TEvent>()
     {

@@ -6,7 +6,7 @@ namespace Mors.AppPlatform.Support.Repositories;
 
 public sealed class Repositories : IRepositories
 {
-    private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
+    private readonly Dictionary<Type, object> _repositories = new();
 
     public TEntity Get<TEntity>(object id)
     {

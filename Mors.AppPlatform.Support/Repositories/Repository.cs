@@ -4,7 +4,7 @@ namespace Mors.AppPlatform.Support.Repositories;
 
 internal sealed class Repository<TEntity> : IRepository<TEntity>
 {
-    private readonly InMemoryRepository<object, TEntity> _repository = new InMemoryRepository<object, TEntity>();
+    private readonly InMemoryRepository<object, TEntity> _repository = new();
 
     public TEntity Get(object id)
     {

@@ -7,7 +7,7 @@ namespace Mors.AppPlatform.Support.Dispatching;
 public sealed class TrackingHandlerSource : IHandlerSource
 {
     private readonly IHandlerSource _source;
-    private readonly Counter _runningHandlersCounter = new Counter(0);
+    private readonly Counter _runningHandlersCounter = new(0);
 
     public TrackingHandlerSource(IHandlerSource source)
     {

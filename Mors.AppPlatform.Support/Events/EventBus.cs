@@ -6,7 +6,7 @@ namespace Mors.AppPlatform.Support.Events;
 
 public sealed class EventBus : IEventBus
 {
-    private readonly Dictionary<Type, object> _eventPublishers = new Dictionary<Type, object>();
+    private readonly Dictionary<Type, object> _eventPublishers = new();
 
     public void RegisterListener<TEvent>(EventListener<TEvent> listener)
     {

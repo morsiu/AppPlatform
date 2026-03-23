@@ -4,7 +4,7 @@ namespace Mors.AppPlatform.Support.Events;
 
 internal sealed class EventPublisher<TEvent>
 {
-    private readonly List<EventListener<TEvent>> _listeners = new List<EventListener<TEvent>>();
+    private readonly List<EventListener<TEvent>> _listeners = new();
 
     public void RegisterListener(EventListener<TEvent> listener)
     {

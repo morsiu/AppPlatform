@@ -5,7 +5,7 @@ namespace Mors.AppPlatform.Support.EventSourcing;
 
 internal sealed class EventReplayer
 {
-    private readonly Dictionary<Type, Action<object>> _eventHandlers = new Dictionary<Type,Action<object>>();
+    private readonly Dictionary<Type, Action<object>> _eventHandlers = new();
 
     public void Register<TEvent>(Action<TEvent> eventHandler)
     {

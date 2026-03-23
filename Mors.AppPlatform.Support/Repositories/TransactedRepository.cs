@@ -6,7 +6,7 @@ namespace Mors.AppPlatform.Support.Repositories;
 internal sealed class TransactedRepository<TEntity> : IRepository<TEntity>, ITransactional<IRepository<TEntity>>
 {
     private readonly Repository<TEntity> _repository;
-    private readonly Dictionary<object, TEntity> _transactionRepository = new Dictionary<object, TEntity>();
+    private readonly Dictionary<object, TEntity> _transactionRepository = new();
 
     public TransactedRepository(Repository<TEntity> repository)
     {
