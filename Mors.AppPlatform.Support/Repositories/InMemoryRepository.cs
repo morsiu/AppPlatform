@@ -10,8 +10,10 @@ internal sealed class InMemoryRepository<TId, TEntity>
 
     public TEntity Get(TId id)
     {
-        if (!_store.ContainsKey(id)) 
+        if (!_store.ContainsKey(id))
+        {
             throw new EntityNotFoundException(string.Format(FailureMessages.EntityOfTypeWithIdNotFound, typeof(TEntity), id));
+        }
         return _store[id];
     }
 
