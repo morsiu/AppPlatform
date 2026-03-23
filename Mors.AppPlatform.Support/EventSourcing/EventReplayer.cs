@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mors.AppPlatform.Support.EventSourcing
+namespace Mors.AppPlatform.Support.EventSourcing;
+
+internal sealed class EventReplayer
 {
-    internal sealed class EventReplayer
+    private readonly Dictionary<Type, Action<object>> _eventHandlers = new Dictionary<Type,Action<object>>();
+
+    public void Register<TEvent>(Action<TEvent> eventHandler)
     {
-        private readonly Dictionary<Type, Action<object>> _eventHandlers = new Dictionary<Type,Action<object>>();
+        _eventHandlers[typeof(TEvent)] = @event => eventHandler((TEvent)@event);
+    }
 
-        public void Register<TEvent>(Action<TEvent> eventHandler)
+    public void Replay(IEnumerable<object> events)
+    {
+        foreach (var @event in events)
         {
-            _eventHandlers[typeof(TEvent)] = @event => eventHandler((TEvent)@event);
+            var eventHandler = GetEventHandler(@event);
+            eventHandler(@event);
         }
+    }
 
-        public void Replay(IEnumerable<object> events)
+    private Action<object> GetEventHandler(object @event)
+    {
+        var eventType = @event.GetType();
+        if (!_eventHandlers.ContainsKey(eventType))
         {
-            foreach (var @event in events)
-            {
-                var eventHandler = GetEventHandler(@event);
-                eventHandler(@event);
-            }
+            throw new InvalidOperationException(string.Format("Event store contains unsupported event of type `{0}`.", eventType));
         }
-
-        private Action<object> GetEventHandler(object @event)
-        {
-            var eventType = @event.GetType();
-            if (!_eventHandlers.ContainsKey(eventType))
-            {
-                throw new InvalidOperationException(string.Format("Event store contains unsupported event of type `{0}`.", eventType));
-            }
-            return _eventHandlers[eventType];
-        }
+        return _eventHandlers[eventType];
     }
 }

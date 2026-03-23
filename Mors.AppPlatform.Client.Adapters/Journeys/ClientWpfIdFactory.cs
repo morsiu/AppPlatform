@@ -1,19 +1,18 @@
 ﻿using Mors.AppPlatform.Support.Repositories;
 
-namespace Mors.AppPlatform.Client.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys;
+
+internal sealed class ClientWpfIdFactory : Mors.Journeys.Application.Client.Wpf.IIdFactory
 {
-    internal sealed class ClientWpfIdFactory : Mors.Journeys.Application.Client.Wpf.IIdFactory
+    private readonly GuidIdFactory _idFactory;
+
+    public ClientWpfIdFactory(GuidIdFactory idFactory)
     {
-        private readonly GuidIdFactory _idFactory;
+        _idFactory = idFactory;
+    }
 
-        public ClientWpfIdFactory(GuidIdFactory idFactory)
-        {
-            _idFactory = idFactory;
-        }
-
-        public object Create()
-        {
-            return _idFactory.Create();
-        }
+    public object Create()
+    {
+        return _idFactory.Create();
     }
 }

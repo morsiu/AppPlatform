@@ -1,36 +1,35 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Adapters.Dispatching
+namespace Mors.AppPlatform.Adapters.Dispatching;
+
+public sealed class QueryKey
 {
-    public sealed class QueryKey
+    private readonly Type _queryType;
+
+    public QueryKey(Type queryType)
     {
-        private readonly Type _queryType;
+        _queryType = queryType;
+    }
 
-        public QueryKey(Type queryType)
-        {
-            _queryType = queryType;
-        }
+    public override bool Equals(object obj)
+    {
+        return !ReferenceEquals(obj, null)
+               && obj is QueryKey
+               && Equals((QueryKey)obj);
+    }
 
-        public override bool Equals(object obj)
-        {
-            return !ReferenceEquals(obj, null)
-                && obj is QueryKey
-                && Equals((QueryKey)obj);
-        }
+    public override int GetHashCode()
+    {
+        return _queryType.GetHashCode();
+    }
 
-        public override int GetHashCode()
-        {
-            return _queryType.GetHashCode();
-        }
+    public override string ToString()
+    {
+        return _queryType.ToString();
+    }
 
-        public override string ToString()
-        {
-            return _queryType.ToString();
-        }
-
-        private bool Equals(QueryKey other)
-        {
-            return other._queryType.Equals(_queryType);
-        }
+    private bool Equals(QueryKey other)
+    {
+        return other._queryType.Equals(_queryType);
     }
 }

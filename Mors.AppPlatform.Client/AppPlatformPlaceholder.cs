@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 
-namespace Mors.AppPlatform.Client
-{
-    internal sealed class AppPlatformPlaceholder : IActiveApplication
-    {
-        public UIElement Content => null;
+namespace Mors.AppPlatform.Client;
 
-        public string Title => "AppPlatform";
-    }
+internal sealed class AppPlatformPlaceholder : IActiveApplication
+{
+    public UIElement Content => null;
+
+    public string Title => "AppPlatform";
 }

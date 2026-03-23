@@ -2,21 +2,20 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Service.Infrastructure
+namespace Mors.AppPlatform.Service.Infrastructure;
+
+public sealed class AsyncCommandDispatcher
 {
-    public sealed class AsyncCommandDispatcher
+    private readonly AsyncHandlerScheduler _handlerScheduler;
+
+    public AsyncCommandDispatcher(AsyncHandlerScheduler handlerScheduler)
     {
-        private readonly AsyncHandlerScheduler _handlerScheduler;
+        _handlerScheduler = handlerScheduler;
+    }
 
-        public AsyncCommandDispatcher(AsyncHandlerScheduler handlerScheduler)
-        {
-            _handlerScheduler = handlerScheduler;
-        }
-
-        public Task Dispatch(object commandSpecification)
-        {
-            var command = new Command(commandSpecification);
-            return command.Schedule(_handlerScheduler);
-        }
+    public Task Dispatch(object commandSpecification)
+    {
+        var command = new Command(commandSpecification);
+        return command.Schedule(_handlerScheduler);
     }
 }

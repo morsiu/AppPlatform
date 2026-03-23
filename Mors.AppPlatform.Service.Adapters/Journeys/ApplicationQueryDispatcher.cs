@@ -1,21 +1,20 @@
 ﻿using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Service.Adapters.Journeys
+namespace Mors.AppPlatform.Service.Adapters.Journeys;
+
+internal sealed class ApplicationQueryDispatcher : Mors.Journeys.Application.IQueryDispatcher
 {
-    internal sealed class ApplicationQueryDispatcher : Mors.Journeys.Application.IQueryDispatcher
+    private readonly HandlerDispatcher _handlerDispatcher;
+
+    public ApplicationQueryDispatcher(HandlerDispatcher handlerDispatcher)
     {
-        private readonly HandlerDispatcher _handlerDispatcher;
+        _handlerDispatcher = handlerDispatcher;
+    }
 
-        public ApplicationQueryDispatcher(HandlerDispatcher handlerDispatcher)
-        {
-            _handlerDispatcher = handlerDispatcher;
-        }
-
-        public TResult Dispatch<TResult>(Mors.Journeys.Data.IQuery<TResult> querySpecification)
-        {
-            var query = new Query(querySpecification);
-            return (TResult)query.Dispatch(_handlerDispatcher);
-        }
+    public TResult Dispatch<TResult>(Mors.Journeys.Data.IQuery<TResult> querySpecification)
+    {
+        var query = new Query(querySpecification);
+        return (TResult)query.Dispatch(_handlerDispatcher);
     }
 }

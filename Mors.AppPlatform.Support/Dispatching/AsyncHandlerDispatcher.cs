@@ -1,24 +1,23 @@
 ﻿using System.Threading.Tasks;
 
-namespace Mors.AppPlatform.Support.Dispatching
+namespace Mors.AppPlatform.Support.Dispatching;
+
+public sealed class AsyncHandlerDispatcher
 {
-    public sealed class AsyncHandlerDispatcher
+    private readonly IHandlerSource _source;
+
+    public AsyncHandlerDispatcher(
+        IHandlerSource source)
     {
-        private readonly IHandlerSource _source;
+        _source = source;
+    }
 
-        public AsyncHandlerDispatcher(
-            IHandlerSource source)
+    public void Run()
+    {
+        while (true)
         {
-            _source = source;
-        }
-
-        public void Run()
-        {
-            while (true)
-            {
-                var handler = _source.Dequeue();
-                Task.Run(handler);
-            }
+            var handler = _source.Dequeue();
+            Task.Run(handler);
         }
     }
 }

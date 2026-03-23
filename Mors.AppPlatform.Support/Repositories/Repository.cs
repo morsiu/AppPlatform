@@ -1,24 +1,23 @@
 ﻿using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Repositories
+namespace Mors.AppPlatform.Support.Repositories;
+
+internal sealed class Repository<TEntity> : IRepository<TEntity>
 {
-    internal sealed class Repository<TEntity> : IRepository<TEntity>
+    private readonly InMemoryRepository<object, TEntity> _repository = new InMemoryRepository<object, TEntity>();
+
+    public TEntity Get(object id)
     {
-        private readonly InMemoryRepository<object, TEntity> _repository = new InMemoryRepository<object, TEntity>();
+        return _repository.Get(id);
+    }
 
-        public TEntity Get(object id)
-        {
-            return _repository.Get(id);
-        }
+    public void Store(object id, TEntity entity)
+    {
+        _repository.Store(id, entity);
+    }
 
-        public void Store(object id, TEntity entity)
-        {
-            _repository.Store(id, entity);
-        }
-
-        public ITransactional<IRepository<TEntity>> Lift()
-        {
-            return new TransactedRepository<TEntity>(this);
-        }
+    public ITransactional<IRepository<TEntity>> Lift()
+    {
+        return new TransactedRepository<TEntity>(this);
     }
 }

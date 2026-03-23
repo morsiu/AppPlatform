@@ -2,46 +2,45 @@
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Client.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys;
+
+internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Client.Wpf.ICommandDispatcher
 {
-    internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Client.Wpf.ICommandDispatcher
+    private readonly HandlerDispatcher _handlerDispatcher;
+    private readonly RequestFactory _requestFactory;
+
+    public ClientWpfCommandDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
     {
-        private readonly HandlerDispatcher _handlerDispatcher;
-        private readonly RequestFactory _requestFactory;
+        _handlerDispatcher = handlerDispatcher;
+        _requestFactory = requestFactory;
+    }
 
-        public ClientWpfCommandDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
+    public void Dispatch<TCommand>(TCommand command)
+    {
+        if (IsInternal(typeof(TCommand)))
         {
-            _handlerDispatcher = handlerDispatcher;
-            _requestFactory = requestFactory;
+            DispatchInternal(command);
         }
+        else
+        {
+            DispatchExternal(command);
+        }
+    }
 
-        public void Dispatch<TCommand>(TCommand command)
-        {
-            if (IsInternal(typeof(TCommand)))
-            {
-                DispatchInternal(command);
-            }
-            else
-            {
-                DispatchExternal(command);
-            }
-        }
+    private static bool IsInternal(Type commandType)
+    {
+        return !commandType.IsPublic;
+    }
 
-        private static bool IsInternal(Type commandType)
-        {
-            return !commandType.IsPublic;
-        }
+    private void DispatchExternal(object command)
+    {
+        var request = _requestFactory.CreateCommandRequest(command);
+        request.Run();
+    }
 
-        private void DispatchExternal(object command)
-        {
-            var request = _requestFactory.CreateCommandRequest(command);
-            request.Run();
-        }
-
-        private void DispatchInternal(object command)
-        {
-            var commandAdapter = new AppPlatform.Adapters.Dispatching.Command(command);
-            commandAdapter.Dispatch(_handlerDispatcher);
-        }
+    private void DispatchInternal(object command)
+    {
+        var commandAdapter = new AppPlatform.Adapters.Dispatching.Command(command);
+        commandAdapter.Dispatch(_handlerDispatcher);
     }
 }

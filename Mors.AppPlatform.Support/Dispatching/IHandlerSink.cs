@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Support.Dispatching
+namespace Mors.AppPlatform.Support.Dispatching;
+
+public interface IHandlerSink
 {
-    public interface IHandlerSink
-    {
-        void Enqueue(Action handler);
-    }
+    void Enqueue(Action handler);
 }

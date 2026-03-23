@@ -6,29 +6,28 @@ using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Support.Serialization;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Service.Adapters
+namespace Mors.AppPlatform.Service.Adapters;
+
+public static class WordsApplication
 {
-    public static class WordsApplication
+    public static void Bootstrap(
+        IHandlerRegistry handlerRegistry,
+        IEventBus eventBus,
+        Transaction transaction,
+        EventSourcingModule eventSourcingModule,
+        GuidIdFactory idFactory,
+        KnownTypesSet knownTypesSet)
     {
-        public static void Bootstrap(
-            IHandlerRegistry handlerRegistry,
-            IEventBus eventBus,
-            Transaction transaction,
-            EventSourcingModule eventSourcingModule,
-            GuidIdFactory idFactory,
-            KnownTypesSet knownTypesSet)
+        foreach (var type in SerializableTypes.Value)
         {
-            foreach (var type in SerializableTypes.Value)
-            {
-                knownTypesSet.AddType(type);
-            }
-            var bootstrapper = new Mors.Words.Bootstrapper();
-            var wordsEventBus = new ApplicationEventBus(eventBus, eventSourcingModule);
-            bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, wordsEventBus, idFactory).Register);
-            bootstrapper.BootstrapQueries(
-                new ApplicationQueryHandlerRegistry(handlerRegistry).Register,
-                wordsEventBus.RegisterListener);
+            knownTypesSet.AddType(type);
         }
+        var bootstrapper = new Mors.Words.Bootstrapper();
+        var wordsEventBus = new ApplicationEventBus(eventBus, eventSourcingModule);
+        bootstrapper.BootstrapCommands(
+            new ApplicationCommandHandlerRegistry(handlerRegistry, transaction, wordsEventBus, idFactory).Register);
+        bootstrapper.BootstrapQueries(
+            new ApplicationQueryHandlerRegistry(handlerRegistry).Register,
+            wordsEventBus.RegisterListener);
     }
 }

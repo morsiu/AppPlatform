@@ -4,41 +4,40 @@ using Mors.AppPlatform.Adapters.Messages;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;
 
-namespace Mors.AppPlatform.Adapters.Dispatching
+namespace Mors.AppPlatform.Adapters.Dispatching;
+
+public sealed class Command
 {
-    public sealed class Command
+    private readonly object _commandSpecification;
+
+    public Command(object commandSpecification)
     {
-        private readonly object _commandSpecification;
+        _commandSpecification = commandSpecification;
+    }
 
-        public Command(object commandSpecification)
+    public void Dispatch(HandlerDispatcher dispatcher)
+    {
+        var commandKey = CommandKey.From(_commandSpecification);
+        try
         {
-            _commandSpecification = commandSpecification;
+            dispatcher.Dispatch(commandKey, _commandSpecification);
         }
-
-        public void Dispatch(HandlerDispatcher dispatcher)
+        catch (HandlerNotFoundException)
         {
-            var commandKey = CommandKey.From(_commandSpecification);
-            try
-            {
-                dispatcher.Dispatch(commandKey, _commandSpecification);
-            }
-            catch (HandlerNotFoundException)
-            {
-                throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForCommandOfType, commandKey));
-            }
+            throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForCommandOfType, commandKey));
         }
+    }
 
-        public Task Schedule(AsyncHandlerScheduler scheduler)
+    public Task Schedule(AsyncHandlerScheduler scheduler)
+    {
+        var commandKey = CommandKey.From(_commandSpecification);
+        try
         {
-            var commandKey = CommandKey.From(_commandSpecification);
-            try
-            {
-                return scheduler.Schedule(commandKey, _commandSpecification);
-            }
-            catch (HandlerNotFoundException)
-            {
-                throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForCommandOfType, commandKey));
-            }
+            return scheduler.Schedule(commandKey, _commandSpecification);
+        }
+        catch (HandlerNotFoundException)
+        {
+            throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForCommandOfType, commandKey));
         }
     }
 }

@@ -2,70 +2,69 @@
 using System.Collections.Generic;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Repositories
+namespace Mors.AppPlatform.Support.Repositories;
+
+using EntityType = Type;
+
+internal sealed class TransactedRepositories : IRepositories, ITransactional<IRepositories>
 {
-    using EntityType = Type;
+    private readonly Dictionary<EntityType, ITransactional> _transactedRepositories = new Dictionary<EntityType, ITransactional>();
+    private readonly Repositories _repositories;
 
-    internal sealed class TransactedRepositories : IRepositories, ITransactional<IRepositories>
+    public TransactedRepositories(Repositories repositories)
     {
-        private readonly Dictionary<EntityType, ITransactional> _transactedRepositories = new Dictionary<EntityType, ITransactional>();
-        private readonly Repositories _repositories;
+        _repositories = repositories;
+    }
 
-        public TransactedRepositories(Repositories repositories)
-        {
-            _repositories = repositories;
-        }
+    public TEntity Get<TEntity>(object id)
+    {
+        var repository = GetRepository<TEntity>();
+        return repository.Get(id);
+    }
 
-        public TEntity Get<TEntity>(object id)
-        {
-            var repository = GetRepository<TEntity>();
-            return repository.Get(id);
-        }
+    public void Store<TEntity>(object id, TEntity entity)
+    {
+        var repository = GetRepository<TEntity>();
+        repository.Store(id, entity);
+    }
 
-        public void Store<TEntity>(object id, TEntity entity)
+    private IRepository<TEntity> GetRepository<TEntity>()
+    {
+        var entityType = typeof(TEntity);
+        if (_transactedRepositories.ContainsKey(entityType))
         {
-            var repository = GetRepository<TEntity>();
-            repository.Store(id, entity);
+            var repository = (IRepository<TEntity>)_transactedRepositories[entityType];
+            return repository;
         }
+        var newRepository = _repositories.GetRepository<TEntity>();
+        var transactedRepository = new TransactedRepository<TEntity>(newRepository);
+        _transactedRepositories[entityType] = transactedRepository;
+        return newRepository;
+    }
 
-        private IRepository<TEntity> GetRepository<TEntity>()
-        {
-            var entityType = typeof(TEntity);
-            if (_transactedRepositories.ContainsKey(entityType))
-            {
-                var repository = (IRepository<TEntity>)_transactedRepositories[entityType];
-                return repository;
-            }
-            var newRepository = _repositories.GetRepository<TEntity>();
-            var transactedRepository = new TransactedRepository<TEntity>(newRepository);
-            _transactedRepositories[entityType] = transactedRepository;
-            return newRepository;
-        }
+    public IRepositories Object
+    {
+        get { return this; }
+    }
 
-        public IRepositories Object
+    public void Abort()
+    {
+        foreach (var repository in _transactedRepositories.Values)
         {
-            get { return this; }
+            repository.Abort();
         }
+    }
 
-        public void Abort()
+    public void Commit()
+    {
+        foreach (var repository in _transactedRepositories.Values)
         {
-            foreach (var repository in _transactedRepositories.Values)
-            {
-                repository.Abort();
-            }
+            repository.Commit();
         }
+    }
 
-        public void Commit()
-        {
-            foreach (var repository in _transactedRepositories.Values)
-            {
-                repository.Commit();
-            }
-        }
-
-        public ITransactional<IRepositories> Lift()
-        {
-            return this;
-        }
+    public ITransactional<IRepositories> Lift()
+    {
+        return this;
     }
 }

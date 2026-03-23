@@ -3,65 +3,64 @@ using System.Collections.Generic;
 using System.IO;
 using Mors.AppPlatform.Support.EventSourcing.Dependencies;
 
-namespace Mors.AppPlatform.Support.EventSourcing.Storage
+namespace Mors.AppPlatform.Support.EventSourcing.Storage;
+
+public sealed class XmlFileEventStore : IEventStore
 {
-    public sealed class XmlFileEventStore : IEventStore
+    private readonly string _fileName;
+    private readonly IEnumerable<Type> _eventTypesToSupport;
+
+    public XmlFileEventStore(string fileName, IEnumerable<Type> eventTypesToSupport)
     {
-        private readonly string _fileName;
-        private readonly IEnumerable<Type> _eventTypesToSupport;
+        _fileName = fileName;
+        _eventTypesToSupport = eventTypesToSupport;
+    }
 
-        public XmlFileEventStore(string fileName, IEnumerable<Type> eventTypesToSupport)
+    public IEnumerable<object> GetReader()
+    {
+        FileStream stream;
+        try
         {
-            _fileName = fileName;
-            _eventTypesToSupport = eventTypesToSupport;
+            stream = new FileStream(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
+        catch (FileNotFoundException)
+        {
+            yield break;
+        }
+        catch (DirectoryNotFoundException)
+        {
+            yield break;
         }
 
-        public IEnumerable<object> GetReader()
+        using (stream)
         {
-            FileStream stream;
-            try
+            var reader = new XmlEventReader(stream, _eventTypesToSupport);
+            while (!reader.IsAtEnd)
             {
-                stream = new FileStream(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            }
-            catch (FileNotFoundException)
-            {
-                yield break;
-            }
-            catch (DirectoryNotFoundException)
-            {
-                yield break;
-            }
-
-            using (stream)
-            {
-                var reader = new XmlEventReader(stream, _eventTypesToSupport);
-                while (!reader.IsAtEnd)
-                {
-                    yield return reader.Read();
-                }
+                yield return reader.Read();
             }
         }
+    }
 
-        public IEventWriter GetWriter()
+    public IEventWriter GetWriter()
+    {
+        return new EventWriter(_fileName, _eventTypesToSupport);
+    }
+
+    private class EventWriter : IEventWriter
+    {
+        private readonly XmlEventWriter _writer;
+
+        public EventWriter(string fileName, IEnumerable<Type> eventTypesToSupport)
         {
-            return new EventWriter(_fileName, _eventTypesToSupport);
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+            _writer = new XmlEventWriter(stream, eventTypesToSupport);
         }
 
-        private class EventWriter : IEventWriter
+        public void Write<TEvent>(TEvent @event)
         {
-            private readonly XmlEventWriter _writer;
-
-            public EventWriter(string fileName, IEnumerable<Type> eventTypesToSupport)
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
-                var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
-                _writer = new XmlEventWriter(stream, eventTypesToSupport);
-            }
-
-            public void Write<TEvent>(TEvent @event)
-            {
-                _writer.Write(@event);
-            }
+            _writer.Write(@event);
         }
     }
 }

@@ -3,23 +3,22 @@ using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Client.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys;
+
+internal sealed class ClientWpfQueryHandlerRegistry : Mors.Journeys.Application.Client.Wpf.IQueryHandlerRegistry
 {
-    internal sealed class ClientWpfQueryHandlerRegistry : Mors.Journeys.Application.Client.Wpf.IQueryHandlerRegistry
+    private readonly IHandlerRegistry _handlerRegistry;
+
+    public ClientWpfQueryHandlerRegistry(IHandlerRegistry handlerRegistry)
     {
-        private readonly IHandlerRegistry _handlerRegistry;
+        _handlerRegistry = handlerRegistry;
+    }
 
-        public ClientWpfQueryHandlerRegistry(IHandlerRegistry handlerRegistry)
-        {
-            _handlerRegistry = handlerRegistry;
-        }
-
-        public void SetHandler<TQuery, TResult>(Func<TQuery, TResult> handler)
-            where TQuery : IQuery<TResult>
-        {
-            var queryKey = new QueryKey(typeof(TQuery));
-            Func<object, object> adaptedHandler = query => handler((TQuery)query);
-            _handlerRegistry.Set(queryKey, adaptedHandler);
-        }
+    public void SetHandler<TQuery, TResult>(Func<TQuery, TResult> handler)
+        where TQuery : IQuery<TResult>
+    {
+        var queryKey = new QueryKey(typeof(TQuery));
+        Func<object, object> adaptedHandler = query => handler((TQuery)query);
+        _handlerRegistry.Set(queryKey, adaptedHandler);
     }
 }

@@ -2,38 +2,37 @@
 using System.Collections.Generic;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Events
+namespace Mors.AppPlatform.Support.Events;
+
+public sealed class EventBus : IEventBus
 {
-    public sealed class EventBus : IEventBus
+    private readonly Dictionary<Type, object> _eventPublishers = new Dictionary<Type, object>();
+
+    public void RegisterListener<TEvent>(EventListener<TEvent> listener)
     {
-        private readonly Dictionary<Type, object> _eventPublishers = new Dictionary<Type, object>();
+        var publisher = GetPublisher<TEvent>();
+        publisher.RegisterListener(listener);
+    }
 
-        public void RegisterListener<TEvent>(EventListener<TEvent> listener)
-        {
-            var publisher = GetPublisher<TEvent>();
-            publisher.RegisterListener(listener);
-        }
+    public void Publish<TEvent>(TEvent @event)
+    {
+        var publisher = GetPublisher<TEvent>();
+        publisher.Publish(@event);
+    }
 
-        public void Publish<TEvent>(TEvent @event)
+    private EventPublisher<TEvent> GetPublisher<TEvent>()
+    {
+        var eventType = typeof(TEvent);
+        if (!_eventPublishers.ContainsKey(eventType))
         {
-            var publisher = GetPublisher<TEvent>();
-            publisher.Publish(@event);
+            _eventPublishers[eventType] = new EventPublisher<TEvent>();
         }
+        var publisher = (EventPublisher<TEvent>)_eventPublishers[eventType];
+        return publisher;
+    }
 
-        private EventPublisher<TEvent> GetPublisher<TEvent>()
-        {
-            var eventType = typeof(TEvent);
-            if (!_eventPublishers.ContainsKey(eventType))
-            {
-                _eventPublishers[eventType] = new EventPublisher<TEvent>();
-            }
-            var publisher = (EventPublisher<TEvent>)_eventPublishers[eventType];
-            return publisher;
-        }
-
-        ITransactional<IEventBus> IProvideTransactional<IEventBus>.Lift()
-        {
-            return new TransactedEventBus(this);
-        }
+    ITransactional<IEventBus> IProvideTransactional<IEventBus>.Lift()
+    {
+        return new TransactedEventBus(this);
     }
 }

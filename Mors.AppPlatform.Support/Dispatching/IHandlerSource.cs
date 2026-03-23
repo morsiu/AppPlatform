@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-namespace Mors.AppPlatform.Support.Dispatching
-{
-    public interface IHandlerSource
-    {
-        WaitHandle NonEmptyEvent { get; }
+namespace Mors.AppPlatform.Support.Dispatching;
 
-        Action Dequeue();
-    }
+public interface IHandlerSource
+{
+    WaitHandle NonEmptyEvent { get; }
+
+    Action Dequeue();
 }

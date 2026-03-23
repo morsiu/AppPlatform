@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Mors.AppPlatform.Client
+namespace Mors.AppPlatform.Client;
+
+internal partial class MainWindow
 {
-    internal partial class MainWindow
+    public MainWindow(IEnumerable<IApplication> applications)
     {
-        public MainWindow(IEnumerable<IApplication> applications)
-        {
-            DataContext = new WindowViewModel(applications.Select(x => new ClientApplication(x)));
-            InitializeComponent();
-        }
+        DataContext = new WindowViewModel(applications.Select(x => new ClientApplication(x)));
+        InitializeComponent();
     }
 }

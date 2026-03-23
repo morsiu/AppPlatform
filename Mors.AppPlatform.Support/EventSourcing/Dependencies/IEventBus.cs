@@ -1,10 +1,9 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.EventSourcing.Dependencies
+namespace Mors.AppPlatform.Support.EventSourcing.Dependencies;
+
+public interface IEventBus
 {
-    public interface IEventBus
-    {
-        void RegisterListener<TEvent>(Action<TEvent> handler);
-    }
+    void RegisterListener<TEvent>(Action<TEvent> handler);
 }

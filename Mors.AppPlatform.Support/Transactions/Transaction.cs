@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mors.AppPlatform.Support.Transactions
+namespace Mors.AppPlatform.Support.Transactions;
+
+public sealed class Transaction
 {
-    public sealed class Transaction
+    private readonly HashSet<ITransactional> _transactables = new HashSet<ITransactional>();
+
+    public TObject Register<TObject>(IProvideTransactional<TObject> @object)
     {
-        private readonly HashSet<ITransactional> _transactables = new HashSet<ITransactional>();
+        var transactedObject = @object.Lift();
+        _transactables.Add(transactedObject);
+        return transactedObject.Object;
+    }
 
-        public TObject Register<TObject>(IProvideTransactional<TObject> @object)
+    public void Run(Action action)
+    {
+        try
         {
-            var transactedObject = @object.Lift();
-            _transactables.Add(transactedObject);
-            return transactedObject.Object;
+            action();
         }
-
-        public void Run(Action action)
+        catch
         {
-            try
-            {
-                action();
-            }
-            catch
-            {
-                foreach (var transactable in _transactables)
-                {
-                    transactable.Abort();
-                }
-                throw;
-            }
             foreach (var transactable in _transactables)
             {
-                transactable.Commit();
+                transactable.Abort();
             }
+            throw;
+        }
+        foreach (var transactable in _transactables)
+        {
+            transactable.Commit();
         }
     }
 }

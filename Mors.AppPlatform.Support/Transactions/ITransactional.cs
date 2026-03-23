@@ -1,18 +1,17 @@
-﻿namespace Mors.AppPlatform.Support.Transactions
+﻿namespace Mors.AppPlatform.Support.Transactions;
+
+/// <summary>
+/// Provides functionality to commit or abort changes done to object in transaction.
+/// </summary>
+public interface ITransactional
 {
     /// <summary>
-    /// Provides functionality to commit or abort changes done to object in transaction.
+    /// Discards changes done since last Abort or Commit call.
     /// </summary>
-    public interface ITransactional
-    {
-        /// <summary>
-        /// Discards changes done since last Abort or Commit call.
-        /// </summary>
-        void Abort();
+    void Abort();
 
-        /// <summary>
-        /// Pushes changes since last Abort or Commit call into underlying object.
-        /// </summary>
-        void Commit();
-    }
+    /// <summary>
+    /// Pushes changes since last Abort or Commit call into underlying object.
+    /// </summary>
+    void Commit();
 }

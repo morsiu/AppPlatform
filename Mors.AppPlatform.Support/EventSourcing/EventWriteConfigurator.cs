@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using Mors.AppPlatform.Support.EventSourcing.Dependencies;
 
-namespace Mors.AppPlatform.Support.EventSourcing
+namespace Mors.AppPlatform.Support.EventSourcing;
+
+internal sealed class EventWriteConfigurator
 {
-    internal sealed class EventWriteConfigurator
+    private readonly HashSet<Action<IEventBus, IEventWriter>> _eventWriteConfigurators = new HashSet<Action<IEventBus, IEventWriter>>();
+
+    public void Add<TEvent>()
     {
-        private readonly HashSet<Action<IEventBus, IEventWriter>> _eventWriteConfigurators = new HashSet<Action<IEventBus, IEventWriter>>();
+        _eventWriteConfigurators.Add(ConfigureEventWrite<TEvent>);
+    }
 
-        public void Add<TEvent>()
+    public void Configure(IEventBus eventBus, IEventWriter eventWriter)
+    {
+        foreach (var eventWriteConfigurator in _eventWriteConfigurators)
         {
-            _eventWriteConfigurators.Add(ConfigureEventWrite<TEvent>);
+            eventWriteConfigurator(eventBus, eventWriter);
         }
+    }
 
-        public void Configure(IEventBus eventBus, IEventWriter eventWriter)
-        {
-            foreach (var eventWriteConfigurator in _eventWriteConfigurators)
-            {
-                eventWriteConfigurator(eventBus, eventWriter);
-            }
-        }
-
-        private static void ConfigureEventWrite<TEvent>(IEventBus eventBus, IEventWriter eventWriter)
-        {
-            eventBus.RegisterListener<TEvent>(eventWriter.Write);
-        }
+    private static void ConfigureEventWrite<TEvent>(IEventBus eventBus, IEventWriter eventWriter)
+    {
+        eventBus.RegisterListener<TEvent>(eventWriter.Write);
     }
 }

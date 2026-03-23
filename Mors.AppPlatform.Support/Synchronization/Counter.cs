@@ -1,39 +1,38 @@
 ﻿using System.Threading;
 
-namespace Mors.AppPlatform.Support.Synchronization
+namespace Mors.AppPlatform.Support.Synchronization;
+
+public sealed class Counter
 {
-    public sealed class Counter
+    private readonly EventWaitHandle _zeroReachedEvent;
+    private int _count;
+
+    public Counter(int initialCount)
     {
-        private readonly EventWaitHandle _zeroReachedEvent;
-        private int _count;
+        _count = initialCount;
+        _zeroReachedEvent = new ManualResetEvent(true);
+    }
 
-        public Counter(int initialCount)
+    public WaitHandle ZeroReachedEvent { get { return _zeroReachedEvent; } }
+
+    public void Increase()
+    {
+        if (Interlocked.Increment(ref _count) == 1)
         {
-            _count = initialCount;
-            _zeroReachedEvent = new ManualResetEvent(true);
+            _zeroReachedEvent.Reset();
         }
+    }
 
-        public WaitHandle ZeroReachedEvent { get { return _zeroReachedEvent; } }
-
-        public void Increase()
+    public void Decrease()
+    {
+        if (Interlocked.Decrement(ref _count) == 0)
         {
-            if (Interlocked.Increment(ref _count) == 1)
-            {
-                _zeroReachedEvent.Reset();
-            }
+            _zeroReachedEvent.Set();
         }
+    }
 
-        public void Decrease()
-        {
-            if (Interlocked.Decrement(ref _count) == 0)
-            {
-                _zeroReachedEvent.Set();
-            }
-        }
-
-        public void WaitForZero()
-        {
-            _zeroReachedEvent.WaitOne();
-        }
+    public void WaitForZero()
+    {
+        _zeroReachedEvent.WaitOne();
     }
 }

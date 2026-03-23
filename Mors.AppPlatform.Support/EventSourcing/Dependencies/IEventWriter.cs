@@ -1,7 +1,6 @@
-﻿namespace Mors.AppPlatform.Support.EventSourcing.Dependencies
+﻿namespace Mors.AppPlatform.Support.EventSourcing.Dependencies;
+
+public interface IEventWriter
 {
-    public interface IEventWriter
-    {
-        void Write<TEvent>(TEvent @event);
-    }
+    void Write<TEvent>(TEvent @event);
 }

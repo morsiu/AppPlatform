@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace Mors.AppPlatform.Support.Events
+namespace Mors.AppPlatform.Support.Events;
+
+internal sealed class EventPublisher<TEvent>
 {
-    internal sealed class EventPublisher<TEvent>
+    private readonly List<EventListener<TEvent>> _listeners = new List<EventListener<TEvent>>();
+
+    public void RegisterListener(EventListener<TEvent> listener)
     {
-        private readonly List<EventListener<TEvent>> _listeners = new List<EventListener<TEvent>>();
+        _listeners.Add(listener);
+    }
 
-        public void RegisterListener(EventListener<TEvent> listener)
+    public void Publish(TEvent @event)
+    {
+        foreach (var listener in _listeners)
         {
-            _listeners.Add(listener);
-        }
-
-        public void Publish(TEvent @event)
-        {
-            foreach (var listener in _listeners)
-            {
-                listener(@event);
-            }
+            listener(@event);
         }
     }
 }

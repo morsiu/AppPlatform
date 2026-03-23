@@ -1,56 +1,55 @@
 ﻿using System.Collections.Generic;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Repositories
+namespace Mors.AppPlatform.Support.Repositories;
+
+internal sealed class TransactedRepository<TEntity> : IRepository<TEntity>, ITransactional<IRepository<TEntity>>
 {
-    internal sealed class TransactedRepository<TEntity> : IRepository<TEntity>, ITransactional<IRepository<TEntity>>
+    private readonly Repository<TEntity> _repository;
+    private readonly Dictionary<object, TEntity> _transactionRepository = new Dictionary<object, TEntity>();
+
+    public TransactedRepository(Repository<TEntity> repository)
     {
-        private readonly Repository<TEntity> _repository;
-        private readonly Dictionary<object, TEntity> _transactionRepository = new Dictionary<object, TEntity>();
+        _repository = repository;
+    }
 
-        public TransactedRepository(Repository<TEntity> repository)
+    public TEntity Get(object id)
+    {
+        if (_transactionRepository.ContainsKey(id))
         {
-            _repository = repository;
+            return _transactionRepository[id];
         }
+        return _repository.Get(id);
+    }
 
-        public TEntity Get(object id)
-        {
-            if (_transactionRepository.ContainsKey(id))
-            {
-                return _transactionRepository[id];
-            }
-            return _repository.Get(id);
-        }
-
-        public void Store(object id, TEntity entity)
-        {
-            _transactionRepository[id] = entity;
-        }
+    public void Store(object id, TEntity entity)
+    {
+        _transactionRepository[id] = entity;
+    }
         
-        public void Abort()
-        {
-            _transactionRepository.Clear();
-        }
+    public void Abort()
+    {
+        _transactionRepository.Clear();
+    }
 
-        public void Commit()
+    public void Commit()
+    {
+        foreach (var idWithEntity in _transactionRepository)
         {
-            foreach (var idWithEntity in _transactionRepository)
-            {
-                var id = idWithEntity.Key;
-                var entity = idWithEntity.Value;
-                _repository.Store(id, entity);
-            }
-            _transactionRepository.Clear();
+            var id = idWithEntity.Key;
+            var entity = idWithEntity.Value;
+            _repository.Store(id, entity);
         }
+        _transactionRepository.Clear();
+    }
 
-        public IRepository<TEntity> Object
-        {
-            get { return this; }
-        }
+    public IRepository<TEntity> Object
+    {
+        get { return this; }
+    }
 
-        public ITransactional<IRepository<TEntity>> Lift()
-        {
-            return this;
-        }
+    public ITransactional<IRepository<TEntity>> Lift()
+    {
+        return this;
     }
 }

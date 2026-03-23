@@ -1,11 +1,10 @@
 ﻿using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Events
-{
-    public interface IEventBus : IProvideTransactional<IEventBus>
-    {
-        void RegisterListener<TEvent>(EventListener<TEvent> listener);
+namespace Mors.AppPlatform.Support.Events;
 
-        void Publish<TEvent>(TEvent @event);
-    }
+public interface IEventBus : IProvideTransactional<IEventBus>
+{
+    void RegisterListener<TEvent>(EventListener<TEvent> listener);
+
+    void Publish<TEvent>(TEvent @event);
 }

@@ -1,13 +1,12 @@
-﻿namespace Mors.AppPlatform.Service
+﻿namespace Mors.AppPlatform.Service;
+
+public sealed class Program
 {
-    public sealed class Program
+    public static void Main()
     {
-        public static void Main()
-        {
-            var configuration = Settings.Default();
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.Bootstrap(configuration);
-            bootstrapper.RunService();
-        }
+        var configuration = Settings.Default();
+        var bootstrapper = new Bootstrapper();
+        bootstrapper.Bootstrap(configuration);
+        bootstrapper.RunService();
     }
 }

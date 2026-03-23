@@ -5,47 +5,46 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Mors.AppPlatform.Client.Adapters
+namespace Mors.AppPlatform.Client.Adapters;
+
+public class JourneysWpfClient : IApplication
 {
-    public class JourneysWpfClient : IApplication
+    private static Bootstrapper _bootstrapper;
+
+    public JourneysWpfClient(
+        Service.Client.RequestFactory requestFactory,
+        Support.Events.IEventBus eventBus,
+        Support.Dispatching.HandlerDispatcher handlerDispatcher,
+        Support.Dispatching.IHandlerRegistry handlerRegistry,
+        Support.Repositories.GuidIdFactory idFactory)
     {
-        private static Bootstrapper _bootstrapper;
+        _bootstrapper =
+            new Bootstrapper(
+                new ClientWpfEventBus(eventBus),
+                new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
+                new ClientWpfCommandHandlerRegistry(handlerRegistry),
+                new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
+                new ClientWpfQueryHandlerRegistry(handlerRegistry),
+                new ClientWpfIdFactory(idFactory));
+    }
 
-        public JourneysWpfClient(
-            Service.Client.RequestFactory requestFactory,
-            Support.Events.IEventBus eventBus,
-            Support.Dispatching.HandlerDispatcher handlerDispatcher,
-            Support.Dispatching.IHandlerRegistry handlerRegistry,
-            Support.Repositories.GuidIdFactory idFactory)
-        {
-            _bootstrapper =
-                new Bootstrapper(
-                    new ClientWpfEventBus(eventBus),
-                    new ClientWpfCommandDispatcher(requestFactory, handlerDispatcher),
-                    new ClientWpfCommandHandlerRegistry(handlerRegistry),
-                    new ClientWpfQueryDispatcher(requestFactory, handlerDispatcher),
-                    new ClientWpfQueryHandlerRegistry(handlerRegistry),
-                    new ClientWpfIdFactory(idFactory));
-        }
+    public static IReadOnlySet<Type> GetSerializableTypes()
+    {
+        return SerializableTypes.Value;
+    }
 
-        public static IReadOnlySet<Type> GetSerializableTypes()
-        {
-            return SerializableTypes.Value;
-        }
+    public UIElement CreateUiForInteractionWithSelf()
+    {
+        return _bootstrapper.Bootstrap();
+    }
 
-        public UIElement CreateUiForInteractionWithSelf()
-        {
-            return _bootstrapper.Bootstrap();
-        }
+    public string DescribeSelfForSelectionUi()
+    {
+        return "Journeys";
+    }
 
-        public string DescribeSelfForSelectionUi()
-        {
-            return "Journeys";
-        }
-
-        public string DescribeSelfForTitleBarOfMainWindow()
-        {
-            return "Journeys";
-        }
+    public string DescribeSelfForTitleBarOfMainWindow()
+    {
+        return "Journeys";
     }
 }

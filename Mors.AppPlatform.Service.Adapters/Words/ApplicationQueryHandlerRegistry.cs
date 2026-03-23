@@ -2,27 +2,26 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Service.Adapters.Words
+namespace Mors.AppPlatform.Service.Adapters.Words;
+
+internal sealed class ApplicationQueryHandlerRegistry
 {
-    internal sealed class ApplicationQueryHandlerRegistry
+    private readonly IHandlerRegistry _handlerRegistry;
+
+    public ApplicationQueryHandlerRegistry(IHandlerRegistry handlerRegistry)
     {
-        private readonly IHandlerRegistry _handlerRegistry;
+        _handlerRegistry = handlerRegistry;
+    }
 
-        public ApplicationQueryHandlerRegistry(IHandlerRegistry handlerRegistry)
-        {
-            _handlerRegistry = handlerRegistry;
-        }
-
-        public void Register(Type queryType, Func<object, object> handler)
-        {
-            var queryKey = new QueryKey(queryType);
-            _handlerRegistry.Set(
-                queryKey,
-                query =>
-                {
-                    var result = handler(query);
-                    return result;
-                });
-        }
+    public void Register(Type queryType, Func<object, object> handler)
+    {
+        var queryKey = new QueryKey(queryType);
+        _handlerRegistry.Set(
+            queryKey,
+            query =>
+            {
+                var result = handler(query);
+                return result;
+            });
     }
 }

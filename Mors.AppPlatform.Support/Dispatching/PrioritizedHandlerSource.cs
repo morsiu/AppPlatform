@@ -4,35 +4,34 @@ using System.Linq;
 using System.Threading;
 using Journeys.Support.Synchronization;
 
-namespace Mors.AppPlatform.Support.Dispatching
+namespace Mors.AppPlatform.Support.Dispatching;
+
+public sealed class PrioritizedHandlerSource : IHandlerSource
 {
-    public sealed class PrioritizedHandlerSource : IHandlerSource
+    private readonly IEnumerable<IHandlerSource> _sourcesInDescendingPriorityOrder;
+    private readonly AggregateWaitHandle _sourcesNonEmptyEvents;
+
+    public PrioritizedHandlerSource(IEnumerable<IHandlerSource> sourcesInDescendingPriorityOrder)
     {
-        private readonly IEnumerable<IHandlerSource> _sourcesInDescendingPriorityOrder;
-        private readonly AggregateWaitHandle _sourcesNonEmptyEvents;
+        _sourcesInDescendingPriorityOrder = sourcesInDescendingPriorityOrder;
+        _sourcesNonEmptyEvents = new AggregateWaitHandle(_sourcesInDescendingPriorityOrder.Select(q => q.NonEmptyEvent));
+    }
 
-        public PrioritizedHandlerSource(IEnumerable<IHandlerSource> sourcesInDescendingPriorityOrder)
-        {
-            _sourcesInDescendingPriorityOrder = sourcesInDescendingPriorityOrder;
-            _sourcesNonEmptyEvents = new AggregateWaitHandle(_sourcesInDescendingPriorityOrder.Select(q => q.NonEmptyEvent));
-        }
+    public WaitHandle NonEmptyEvent
+    {
+        get { throw new NotImplementedException(); }
+    }
 
-        public WaitHandle NonEmptyEvent
+    public Action Dequeue()
+    {
+        while (true)
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        public Action Dequeue()
-        {
-            while (true)
+            _sourcesNonEmptyEvents.WaitAny();
+            foreach (var queue in _sourcesInDescendingPriorityOrder)
             {
-                _sourcesNonEmptyEvents.WaitAny();
-                foreach (var queue in _sourcesInDescendingPriorityOrder)
+                if (queue.NonEmptyEvent.WaitOne(0))
                 {
-                    if (queue.NonEmptyEvent.WaitOne(0))
-                    {
-                        return queue.Dequeue();
-                    }
+                    return queue.Dequeue();
                 }
             }
         }

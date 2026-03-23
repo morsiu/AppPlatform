@@ -2,21 +2,20 @@
 using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 
-namespace Mors.AppPlatform.Client.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys;
+
+internal sealed class ClientWpfCommandHandlerRegistry : Mors.Journeys.Application.Client.Wpf.ICommandHandlerRegistry
 {
-    internal sealed class ClientWpfCommandHandlerRegistry : Mors.Journeys.Application.Client.Wpf.ICommandHandlerRegistry
+    private readonly IHandlerRegistry _handlerRegistry;
+
+    public ClientWpfCommandHandlerRegistry(IHandlerRegistry handlerRegistry)
     {
-        private readonly IHandlerRegistry _handlerRegistry;
+        _handlerRegistry = handlerRegistry;
+    }
 
-        public ClientWpfCommandHandlerRegistry(IHandlerRegistry handlerRegistry)
-        {
-            _handlerRegistry = handlerRegistry;
-        }
-
-        public void SetHandler<TCommand>(Action<TCommand> handler)
-        {
-            var commandKey = CommandKey.From<TCommand>();
-            _handlerRegistry.Set(commandKey, command => { handler((TCommand)command); return null; });
-        }
+    public void SetHandler<TCommand>(Action<TCommand> handler)
+    {
+        var commandKey = CommandKey.From<TCommand>();
+        _handlerRegistry.Set(commandKey, command => { handler((TCommand)command); return null; });
     }
 }

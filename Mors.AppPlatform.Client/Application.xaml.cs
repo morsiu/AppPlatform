@@ -1,9 +1,8 @@
-﻿namespace Mors.AppPlatform.Client
+﻿namespace Mors.AppPlatform.Client;
+
+internal partial class Application
 {
-    internal partial class Application
+    public Application()
     {
-        public Application()
-        {
-        }
     }
 }

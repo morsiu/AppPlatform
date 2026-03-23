@@ -5,86 +5,85 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Mors.AppPlatform.Service.Infrastructure
+namespace Mors.AppPlatform.Service.Infrastructure;
+
+internal sealed class ContentTypeAwareSerializer
 {
-    internal sealed class ContentTypeAwareSerializer
+    private readonly DataContractSerializer _xmlSerializer;
+
+    public ContentTypeAwareSerializer(IEnumerable<Type> knownTypes)
     {
-        private readonly DataContractSerializer _xmlSerializer;
+        _xmlSerializer = new DataContractSerializer(typeof(object), knownTypes);
+    }
 
-        public ContentTypeAwareSerializer(IEnumerable<Type> knownTypes)
+    public object Deserialize(Stream contentStream, string contentType)
+    {
+        switch (MatchContentType(contentType))
         {
-            _xmlSerializer = new DataContractSerializer(typeof(object), knownTypes);
+            case ContentType.Json:
+                return DeserializeJson(contentStream);
+            case ContentType.Xml:
+                return _xmlSerializer.ReadObject(contentStream);
+            default:
+                throw new ArgumentException("Unsupported content type: {0}", contentType);
         }
+    }
 
-        public object Deserialize(Stream contentStream, string contentType)
+    public string Serialize(object content, Stream contentStream, IEnumerable<Tuple<string, decimal>> contentTypes)
+    {
+        var selectedContentType = SelectContentType(contentTypes);
+        switch (MatchContentType(selectedContentType))
         {
-            switch (MatchContentType(contentType))
-            {
-                case ContentType.Json:
-                    return DeserializeJson(contentStream);
-                case ContentType.Xml:
-                    return _xmlSerializer.ReadObject(contentStream);
-                default:
-                    throw new ArgumentException("Unsupported content type: {0}", contentType);
-            }
+            case ContentType.Json:
+                SerializeJson(content, contentStream);
+                break;
+            case ContentType.Xml:
+                _xmlSerializer.WriteObject(contentStream, content);
+                break;
+            default:
+                throw new ArgumentException("Unsupported content types: {0}", string.Join(", ", contentTypes.Select(ct => ct.Item1)));
         }
+        return selectedContentType;
+    }
 
-        public string Serialize(object content, Stream contentStream, IEnumerable<Tuple<string, decimal>> contentTypes)
-        {
-            var selectedContentType = SelectContentType(contentTypes);
-            switch (MatchContentType(selectedContentType))
-            {
-                case ContentType.Json:
-                    SerializeJson(content, contentStream);
-                    break;
-                case ContentType.Xml:
-                    _xmlSerializer.WriteObject(contentStream, content);
-                    break;
-                default:
-                    throw new ArgumentException("Unsupported content types: {0}", string.Join(", ", contentTypes.Select(ct => ct.Item1)));
-            }
-            return selectedContentType;
-        }
+    private static void SerializeJson(object content, Stream contentStream)
+    {
+        var serializedContent = JsonConvert.SerializeObject(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects });
+        var writer = new StreamWriter(contentStream);
+        writer.Write(serializedContent);
+        writer.Flush();
+    }
 
-        private static void SerializeJson(object content, Stream contentStream)
-        {
-            var serializedContent = JsonConvert.SerializeObject(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects });
-            var writer = new StreamWriter(contentStream);
-            writer.Write(serializedContent);
-            writer.Flush();
-        }
+    private static object DeserializeJson(Stream contentStream)
+    {
+        var reader = new StreamReader(contentStream);
+        var content = reader.ReadToEnd();
+        return JsonConvert.DeserializeObject(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+    }
 
-        private static object DeserializeJson(Stream contentStream)
-        {
-            var reader = new StreamReader(contentStream);
-            var content = reader.ReadToEnd();
-            return JsonConvert.DeserializeObject(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-        }
+    private static string SelectContentType(IEnumerable<Tuple<string,decimal>> contentTypes)
+    {
+        return contentTypes.Select(ct => ct.Item1)
+            .FirstOrDefault(ct => MatchContentType(ct) != ContentType.Unknown);
+    }
 
-        private static string SelectContentType(IEnumerable<Tuple<string,decimal>> contentTypes)
+    private static ContentType MatchContentType(string contentType)
+    {
+        if (contentType.Contains("xml"))
         {
-            return contentTypes.Select(ct => ct.Item1)
-                .FirstOrDefault(ct => MatchContentType(ct) != ContentType.Unknown);
+            return ContentType.Xml;
         }
+        else if (contentType.Contains("json"))
+        {
+            return ContentType.Json;
+        }
+        return ContentType.Unknown;
+    }
 
-        private static ContentType MatchContentType(string contentType)
-        {
-            if (contentType.Contains("xml"))
-            {
-                return ContentType.Xml;
-            }
-            else if (contentType.Contains("json"))
-            {
-                return ContentType.Json;
-            }
-            return ContentType.Unknown;
-        }
-
-        private enum ContentType
-        {
-            Unknown,
-            Xml,
-            Json,
-        }
+    private enum ContentType
+    {
+        Unknown,
+        Xml,
+        Json,
     }
 }

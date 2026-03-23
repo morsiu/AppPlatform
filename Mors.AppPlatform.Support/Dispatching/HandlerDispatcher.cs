@@ -1,28 +1,27 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;
 
-namespace Mors.AppPlatform.Support.Dispatching
+namespace Mors.AppPlatform.Support.Dispatching;
+
+public sealed class HandlerDispatcher
 {
-    public sealed class HandlerDispatcher
+    private readonly IHandlerRegistry _registry;
+
+    public HandlerDispatcher(IHandlerRegistry registry)
     {
-        private readonly IHandlerRegistry _registry;
+        _registry = registry;
+    }
 
-        public HandlerDispatcher(IHandlerRegistry registry)
+    public object Dispatch(object key, object parameter)
+    {
+        Func<object, object> handler;
+        if (_registry.Retrieve(key, out handler))
         {
-            _registry = registry;
+            return handler(parameter);
         }
-
-        public object Dispatch(object key, object parameter)
+        else
         {
-            Func<object, object> handler;
-            if (_registry.Retrieve(key, out handler))
-            {
-                return handler(parameter);
-            }
-            else
-            {
-                throw new HandlerNotFoundException();
-            }
+            throw new HandlerNotFoundException();
         }
     }
 }

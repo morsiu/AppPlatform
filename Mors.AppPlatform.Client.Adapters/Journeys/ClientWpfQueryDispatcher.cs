@@ -4,48 +4,47 @@ using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.Journeys.Data;
 
-namespace Mors.AppPlatform.Client.Adapters.Journeys
+namespace Mors.AppPlatform.Client.Adapters.Journeys;
+
+internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Client.Wpf.IQueryDispatcher
 {
-    internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Client.Wpf.IQueryDispatcher
+    private readonly HandlerDispatcher _handlerDispatcher;
+    private readonly RequestFactory _requestFactory;
+
+    public ClientWpfQueryDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
     {
-        private readonly HandlerDispatcher _handlerDispatcher;
-        private readonly RequestFactory _requestFactory;
+        _requestFactory = requestFactory;
+        _handlerDispatcher = handlerDispatcher;
+    }
 
-        public ClientWpfQueryDispatcher(RequestFactory requestFactory, HandlerDispatcher handlerDispatcher)
+    public TResult Dispatch<TResult>(IQuery<TResult> query)
+    {
+        var queryType = query.GetType();
+        if (IsInternal(queryType))
         {
-            _requestFactory = requestFactory;
-            _handlerDispatcher = handlerDispatcher;
+            return DispatchInternal(query);
         }
+        else
+        {
+            return DispatchExternal(query);
+        }
+    }
 
-        public TResult Dispatch<TResult>(IQuery<TResult> query)
-        {
-            var queryType = query.GetType();
-            if (IsInternal(queryType))
-            {
-                return DispatchInternal(query);
-            }
-            else
-            {
-                return DispatchExternal(query);
-            }
-        }
+    private TResult DispatchExternal<TResult>(IQuery<TResult> query)
+    {
+        var queryRequest = _requestFactory.CreateQueryRequest<TResult>(query);
+        var result = queryRequest.Run();
+        return result;
+    }
 
-        private TResult DispatchExternal<TResult>(IQuery<TResult> query)
-        {
-            var queryRequest = _requestFactory.CreateQueryRequest<TResult>(query);
-            var result = queryRequest.Run();
-            return result;
-        }
+    private TResult DispatchInternal<TResult>(IQuery<TResult> querySpecification)
+    {
+        var query = new Query(querySpecification);
+        return (TResult)query.Dispatch(_handlerDispatcher);
+    }
 
-        private TResult DispatchInternal<TResult>(IQuery<TResult> querySpecification)
-        {
-            var query = new Query(querySpecification);
-            return (TResult)query.Dispatch(_handlerDispatcher);
-        }
-
-        private bool IsInternal(Type queryType)
-        {
-            return !queryType.IsPublic;
-        }
+    private bool IsInternal(Type queryType)
+    {
+        return !queryType.IsPublic;
     }
 }

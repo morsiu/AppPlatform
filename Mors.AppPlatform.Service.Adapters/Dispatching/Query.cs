@@ -5,41 +5,40 @@ using Mors.AppPlatform.Adapters.Messages;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;
 
-namespace Mors.AppPlatform.Service.Adapters.Dispatching
+namespace Mors.AppPlatform.Service.Adapters.Dispatching;
+
+public sealed class Query
 {
-    public sealed class Query
+    private readonly object _querySpecification;
+
+    public Query(object querySpecification)
     {
-        private readonly object _querySpecification;
+        _querySpecification = querySpecification;
+    }
 
-        public Query(object querySpecification)
+    public object Dispatch(HandlerDispatcher dispatcher)
+    {
+        var queryKey = new QueryKey(_querySpecification.GetType());
+        try
         {
-            _querySpecification = querySpecification;
+            return dispatcher.Dispatch(queryKey, _querySpecification);
         }
-
-        public object Dispatch(HandlerDispatcher dispatcher)
+        catch (HandlerNotFoundException)
         {
-            var queryKey = new QueryKey(_querySpecification.GetType());
-            try
-            {
-                return dispatcher.Dispatch(queryKey, _querySpecification);
-            }
-            catch (HandlerNotFoundException)
-            {
-                throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForQueryOfType, queryKey));
-            }
+            throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForQueryOfType, queryKey));
         }
+    }
 
-        public Task<object> Schedule(AsyncHandlerScheduler scheduler)
+    public Task<object> Schedule(AsyncHandlerScheduler scheduler)
+    {
+        var queryKey = new QueryKey(_querySpecification.GetType());
+        try
         {
-            var queryKey = new QueryKey(_querySpecification.GetType());
-            try
-            {
-                return scheduler.Schedule(queryKey, _querySpecification);
-            }
-            catch (HandlerNotFoundException)
-            {
-                throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForQueryOfType, queryKey));
-            }
+            return scheduler.Schedule(queryKey, _querySpecification);
+        }
+        catch (HandlerNotFoundException)
+        {
+            throw new InvalidOperationException(string.Format(FailureMessages.NoHandlerRegisteredForQueryOfType, queryKey));
         }
     }
 }

@@ -7,39 +7,38 @@ using Mors.AppPlatform.Support.Repositories;
 using Mors.AppPlatform.Support.Serialization;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Service.Adapters
+namespace Mors.AppPlatform.Service.Adapters;
+
+public static class JourneysApplication
 {
-    public static class JourneysApplication
+    public static void Bootstrap(
+        IHandlerRegistry handlerRegistry,
+        HandlerDispatcher handlerDispatcher,
+        IEventBus eventBus,
+        IRepositories repositories,
+        EventSourcingModule eventSourcingModule,
+        GuidIdFactory idFactory,
+        KnownTypesSet knownTypesSet,
+        Transaction transaction)
     {
-        public static void Bootstrap(
-            IHandlerRegistry handlerRegistry,
-            HandlerDispatcher handlerDispatcher,
-            IEventBus eventBus,
-            IRepositories repositories,
-            EventSourcingModule eventSourcingModule,
-            GuidIdFactory idFactory,
-            KnownTypesSet knownTypesSet,
-            Transaction transaction)
+        foreach (var type in SerializableTypes.Value)
         {
-            foreach (var type in SerializableTypes.Value)
-            {
-                knownTypesSet.AddType(type);
-            }
-            var bootstrapper = new Mors.Journeys.Application.Bootstrapper();
-            bootstrapper.BootstrapEventSourcing(
-                new ApplicationEventSourcing(eventSourcingModule),
-                new ApplicationRepositories(repositories),
-                new ApplicationEventBus(eventBus).Publish);
-            bootstrapper.BootstrapQueries(
-                new ApplicationQueryHandlerRegistry(handlerRegistry),
-                new ApplicationEventBus(eventBus),
-                new ApplicationQueryDispatcher(handlerDispatcher));
-            bootstrapper.BootstrapCommands(
-                new ApplicationCommandHandlerRegistry(handlerRegistry, transaction),
-                new ApplicationRepositories(transaction.Register(repositories)),
-                new ApplicationEventBus(transaction.Register(eventBus)).Publish,
-                () => idFactory.Create(),
-                new ApplicationQueryDispatcher(handlerDispatcher));
+            knownTypesSet.AddType(type);
         }
+        var bootstrapper = new Mors.Journeys.Application.Bootstrapper();
+        bootstrapper.BootstrapEventSourcing(
+            new ApplicationEventSourcing(eventSourcingModule),
+            new ApplicationRepositories(repositories),
+            new ApplicationEventBus(eventBus).Publish);
+        bootstrapper.BootstrapQueries(
+            new ApplicationQueryHandlerRegistry(handlerRegistry),
+            new ApplicationEventBus(eventBus),
+            new ApplicationQueryDispatcher(handlerDispatcher));
+        bootstrapper.BootstrapCommands(
+            new ApplicationCommandHandlerRegistry(handlerRegistry, transaction),
+            new ApplicationRepositories(transaction.Register(repositories)),
+            new ApplicationEventBus(transaction.Register(eventBus)).Publish,
+            () => idFactory.Create(),
+            new ApplicationQueryDispatcher(handlerDispatcher));
     }
 }

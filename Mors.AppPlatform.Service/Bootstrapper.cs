@@ -9,89 +9,88 @@ using Mors.AppPlatform.Support.Serialization;
 using Mors.AppPlatform.Support.Transactions;
 using System.Threading;
 
-namespace Mors.AppPlatform.Service
+namespace Mors.AppPlatform.Service;
+
+internal sealed class Bootstrapper
 {
-    internal sealed class Bootstrapper
+    private AsyncHandlerDispatcher _handlerDispatcher;
+    private AspNetCoreHost _host;
+
+    public void Bootstrap(Settings configuration)
     {
-        private AsyncHandlerDispatcher _handlerDispatcher;
-        private AspNetCoreHost _host;
+        var eventBus = new Support.Events.EventBus();
+        var idFactory = new GuidIdFactory();
+        var handlerRegistry = new HandlerRegistry();
+        var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
+        var repositories = new Repositories();
+        var knownTypesSet = new KnownTypesSet();
 
-        public void Bootstrap(Settings configuration)
-        {
-            var eventBus = new Support.Events.EventBus();
-            var idFactory = new GuidIdFactory();
-            var handlerRegistry = new HandlerRegistry();
-            var handlerDispatcher = new HandlerDispatcher(handlerRegistry);
-            var repositories = new Repositories();
-            var knownTypesSet = new KnownTypesSet();
+        var eventSourcingModule =
+            new EventSourcingModule(
+                new EventSourcingEventBus(eventBus),
+                supportedEventTypes =>
+                    new XmlFileEventStore(
+                        configuration.EventFilePath,
+                        supportedEventTypes),
+                idFactory.IdImplementationType);
 
-            var eventSourcingModule =
-                new EventSourcingModule(
-                    new EventSourcingEventBus(eventBus),
-                    supportedEventTypes =>
-                        new XmlFileEventStore(
-                            configuration.EventFilePath,
-                            supportedEventTypes),
-                    idFactory.IdImplementationType);
+        JourneysApplication.Bootstrap(
+            handlerRegistry,
+            handlerDispatcher,
+            eventBus,
+            repositories,
+            eventSourcingModule,
+            idFactory,
+            knownTypesSet,
+            new Transaction());
 
-            JourneysApplication.Bootstrap(
-                handlerRegistry,
-                handlerDispatcher,
-                eventBus,
-                repositories,
-                eventSourcingModule,
-                idFactory,
-                knownTypesSet,
-                new Transaction());
+        WordsApplication.Bootstrap(
+            handlerRegistry,
+            eventBus,
+            new Transaction(),
+            eventSourcingModule,
+            idFactory,
+            knownTypesSet);
 
-            WordsApplication.Bootstrap(
-                handlerRegistry,
-                eventBus,
-                new Transaction(),
-                eventSourcingModule,
-                idFactory,
-                knownTypesSet);
+        eventSourcingModule.ReplayEvents();
+        eventSourcingModule.StoreNewEvents();
 
-            eventSourcingModule.ReplayEvents();
-            eventSourcingModule.StoreNewEvents();
+        var commandHandlerQueue = new HandlerQueue();
+        var queryHandlerQueue = new HandlerQueue();
+        var queryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
+        var commandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
 
-            var commandHandlerQueue = new HandlerQueue();
-            var queryHandlerQueue = new HandlerQueue();
-            var queryDispatcher = new AsyncQueryDispatcher(new AsyncHandlerScheduler(handlerRegistry, queryHandlerQueue));
-            var commandDispatcher = new AsyncCommandDispatcher(new AsyncHandlerScheduler(handlerRegistry, commandHandlerQueue));
+        var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
+        var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
+        _handlerDispatcher = new AsyncHandlerDispatcher(
+            new PrioritizedHandlerSource(
+                new[]
+                {
+                    new DependentHandlerSource(
+                        commandHandlerSource,
+                        new[]
+                        {
+                            queryHandlerSource.NoRunningHandlersEvent,
+                            commandHandlerSource.NoRunningHandlersEvent
+                        }),
+                    new DependentHandlerSource(
+                        queryHandlerSource,
+                        new[] { commandHandlerSource.NoRunningHandlersEvent })
+                }));
 
-            var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
-            var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
-            _handlerDispatcher = new AsyncHandlerDispatcher(
-                new PrioritizedHandlerSource(
-                    new[]
-                    {
-                        new DependentHandlerSource(
-                            commandHandlerSource,
-                            new[]
-                            {
-                                queryHandlerSource.NoRunningHandlersEvent,
-                                commandHandlerSource.NoRunningHandlersEvent
-                            }),
-                        new DependentHandlerSource(
-                            queryHandlerSource,
-                            new[] { commandHandlerSource.NoRunningHandlersEvent })
-                    }));
+        var contentTypeAwareSerializer = new ContentTypeAwareSerializer(knownTypesSet.GetKnownTypes());
+        _host =
+            new AspNetCoreHost(
+                queryDispatcher,
+                commandDispatcher,
+                contentTypeAwareSerializer,
+                configuration.SitesPath,
+                configuration.HostUri);
+    }
 
-            var contentTypeAwareSerializer = new ContentTypeAwareSerializer(knownTypesSet.GetKnownTypes());
-            _host =
-                new AspNetCoreHost(
-                    queryDispatcher,
-                    commandDispatcher,
-                    contentTypeAwareSerializer,
-                    configuration.SitesPath,
-                    configuration.HostUri);
-        }
-
-        public void RunService()
-        {
-            new Thread(_handlerDispatcher.Run).Start();
-            _host.Run();
-        }
+    public void RunService()
+    {
+        new Thread(_handlerDispatcher.Run).Start();
+        _host.Run();
     }
 }

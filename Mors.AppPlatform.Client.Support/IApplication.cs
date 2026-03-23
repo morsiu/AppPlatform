@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 
-namespace Mors.AppPlatform.Client
+namespace Mors.AppPlatform.Client;
+
+public interface IApplication
 {
-    public interface IApplication
-    {
-        string DescribeSelfForTitleBarOfMainWindow();
+    string DescribeSelfForTitleBarOfMainWindow();
 
-        string DescribeSelfForSelectionUi();
+    string DescribeSelfForSelectionUi();
 
-        UIElement CreateUiForInteractionWithSelf();
-    }
+    UIElement CreateUiForInteractionWithSelf();
 }

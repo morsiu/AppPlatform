@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mors.AppPlatform.Support.EventSourcing
+namespace Mors.AppPlatform.Support.EventSourcing;
+
+internal sealed class EventReplayConfigurator
 {
-    internal sealed class EventReplayConfigurator
+    private readonly HashSet<Action<EventReplayer>> _eventReplayConfigurators = new HashSet<Action<EventReplayer>>();
+
+    public void Add<TEvent>(Action<TEvent> eventReplayHandler)
     {
-        private readonly HashSet<Action<EventReplayer>> _eventReplayConfigurators = new HashSet<Action<EventReplayer>>();
+        _eventReplayConfigurators.Add(eventReplayer => eventReplayer.Register(eventReplayHandler));
+    }
 
-        public void Add<TEvent>(Action<TEvent> eventReplayHandler)
+    public void Configure(EventReplayer eventReplayer)
+    {
+        foreach (var eventReplayConfigurator in _eventReplayConfigurators)
         {
-            _eventReplayConfigurators.Add(eventReplayer => eventReplayer.Register(eventReplayHandler));
-        }
-
-        public void Configure(EventReplayer eventReplayer)
-        {
-            foreach (var eventReplayConfigurator in _eventReplayConfigurators)
-            {
-                eventReplayConfigurator(eventReplayer);
-            }
+            eventReplayConfigurator(eventReplayer);
         }
     }
 }

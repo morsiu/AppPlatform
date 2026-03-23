@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using Mors.AppPlatform.Support.Transactions;
 
-namespace Mors.AppPlatform.Support.Repositories
+namespace Mors.AppPlatform.Support.Repositories;
+
+public sealed class Repositories : IRepositories
 {
-    public sealed class Repositories : IRepositories
+    private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
+
+    public TEntity Get<TEntity>(object id)
     {
-        private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
-
-        public TEntity Get<TEntity>(object id)
-        {
-            var repository = GetRepository<TEntity>();
-            return repository.Get(id);
-        }
+        var repository = GetRepository<TEntity>();
+        return repository.Get(id);
+    }
         
-        public void Store<TEntity>(object id, TEntity entity)
-        {
-            var repository = GetRepository<TEntity>();
-            repository.Store(id, entity);
-        }
+    public void Store<TEntity>(object id, TEntity entity)
+    {
+        var repository = GetRepository<TEntity>();
+        repository.Store(id, entity);
+    }
 
-        internal Repository<TEntity> GetRepository<TEntity>()
+    internal Repository<TEntity> GetRepository<TEntity>()
+    {
+        var entityType = typeof(TEntity);
+        if (_repositories.ContainsKey(entityType))
         {
-            var entityType = typeof(TEntity);
-            if (_repositories.ContainsKey(entityType))
-            {
-                var repository = (Repository<TEntity>)_repositories[entityType];
-                return repository;
-            }
-            var newRepository = new Repository<TEntity>();
-            _repositories[entityType] = newRepository;
-            return newRepository;
+            var repository = (Repository<TEntity>)_repositories[entityType];
+            return repository;
         }
+        var newRepository = new Repository<TEntity>();
+        _repositories[entityType] = newRepository;
+        return newRepository;
+    }
 
-        public ITransactional<IRepositories> Lift()
-        {
-            return new TransactedRepositories(this);
-        }
+    public ITransactional<IRepositories> Lift()
+    {
+        return new TransactedRepositories(this);
     }
 }

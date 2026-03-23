@@ -1,14 +1,13 @@
-﻿namespace Mors.AppPlatform.Support.Transactions
+﻿namespace Mors.AppPlatform.Support.Transactions;
+
+/// <summary>
+/// Exposes transactional wrapper on object with functionality to control it.
+/// </summary>
+/// <typeparam name="T">Type of underlying object.</typeparam>
+public interface ITransactional<T> : ITransactional
 {
     /// <summary>
-    /// Exposes transactional wrapper on object with functionality to control it.
+    /// Gets the transactional wrapper on object.
     /// </summary>
-    /// <typeparam name="T">Type of underlying object.</typeparam>
-    public interface ITransactional<T> : ITransactional
-    {
-        /// <summary>
-        /// Gets the transactional wrapper on object.
-        /// </summary>
-        T Object { get; }
-    }
+    T Object { get; }
 }

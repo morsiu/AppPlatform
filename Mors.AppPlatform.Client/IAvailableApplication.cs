@@ -1,9 +1,8 @@
-﻿namespace Mors.AppPlatform.Client
-{
-    internal interface IAvailableApplication
-    {
-        string Description { get; }
+﻿namespace Mors.AppPlatform.Client;
 
-        IActiveApplication ActiveApplication();
-    }
+internal interface IAvailableApplication
+{
+    string Description { get; }
+
+    IActiveApplication ActiveApplication();
 }

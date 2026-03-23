@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Mors.AppPlatform.Client
+namespace Mors.AppPlatform.Client;
+
+public static class Program
 {
-    public static class Program
+    [STAThread]
+    public static void Main()
     {
-        [STAThread]
-        public static void Main()
-        {
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.BootstrapAndRun();
-        }
+        var bootstrapper = new Bootstrapper();
+        bootstrapper.BootstrapAndRun();
     }
 }
