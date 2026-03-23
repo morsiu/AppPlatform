@@ -1,5 +1,4 @@
-﻿using Mors.AppPlatform.Adapters.Services;
-using Mors.AppPlatform.Service.Adapters;
+﻿using Mors.AppPlatform.Service.Adapters;
 using Mors.AppPlatform.Service.Infrastructure;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.EventSourcing;

@@ -2,19 +2,19 @@
 using System.Linq;
 using System.Threading;
 
-namespace Journeys.Support.Synchronization;
+namespace Mors.AppPlatform.Support.Synchronization;
 
 public sealed class AggregateWaitHandle
 {
-    private readonly WaitHandle[] _waitHadles;
+    private readonly WaitHandle[] _waitHandles;
 
     public AggregateWaitHandle(IEnumerable<WaitHandle> waitHandles)
     {
-        _waitHadles = waitHandles.ToArray();
+        _waitHandles = waitHandles.ToArray();
     }
 
     public void WaitAny()
     {
-        WaitHandle.WaitAny(_waitHadles);
+        WaitHandle.WaitAny(_waitHandles);
     }
 }

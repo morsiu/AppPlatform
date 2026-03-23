@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Mors.AppPlatform.Client;
+using Mors.AppPlatform.Client.Support;
 using Mors.Expenses.Client.Wpf;
 
 namespace Mors.AppPlatform.Client.Adapters;

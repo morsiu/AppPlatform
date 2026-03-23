@@ -1,7 +1,9 @@
 ﻿using Mors.AppPlatform.Client.Adapters;
 using Mors.AppPlatform.Client.Properties;
+using Mors.AppPlatform.Client.Support;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
+using Mors.AppPlatform.Support.Events;
 using Mors.AppPlatform.Support.Repositories;
 
 namespace Mors.AppPlatform.Client;
@@ -15,7 +17,7 @@ internal sealed class Bootstrapper
                 Settings.Default.CommandRequestUri,
                 Settings.Default.QueryRequestUri,
                 JourneysWpfClient.GetSerializableTypes());
-        var eventBus = new Support.Events.EventBus();
+        var eventBus = new EventBus();
         var idFactory = new GuidIdFactory();
         var handlerRegistry = new HandlerRegistry();
         var handlerDispatcher = new HandlerDispatcher(handlerRegistry);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Journeys.Support.Synchronization;
+using Mors.AppPlatform.Support.Synchronization;
 
 namespace Mors.AppPlatform.Support.Dispatching;
 

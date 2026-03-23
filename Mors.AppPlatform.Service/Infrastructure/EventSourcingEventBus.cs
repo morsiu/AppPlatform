@@ -1,7 +1,7 @@
 ﻿using System;
 using Mors.AppPlatform.Support.Events;
 
-namespace Mors.AppPlatform.Adapters.Services;
+namespace Mors.AppPlatform.Service.Infrastructure;
 
 public sealed class EventSourcingEventBus : Support.EventSourcing.Dependencies.IEventBus
 {

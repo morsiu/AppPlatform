@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Mors.AppPlatform.Client.Support;
 
 namespace Mors.AppPlatform.Client;
 

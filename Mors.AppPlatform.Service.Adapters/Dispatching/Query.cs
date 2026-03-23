@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Adapters.Messages;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Dispatching.Exceptions;

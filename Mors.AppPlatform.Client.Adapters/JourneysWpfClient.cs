@@ -4,6 +4,7 @@ using Mors.Journeys.Application.Client.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using Mors.AppPlatform.Client.Support;
 
 namespace Mors.AppPlatform.Client.Adapters;
 
@@ -13,10 +14,10 @@ public class JourneysWpfClient : IApplication
 
     public JourneysWpfClient(
         Service.Client.RequestFactory requestFactory,
-        Support.Events.IEventBus eventBus,
-        Support.Dispatching.HandlerDispatcher handlerDispatcher,
-        Support.Dispatching.IHandlerRegistry handlerRegistry,
-        Support.Repositories.GuidIdFactory idFactory)
+        AppPlatform.Support.Events.IEventBus eventBus,
+        AppPlatform.Support.Dispatching.HandlerDispatcher handlerDispatcher,
+        AppPlatform.Support.Dispatching.IHandlerRegistry handlerRegistry,
+        AppPlatform.Support.Repositories.GuidIdFactory idFactory)
     {
         _bootstrapper =
             new Bootstrapper(
