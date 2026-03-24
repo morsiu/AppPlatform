@@ -18,10 +18,7 @@ public sealed class DependentHandlerSource : IHandlerSource
         _dependenciesWaitHandles = dependenciesWaitHandles.ToArray();
     }
 
-    public WaitHandle NonEmptyEvent
-    {
-        get { return _source.NonEmptyEvent; }
-    }
+    public WaitHandle NonEmptyEvent => _source.NonEmptyEvent;
 
     public Action Dequeue()
     {

@@ -9,8 +9,5 @@ public sealed class GuidIdFactory
         return Guid.NewGuid();
     }
 
-    public Type IdImplementationType
-    {
-        get { return typeof(Guid); }
-    }
+    public Type IdImplementationType => typeof(Guid);
 }

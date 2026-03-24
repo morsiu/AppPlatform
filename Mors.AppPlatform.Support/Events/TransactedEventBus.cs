@@ -38,10 +38,7 @@ internal sealed class TransactedEventBus : IEventBus, ITransactional<IEventBus>
         _publishments.Clear();
     }
 
-    public IEventBus Object
-    {
-        get { return this; }
-    }
+    public IEventBus Object => this;
 
     public ITransactional<IEventBus> Lift()
     {

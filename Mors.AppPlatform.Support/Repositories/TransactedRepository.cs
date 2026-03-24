@@ -43,10 +43,7 @@ internal sealed class TransactedRepository<TEntity> : IRepository<TEntity>, ITra
         _transactionRepository.Clear();
     }
 
-    public IRepository<TEntity> Object
-    {
-        get { return this; }
-    }
+    public IRepository<TEntity> Object => this;
 
     public ITransactional<IRepository<TEntity>> Lift()
     {

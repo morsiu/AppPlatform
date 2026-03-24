@@ -5,7 +5,6 @@ namespace Mors.AppPlatform.Client;
 
 internal sealed class WindowViewModel : INotifyPropertyChanged
 {
-    private IAvailableApplication _selectedApplication;
     private IActiveApplication _activeApplication;
 
     public WindowViewModel(IEnumerable<IAvailableApplication> applications)
@@ -18,18 +17,18 @@ internal sealed class WindowViewModel : INotifyPropertyChanged
 
     public IAvailableApplication SelectedApplication
     {
-        get { return _selectedApplication; }
+        get;
         set
         {
-            _selectedApplication = value;
+            field = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedApplication)));
-            ActiveApplication = _selectedApplication?.ActiveApplication() ?? new AppPlatformPlaceholder();
+            ActiveApplication = field?.ActiveApplication() ?? new AppPlatformPlaceholder();
         }
     }
 
     public IActiveApplication ActiveApplication
     {
-        get { return _activeApplication; }
+        get => _activeApplication;
         set
         {
             _activeApplication = value;

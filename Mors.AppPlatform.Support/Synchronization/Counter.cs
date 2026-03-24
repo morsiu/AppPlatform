@@ -13,7 +13,7 @@ public sealed class Counter
         _zeroReachedEvent = new ManualResetEvent(true);
     }
 
-    public WaitHandle ZeroReachedEvent { get { return _zeroReachedEvent; } }
+    public WaitHandle ZeroReachedEvent => _zeroReachedEvent;
 
     public void Increase()
     {

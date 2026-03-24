@@ -17,10 +17,7 @@ public sealed class PrioritizedHandlerSource : IHandlerSource
         _sourcesNonEmptyEvents = new AggregateWaitHandle(_sourcesInDescendingPriorityOrder.Select(q => q.NonEmptyEvent));
     }
 
-    public WaitHandle NonEmptyEvent
-    {
-        get { throw new NotImplementedException(); }
-    }
+    public WaitHandle NonEmptyEvent => throw new NotImplementedException();
 
     public Action Dequeue()
     {

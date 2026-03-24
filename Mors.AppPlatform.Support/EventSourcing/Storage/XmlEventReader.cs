@@ -29,11 +29,5 @@ internal sealed class XmlEventReader
         return _serializer.ReadObject(_reader);
     }
 
-    public bool IsAtEnd
-    {
-        get
-        {
-            return _stream.Length == 0 || _reader.EOF;
-        }
-    }
+    public bool IsAtEnd => _stream.Length == 0 || _reader.EOF;
 }

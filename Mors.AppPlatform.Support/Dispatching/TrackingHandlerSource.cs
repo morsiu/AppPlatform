@@ -14,15 +14,9 @@ public sealed class TrackingHandlerSource : IHandlerSource
         _source = source;
     }
 
-    public WaitHandle NoRunningHandlersEvent
-    {
-        get { return _runningHandlersCounter.ZeroReachedEvent; }
-    }
+    public WaitHandle NoRunningHandlersEvent => _runningHandlersCounter.ZeroReachedEvent;
 
-    public WaitHandle NonEmptyEvent
-    {
-        get { return _source.NonEmptyEvent; }
-    }
+    public WaitHandle NonEmptyEvent => _source.NonEmptyEvent;
 
     public Action Dequeue()
     {

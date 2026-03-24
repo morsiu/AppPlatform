@@ -10,10 +10,7 @@ public sealed class HandlerQueue : IHandlerSource, IHandlerSink
     private readonly ManualResetEvent _nonEmptyQueueEvent = new(false);
     private readonly object _accessLock = new();
 
-    public WaitHandle NonEmptyEvent
-    {
-        get { return _nonEmptyQueueEvent; }
-    }
+    public WaitHandle NonEmptyEvent => _nonEmptyQueueEvent;
 
     public void Enqueue(Action handler)
     {

@@ -42,10 +42,7 @@ internal sealed class TransactedRepositories : IRepositories, ITransactional<IRe
         return newRepository;
     }
 
-    public IRepositories Object
-    {
-        get { return this; }
-    }
+    public IRepositories Object => this;
 
     public void Abort()
     {
