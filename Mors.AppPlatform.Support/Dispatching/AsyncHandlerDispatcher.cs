@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Mors.AppPlatform.Support.Dispatching;
 
@@ -12,6 +13,7 @@ public sealed class AsyncHandlerDispatcher
         _source = source;
     }
 
+    [DoesNotReturn]
     public void Run()
     {
         while (true)
