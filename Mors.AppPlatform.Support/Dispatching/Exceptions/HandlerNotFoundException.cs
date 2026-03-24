@@ -3,6 +3,4 @@
 namespace Mors.AppPlatform.Support.Dispatching.Exceptions;
 
 [Serializable]
-public sealed class HandlerNotFoundException : Exception
-{
-}
+public sealed class HandlerNotFoundException : Exception;

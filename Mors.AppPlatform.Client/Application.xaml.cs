@@ -1,5 +1,3 @@
 ﻿namespace Mors.AppPlatform.Client;
 
-internal partial class Application
-{
-}
+internal partial class Application;
