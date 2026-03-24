@@ -2,7 +2,4 @@
 
 internal partial class Application
 {
-    public Application()
-    {
-    }
 }
