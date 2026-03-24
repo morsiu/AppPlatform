@@ -26,7 +26,7 @@ internal sealed class EventReplayer
         var eventType = @event.GetType();
         if (!_eventHandlers.ContainsKey(eventType))
         {
-            throw new InvalidOperationException(string.Format("Event store contains unsupported event of type `{0}`.", eventType));
+            throw new InvalidOperationException($"Event store contains unsupported event of type `{eventType}`.");
         }
         return _eventHandlers[eventType];
     }

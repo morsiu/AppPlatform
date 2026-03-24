@@ -41,7 +41,8 @@ internal sealed class ContentTypeAwareSerializer
                 _xmlSerializer.WriteObject(contentStream, content);
                 break;
             default:
-                throw new ArgumentException("Unsupported content types: {0}", string.Join(", ", contentTypes.Select(ct => ct.Item1)));
+                throw new ArgumentException(
+                    $"Unsupported content types: {string.Join(", ", contentTypes.Select(ct => ct.Item1))}", nameof(contentTypes));
         }
         return selectedContentType;
     }
