@@ -17,7 +17,7 @@ public static class SerializableTypes
                     .SelectMany(
                         x => x.GetInterfaces()
                             .Where(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof(IQuery<>))
-                            .Select(x => x.GetGenericArguments()[0])))
+                            .Select(y => y.GetGenericArguments()[0])))
             .Select(
                 x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)
                     ? typeof(List<>).MakeGenericType(x.GetGenericArguments()[0])
