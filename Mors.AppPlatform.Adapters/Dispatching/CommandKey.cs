@@ -2,7 +2,7 @@
 
 namespace Mors.AppPlatform.Adapters.Dispatching;
 
-public sealed class CommandKey
+public sealed class CommandKey : IEquatable<CommandKey>
 {
     private readonly Type _commandType;
 
@@ -28,11 +28,14 @@ public sealed class CommandKey
         return new CommandKey(commandType);
     }
 
+    public bool Equals(CommandKey other)
+    {
+        return other != null && other._commandType == _commandType;
+    }
+
     public override bool Equals(object obj)
     {
-        return !ReferenceEquals(obj, null)
-               && obj is CommandKey
-               && Equals((CommandKey)obj);
+        return obj is CommandKey other && Equals(other);
     }
 
     public override int GetHashCode()
@@ -43,10 +46,5 @@ public sealed class CommandKey
     public override string ToString()
     {
         return _commandType.ToString();
-    }
-
-    private bool Equals(CommandKey other)
-    {
-        return other._commandType.Equals(_commandType);
     }
 }

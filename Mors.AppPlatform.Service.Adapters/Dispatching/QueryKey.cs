@@ -2,7 +2,7 @@
 
 namespace Mors.AppPlatform.Service.Adapters.Dispatching;
 
-internal sealed class QueryKey
+internal sealed class QueryKey : IEquatable<QueryKey>
 {
     private readonly Type _queryType;
 
@@ -11,11 +11,14 @@ internal sealed class QueryKey
         _queryType = queryType;
     }
 
+    public bool Equals(QueryKey other)
+    {
+        return other != null && other._queryType == _queryType;
+    }
+
     public override bool Equals(object obj)
     {
-        return !ReferenceEquals(obj, null)
-               && obj is QueryKey
-               && Equals((QueryKey)obj);
+        return obj is QueryKey other && Equals(other);
     }
 
     public override int GetHashCode()
@@ -26,10 +29,5 @@ internal sealed class QueryKey
     public override string ToString()
     {
         return _queryType.ToString();
-    }
-
-    private bool Equals(QueryKey other)
-    {
-        return other._queryType.Equals(_queryType);
     }
 }
