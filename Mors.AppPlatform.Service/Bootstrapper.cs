@@ -63,19 +63,17 @@ internal sealed class Bootstrapper
         var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
         _handlerDispatcher = new AsyncHandlerDispatcher(
             new PrioritizedHandlerSource(
-                new[]
-                {
-                    new DependentHandlerSource(
+            [
+                new DependentHandlerSource(
                         commandHandlerSource,
-                        new[]
-                        {
+                        [
                             queryHandlerSource.NoRunningHandlersEvent,
                             commandHandlerSource.NoRunningHandlersEvent
-                        }),
+                        ]),
                     new DependentHandlerSource(
                         queryHandlerSource,
-                        new[] { commandHandlerSource.NoRunningHandlersEvent })
-                }));
+                        [commandHandlerSource.NoRunningHandlersEvent])
+            ]));
 
         var contentTypeAwareSerializer = new ContentTypeAwareSerializer(knownTypesSet.GetKnownTypes());
         _host =

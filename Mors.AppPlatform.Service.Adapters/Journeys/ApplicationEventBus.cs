@@ -20,6 +20,6 @@ internal sealed class ApplicationEventBus : Mors.Journeys.Application.IEventBus
     public void Publish(object @event)
     {
         var publishMethod = typeof(IEventBus).GetMethod("Publish").MakeGenericMethod(@event.GetType());
-        publishMethod.Invoke(_eventBus, new[] { @event });
+        publishMethod.Invoke(_eventBus, [@event]);
     }
 }

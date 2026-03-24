@@ -7,7 +7,7 @@ namespace Mors.AppPlatform.Support.EventSourcing;
 public sealed class EventSourcingModule
 {
     private readonly Func<IEnumerable<Type>, IEventStore> _eventStoreFactory;
-    private readonly HashSet<Type> _typesOfEventsToStore = new();
+    private readonly HashSet<Type> _typesOfEventsToStore = [];
     private readonly EventReplayConfigurator _eventReplayConfigurator = new();
     private readonly EventWriteConfigurator _eventWriteConfigurator = new();
     private readonly IEventBus _eventBus;

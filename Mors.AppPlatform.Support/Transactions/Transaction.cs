@@ -5,7 +5,7 @@ namespace Mors.AppPlatform.Support.Transactions;
 
 public sealed class Transaction
 {
-    private readonly HashSet<ITransactional> _transactables = new();
+    private readonly HashSet<ITransactional> _transactables = [];
 
     public TObject Register<TObject>(IProvideTransactional<TObject> @object)
     {

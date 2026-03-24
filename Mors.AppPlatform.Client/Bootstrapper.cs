@@ -1,6 +1,5 @@
 ﻿using Mors.AppPlatform.Client.Adapters;
 using Mors.AppPlatform.Client.Properties;
-using Mors.AppPlatform.Client.Support;
 using Mors.AppPlatform.Service.Client;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Events;
@@ -24,16 +23,15 @@ internal sealed class Bootstrapper
         var application = new Application();
         var window =
             new MainWindow(
-                new IApplication[]
-                {
-                    new JourneysWpfClient(
+            [
+                new JourneysWpfClient(
                         requestFactory,
                         eventBus,
                         handlerDispatcher,
                         handlerRegistry,
                         idFactory),
                     new ExpensesWpfClient()
-                });
+            ]);
         application.Run(window);
     }
 }

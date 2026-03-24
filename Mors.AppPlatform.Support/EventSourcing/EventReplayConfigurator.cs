@@ -5,7 +5,7 @@ namespace Mors.AppPlatform.Support.EventSourcing;
 
 internal sealed class EventReplayConfigurator
 {
-    private readonly HashSet<Action<EventReplayer>> _eventReplayConfigurators = new();
+    private readonly HashSet<Action<EventReplayer>> _eventReplayConfigurators = [];
 
     public void Add<TEvent>(Action<TEvent> eventReplayHandler)
     {

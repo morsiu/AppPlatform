@@ -5,7 +5,7 @@ namespace Mors.AppPlatform.Support.Serialization;
 
 public sealed class KnownTypesSet
 {
-    private readonly HashSet<Type> _knownTypes = new();
+    private readonly HashSet<Type> _knownTypes = [];
 
     public void AddType(Type type)
     {

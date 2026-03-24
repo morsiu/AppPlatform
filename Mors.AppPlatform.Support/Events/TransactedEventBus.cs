@@ -7,7 +7,7 @@ namespace Mors.AppPlatform.Support.Events;
 internal sealed class TransactedEventBus : IEventBus, ITransactional<IEventBus>
 {
     private readonly IEventBus _eventBus;
-    private readonly List<Action> _publishments = new();
+    private readonly List<Action> _publishments = [];
 
     public TransactedEventBus(IEventBus eventBus)
     {
