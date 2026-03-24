@@ -18,13 +18,13 @@ internal sealed class ApplicationEventBus
 
     public void Publish(object @event)
     {
-        var publishMethod = typeof(IEventBus).GetMethod("Publish").MakeGenericMethod(@event.GetType());
+        var publishMethod = typeof(IEventBus).GetMethod(nameof(IEventBus.Publish)).MakeGenericMethod(@event.GetType());
         publishMethod.Invoke(_eventBus, new[] { @event });
     }
 
     public void RegisterListener(Type eventType, Action<object> eventHandler)
     {
-        var registerListener = typeof(ApplicationEventBus).GetMethod(nameof(ApplicationEventBus.RegisterListenerGeneric), BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(eventType);
+        var registerListener = typeof(ApplicationEventBus).GetMethod(nameof(RegisterListenerGeneric), BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(eventType);
         registerListener.Invoke(this, new[] { eventHandler });
     }
 
