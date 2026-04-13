@@ -1,8 +1,8 @@
 ﻿using System;
+using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Transactions;
 using Mors.AppPlatform.Support.Repositories;
-using Mors.AppPlatform.Service.Adapters.Dispatching;
 
 namespace Mors.AppPlatform.Service.Adapters.Words;
 

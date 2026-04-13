@@ -1,5 +1,5 @@
 ﻿using System;
-using Mors.AppPlatform.Service.Adapters.Dispatching;
+using Mors.AppPlatform.Adapters.Dispatching;
 using Mors.AppPlatform.Support.Dispatching;
 using Mors.AppPlatform.Support.Transactions;
 
