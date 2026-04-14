@@ -17,13 +17,13 @@ internal sealed class XmlEventWriter
         _stream = stream;
         _writer = XmlWriter.Create(
             _stream,
-            new XmlWriterSettings 
+            new XmlWriterSettings
             {
                 ConformanceLevel = ConformanceLevel.Fragment,
                 Indent = true,
                 IndentChars = "  ",
                 NewLineOnAttributes = true,
-                WriteEndDocumentOnClose = true 
+                WriteEndDocumentOnClose = true
             });
         _serializer = new DataContractSerializer(typeof(object), "event", string.Empty, eventTypesToSupport);
     }

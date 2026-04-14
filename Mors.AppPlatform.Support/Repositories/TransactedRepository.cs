@@ -26,7 +26,7 @@ internal sealed class TransactedRepository<TEntity> : IRepository<TEntity>, ITra
     {
         _transactionRepository[id] = entity;
     }
-        
+
     public void Abort()
     {
         _transactionRepository.Clear();

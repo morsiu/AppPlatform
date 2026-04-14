@@ -27,10 +27,10 @@ public sealed class QueryRequest<TResult>
         requestStream.Seek(0, SeekOrigin.Begin);
         using var response =
             _httpClient.Send(
-                new HttpRequestMessage(HttpMethod.Post, _requestUri) 
+                new HttpRequestMessage(HttpMethod.Post, _requestUri)
                 {
                     Headers = { { "Accept", "application/xml" } },
-                    Content = 
+                    Content =
                         new StreamContent(requestStream)
                         {
                             Headers = { { "Content-Type", "application/xml" } }
