@@ -7,6 +7,7 @@ namespace Mors.AppPlatform.Service.Adapters.Journeys;
 
 internal sealed class ApplicationCommandHandlerRegistry : Mors.Journeys.Application.ICommandHandlerRegistry
 {
+    private static readonly object _noResult = new();
     private readonly IHandlerRegistry _handlerRegistry;
     private readonly Transaction _transaction;
 
@@ -24,7 +25,7 @@ internal sealed class ApplicationCommandHandlerRegistry : Mors.Journeys.Applicat
             command =>
             {
                 _transaction.Run(() => handler((TCommand)command));
-                return null;
+                return _noResult;
             });
     }
 }

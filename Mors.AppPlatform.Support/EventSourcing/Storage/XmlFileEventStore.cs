@@ -37,7 +37,10 @@ public sealed class XmlFileEventStore : IEventStore
             var reader = new XmlEventReader(stream, _eventTypesToSupport);
             while (!reader.IsAtEnd)
             {
-                yield return reader.Read();
+                if (reader.Read() is { } @event)
+                {
+                    yield return @event;
+                }
             }
         }
     }
@@ -53,7 +56,10 @@ public sealed class XmlFileEventStore : IEventStore
 
         public EventWriter(string fileName, IEnumerable<Type> eventTypesToSupport)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            if (Path.GetDirectoryName(fileName) is { } path && !string.IsNullOrEmpty(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
             _writer = new XmlEventWriter(stream, eventTypesToSupport);
         }

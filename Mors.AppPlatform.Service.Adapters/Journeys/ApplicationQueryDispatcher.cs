@@ -13,6 +13,7 @@ internal sealed class ApplicationQueryDispatcher : Mors.Journeys.Application.IQu
     }
 
     public TResult Dispatch<TResult>(Mors.Journeys.Data.IQuery<TResult> querySpecification)
+        where TResult : notnull
     {
         var query = new Query(querySpecification);
         return (TResult)query.Dispatch(_handlerDispatcher);

@@ -24,7 +24,7 @@ internal sealed class XmlEventReader
         _serializer = new DataContractSerializer(typeof(object), "event", string.Empty, eventTypesToSupport);
     }
 
-    public object Read()
+    public object? Read()
     {
         return _serializer.ReadObject(_reader);
     }

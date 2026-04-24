@@ -16,6 +16,7 @@ internal sealed class ClientWpfCommandDispatcher : Mors.Journeys.Application.Cli
     }
 
     public void Dispatch<TCommand>(TCommand command)
+        where TCommand : notnull
     {
         if (IsInternal(typeof(TCommand)))
         {

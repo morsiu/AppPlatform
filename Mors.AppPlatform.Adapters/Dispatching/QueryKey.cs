@@ -11,12 +11,12 @@ public sealed class QueryKey : IEquatable<QueryKey>
         _queryType = queryType;
     }
 
-    public bool Equals(QueryKey other)
+    public bool Equals(QueryKey? other)
     {
         return other != null && other._queryType == _queryType;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is QueryKey other && Equals(other);
     }

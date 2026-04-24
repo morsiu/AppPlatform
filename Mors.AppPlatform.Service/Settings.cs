@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Mors.AppPlatform.Service;
 
@@ -6,6 +7,7 @@ internal sealed record Settings(string EventFilePath, string HostUri, string Sit
 {
     public static Settings Default()
     {
-        return new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().Get<Settings>();
+        return new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().Get<Settings>()
+            ?? throw new Exception("Failed to load appsettings.json");
     }
 }

@@ -36,35 +36,45 @@ internal sealed class AspNetCoreHost
         }
         app.MapPost(
             "/api/query",
-            async (HttpContext a) =>
+            async httpContext =>
             {
-                a.Features.Get<IHttpBodyControlFeature>().AllowSynchronousIO = true;
+                httpContext.Features.Get<IHttpBodyControlFeature>()?.AllowSynchronousIO = true;
                 var query =
                     contentTypeAwareSerializer.Deserialize(
-                        a.Request.Body,
-                        a.Request.Headers.ContentType);
+                        httpContext.Request.Body,
+                        httpContext.Request.Headers.ContentType);
+                if (query == null)
+                {
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    return;
+                }
                 var queryResult = await queryDispatcher.Dispatch(query);
                 using var queryResultStream = new MemoryStream();
                 var queryResultContentType =
                     contentTypeAwareSerializer.Serialize(
                         queryResult,
                         queryResultStream,
-                        a.Request.Headers.Accept.Select(x => Tuple.Create(x, 1m)));
-                a.Response.ContentType = queryResultContentType;
+                        httpContext.Request.Headers.Accept.Select(x => Tuple.Create(x, 1m)));
+                httpContext.Response.ContentType = queryResultContentType;
                 queryResultStream.Seek(0, SeekOrigin.Begin);
-                await queryResultStream.CopyToAsync(a.Response.Body);
+                await queryResultStream.CopyToAsync(httpContext.Response.Body);
             });
         app.MapPost(
             "/api/command",
-            async (HttpContext a) =>
+            async httpContext =>
             {
-                a.Features.Get<IHttpBodyControlFeature>().AllowSynchronousIO = true;
-                var query =
+                httpContext.Features.Get<IHttpBodyControlFeature>()?.AllowSynchronousIO = true;
+                var command =
                     contentTypeAwareSerializer.Deserialize(
-                        a.Request.Body,
-                        a.Request.Headers.ContentType);
-                await commandDispatcher.Dispatch(query);
-                a.Response.StatusCode = StatusCodes.Status204NoContent;
+                        httpContext.Request.Body,
+                        httpContext.Request.Headers.ContentType);
+                if (command == null)
+                {
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    return;
+                }
+                await commandDispatcher.Dispatch(command);
+                httpContext.Response.StatusCode = StatusCodes.Status204NoContent;
             });
         _app = app;
         _hostUri = new Uri(hostUri);

@@ -10,12 +10,18 @@ using System.Threading;
 
 namespace Mors.AppPlatform.Service;
 
-internal sealed class Bootstrapper
+internal sealed class Service
 {
-    private AsyncHandlerDispatcher _handlerDispatcher;
-    private AspNetCoreHost _host;
+    private readonly AsyncHandlerDispatcher _handlerDispatcher;
+    private readonly AspNetCoreHost _host;
 
-    public void Bootstrap(Settings configuration)
+    private Service(AsyncHandlerDispatcher handlerDispatcher, AspNetCoreHost host)
+    {
+        _handlerDispatcher = handlerDispatcher;
+        _host = host;
+    }
+
+    public static Service Create(Settings configuration)
     {
         var eventBus = new Support.Events.EventBus();
         var idFactory = new GuidIdFactory();
@@ -61,7 +67,7 @@ internal sealed class Bootstrapper
 
         var commandHandlerSource = new TrackingHandlerSource(commandHandlerQueue);
         var queryHandlerSource = new TrackingHandlerSource(queryHandlerQueue);
-        _handlerDispatcher = new AsyncHandlerDispatcher(
+        var asyncHandlerDispatcher = new AsyncHandlerDispatcher(
             new PrioritizedHandlerSource(
             [
                 new DependentHandlerSource(
@@ -76,16 +82,17 @@ internal sealed class Bootstrapper
             ]));
 
         var contentTypeAwareSerializer = new ContentTypeAwareSerializer(knownTypesSet.GetKnownTypes());
-        _host =
+        var host =
             new AspNetCoreHost(
                 queryDispatcher,
                 commandDispatcher,
                 contentTypeAwareSerializer,
                 configuration.SitesPath,
                 configuration.HostUri);
+        return new Service(asyncHandlerDispatcher, host);
     }
 
-    public void RunService()
+    public void Run()
     {
         new Thread(_handlerDispatcher.Run).Start();
         _host.Run();

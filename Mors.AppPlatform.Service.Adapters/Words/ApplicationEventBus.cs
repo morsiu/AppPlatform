@@ -18,17 +18,24 @@ internal sealed class ApplicationEventBus
 
     public void Publish(object @event)
     {
-        var publishMethod = typeof(IEventBus).GetMethod(nameof(IEventBus.Publish)).MakeGenericMethod(@event.GetType());
+        var publishMethod =
+            (typeof(IEventBus).GetMethod(nameof(IEventBus.Publish))
+                    ?? throw new Exception($"Missing method {nameof(IEventBus)}.{nameof(IEventBus.Publish)}"))
+                .MakeGenericMethod(@event.GetType());
         publishMethod.Invoke(_eventBus, [@event]);
     }
 
     public void RegisterListener(Type eventType, Action<object> eventHandler)
     {
-        var registerListener = typeof(ApplicationEventBus).GetMethod(nameof(RegisterListenerGeneric), BindingFlags.NonPublic | BindingFlags.Instance).MakeGenericMethod(eventType);
+        var registerListener =
+            (typeof(ApplicationEventBus).GetMethod(nameof(RegisterListenerGeneric), BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?? throw new Exception($"Missing method {nameof(ApplicationEventBus)}.{nameof(RegisterListenerGeneric)}"))
+                .MakeGenericMethod(eventType);
         registerListener.Invoke(this, [eventHandler]);
     }
 
     private void RegisterListenerGeneric<TEvent>(Action<object> listener)
+        where TEvent : notnull
     {
         _eventBus.RegisterListener((TEvent x) => listener(x));
         _eventSourcingModule.Register((TEvent x) => listener(x));

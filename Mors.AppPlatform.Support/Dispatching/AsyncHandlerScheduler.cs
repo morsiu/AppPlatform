@@ -15,12 +15,11 @@ public sealed class AsyncHandlerScheduler
         _sink = sink;
     }
 
-    public Task<object> Schedule(object key, object parameter)
+    public Task<object?> Schedule(object key, object parameter)
     {
-        Func<object, object> handler;
-        if (_registry.Retrieve(key, out handler))
+        if (_registry.Retrieve(key, out var handler))
         {
-            var resultSource = new TaskCompletionSource<object>();
+            var resultSource = new TaskCompletionSource<object?>();
             _sink.Enqueue(
                 () =>
                 {

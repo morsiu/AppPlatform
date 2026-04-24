@@ -8,6 +8,7 @@ namespace Mors.AppPlatform.Service.Adapters.Words;
 
 internal sealed class ApplicationCommandHandlerRegistry
 {
+    private static readonly object _noResult = new();
     private readonly IHandlerRegistry _handlerRegistry;
     private readonly Transaction _transaction;
     private readonly ApplicationEventBus _eventBus;
@@ -33,7 +34,7 @@ internal sealed class ApplicationCommandHandlerRegistry
             command =>
             {
                 _transaction.Run(() => handler(command, _eventBus.Publish, () => _idFactory.Create()));
-                return null;
+                return _noResult;
             });
     }
 }

@@ -20,7 +20,7 @@ public sealed class XmlEventReaderWriterTest
 
         stream.Seek(0, SeekOrigin.Begin);
         var reader = new XmlEventReader(stream, eventTypesToSupport);
-        var readEvent = (Event)reader.Read();
-        Assert.AreEqual(@event.Field, readEvent.Field);
+        var readEvent = (Event?)reader.Read();
+        Assert.AreEqual(@event.Field, readEvent?.Field);
     }
 }

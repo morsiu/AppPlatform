@@ -18,6 +18,7 @@ internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Clien
     }
 
     public TResult Dispatch<TResult>(IQuery<TResult> query)
+        where TResult : notnull
     {
         var queryType = query.GetType();
         if (IsInternal(queryType))
@@ -31,6 +32,7 @@ internal sealed class ClientWpfQueryDispatcher : Mors.Journeys.Application.Clien
     }
 
     private TResult DispatchExternal<TResult>(IQuery<TResult> query)
+        where TResult : notnull
     {
         var queryRequest = _requestFactory.CreateQueryRequest<TResult>(query);
         var result = queryRequest.Run();

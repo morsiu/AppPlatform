@@ -13,7 +13,7 @@ public sealed class AsyncQueryDispatcher
         _handlerScheduler = handlerScheduler;
     }
 
-    public Task<object> Dispatch(object querySpecification)
+    public Task<object?> Dispatch(object querySpecification)
     {
         var query = new Query(querySpecification);
         return query.Schedule(_handlerScheduler);

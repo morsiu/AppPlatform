@@ -16,6 +16,7 @@ internal sealed class ApplicationQueryHandlerRegistry : Mors.Journeys.Applicatio
 
     public void SetHandler<TQuery, TResult>(Func<TQuery, TResult> handler)
         where TQuery : IQuery<TResult>
+        where TResult : notnull
     {
         var queryKey = new QueryKey(typeof(TQuery));
         Func<object, object> adaptedHandler = query => handler((TQuery)query);

@@ -5,6 +5,7 @@ using Mors.AppPlatform.Support.Repositories.Messages;
 namespace Mors.AppPlatform.Support.Repositories;
 
 internal sealed class InMemoryRepository<TId, TEntity>
+    where TId : notnull
 {
     private readonly IDictionary<TId, TEntity> _store = new Dictionary<TId, TEntity>();
 

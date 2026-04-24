@@ -28,12 +28,12 @@ public sealed class CommandKey : IEquatable<CommandKey>
         return new CommandKey(commandType);
     }
 
-    public bool Equals(CommandKey other)
+    public bool Equals(CommandKey? other)
     {
         return other != null && other._commandType == _commandType;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is CommandKey other && Equals(other);
     }

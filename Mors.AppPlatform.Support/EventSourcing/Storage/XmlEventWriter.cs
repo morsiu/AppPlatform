@@ -28,7 +28,7 @@ internal sealed class XmlEventWriter
         _serializer = new DataContractSerializer(typeof(object), "event", string.Empty, eventTypesToSupport);
     }
 
-    public void Write(object @event)
+    public void Write(object? @event)
     {
         _serializer.WriteObject(_writer, @event);
         _writer.Flush();

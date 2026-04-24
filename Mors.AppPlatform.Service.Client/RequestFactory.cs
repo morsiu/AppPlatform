@@ -29,6 +29,7 @@ public sealed class RequestFactory
     }
 
     public QueryRequest<TResult> CreateQueryRequest<TResult>(object query)
+        where TResult : notnull
     {
         return new QueryRequest<TResult>(_httpClient, _queryRequestUri, query, _serializer);
     }

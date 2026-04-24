@@ -5,6 +5,7 @@
     <UseWpf>true</UseWpf>
     <OutputType>WinExe</OutputType>
     <StartupObject>Mors.AppPlatform.Client.Program</StartupObject>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,8 +14,7 @@ public sealed class HandlerDispatcher
 
     public object Dispatch(object key, object parameter)
     {
-        Func<object, object> handler;
-        if (_registry.Retrieve(key, out handler))
+        if (_registry.Retrieve(key, out var handler))
         {
             return handler(parameter);
         }

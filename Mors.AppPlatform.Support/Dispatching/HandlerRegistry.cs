@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Mors.AppPlatform.Support.Dispatching;
 
@@ -17,7 +18,7 @@ public sealed class HandlerRegistry : IHandlerRegistry
         _handlers[key] = handler;
     }
 
-    public bool Retrieve(object key, out Func<object, object> handler)
+    public bool Retrieve(object key, [NotNullWhen(true)] out Func<object, object>? handler)
     {
         return _handlers.TryGetValue(key, out handler);
     }

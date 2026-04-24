@@ -5,8 +5,7 @@ public sealed class Program
     public static void Main()
     {
         var configuration = Settings.Default();
-        var bootstrapper = new Bootstrapper();
-        bootstrapper.Bootstrap(configuration);
-        bootstrapper.RunService();
+        var service = Service.Create(configuration);
+        service.Run();
     }
 }

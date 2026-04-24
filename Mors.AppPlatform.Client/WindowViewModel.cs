@@ -15,7 +15,7 @@ internal sealed class WindowViewModel : INotifyPropertyChanged
 
     public IEnumerable<IAvailableApplication> Applications { get; }
 
-    public IAvailableApplication SelectedApplication
+    public IAvailableApplication? SelectedApplication
     {
         get;
         set
@@ -36,5 +36,5 @@ internal sealed class WindowViewModel : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 }

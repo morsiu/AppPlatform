@@ -20,7 +20,7 @@ public sealed class Command
         var commandKey = CommandKey.From(_commandSpecification);
         try
         {
-            dispatcher.Dispatch(commandKey, _commandSpecification);
+            _ = dispatcher.Dispatch(commandKey, _commandSpecification);
         }
         catch (HandlerNotFoundException)
         {

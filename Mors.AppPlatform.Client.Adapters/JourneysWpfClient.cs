@@ -10,7 +10,7 @@ namespace Mors.AppPlatform.Client.Adapters;
 
 public class JourneysWpfClient : IApplication
 {
-    private static Bootstrapper _bootstrapper;
+    private readonly Bootstrapper _bootstrapper;
 
     public JourneysWpfClient(
         Service.Client.RequestFactory requestFactory,

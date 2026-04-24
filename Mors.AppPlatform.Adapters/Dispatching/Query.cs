@@ -28,7 +28,7 @@ public sealed class Query
         }
     }
 
-    public Task<object> Schedule(AsyncHandlerScheduler scheduler)
+    public Task<object?> Schedule(AsyncHandlerScheduler scheduler)
     {
         var queryKey = new QueryKey(_querySpecification.GetType());
         try

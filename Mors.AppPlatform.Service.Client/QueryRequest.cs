@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 namespace Mors.AppPlatform.Service.Client;
 
 public sealed class QueryRequest<TResult>
+    where TResult : notnull
 {
     private readonly HttpClient _httpClient;
     private readonly object _query;
@@ -38,7 +39,9 @@ public sealed class QueryRequest<TResult>
                 });
         response.EnsureSuccessStatusCode();
         var responseStream = response.Content.ReadAsStream();
-        var result = (TResult)_serializer.ReadObject(responseStream);
-        return result;
+        var result = _serializer.ReadObject(responseStream);
+        return result == null
+            ? throw new Exception("Deserialized an unexpected null value")
+            : (TResult)result;
     }
 }
