@@ -25,7 +25,7 @@ internal sealed class ContentTypeAwareSerializer
             case ContentType.Xml:
                 return _xmlSerializer.ReadObject(contentStream);
             default:
-                throw new ArgumentException("Unsupported content type: {0}", contentType);
+                throw new ArgumentException($"Unsupported content type: {contentType}", nameof(contentType));
         }
     }
 
